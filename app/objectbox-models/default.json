@@ -1,0 +1,74 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:3497873276965733948",
+      "lastPropertyId": "12:8033043202043955933",
+      "name": "Animals",
+      "properties": [
+        {
+          "id": "1:227193330056793730",
+          "name": "id"
+        },
+        {
+          "id": "2:3707047411771878413",
+          "name": "image"
+        },
+        {
+          "id": "3:4130830297185893560",
+          "name": "name"
+        },
+        {
+          "id": "4:5196997008154222579",
+          "name": "tag"
+        },
+        {
+          "id": "5:7923305118056933866",
+          "name": "colour"
+        },
+        {
+          "id": "6:2408643997954346562",
+          "name": "breed"
+        },
+        {
+          "id": "7:8178580753798161976",
+          "name": "sex"
+        },
+        {
+          "id": "8:3477036151559697782",
+          "name": "horn_type"
+        },
+        {
+          "id": "9:2996990253756291174",
+          "name": "weight"
+        },
+        {
+          "id": "10:4150648289487182822",
+          "name": "kids"
+        },
+        {
+          "id": "11:3847779228328548616",
+          "name": "age"
+        },
+        {
+          "id": "12:8033043202043955933",
+          "name": "source"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:3497873276965733948",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

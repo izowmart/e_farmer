@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/dashboard"
+            android:icon="@drawable/dashboard"
+            android:title="My Dashboard" />
+        <item
+            android:id="@+id/animals"
+            android:icon="@drawable/rabbit"
+            android:title="My Animals" />
+        <item
+            android:id="@+id/animal_treatment"
+            android:icon="@drawable/animal_treatment"
+            android:title="Animal Treatment" />
+        <item
+            android:id="@+id/land_management"
+            android:icon="@drawable/land_crop_mngt"
+            android:title="Land and Crop Management" />
+        <item
+            android:id="@+id/farm_tasks"
+            android:icon="@drawable/tasks"
+            android:title="My Farm Tasks" />
+        <item
+            android:id="@+id/farm_management"
+            android:icon="@drawable/farm_mngt"
+            android:title="My Farm Management" />
+        <item
+            android:id="@+id/farm_machinery"
+            android:icon="@drawable/tractor"
+            android:title="My Farm Machinery" />
+        <item
+            android:id="@+id/workers_timesheet"
+            android:icon="@drawable/workers"
+            android:title="Workers Timesheet" />
+    </group>
+
+    <item android:title="Sub items">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/profile"
+                    android:icon="@drawable/profile"
+                    android:title="Profile" />
+                <item
+                    android:id="@+id/logout"
+                    android:icon="@drawable/logout"
+                    android:title="Log Out" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
+
