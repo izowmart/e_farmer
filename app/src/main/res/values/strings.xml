@@ -21,4 +21,8 @@
     <string name="farm_management">My Farm Management</string>
     <string name="farm_machinery">My Farm Machinery</string>
     <string name="workers_time_sheet">Workers Timesheet</string>
+    <!--facebook_strings-->
+    <string name="facebook_app_id">457352881491681</string>
+    <string name="fb_login_protocol_scheme">fb457352881491681</string>
+
 </resources>

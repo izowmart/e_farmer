@@ -8,7 +8,7 @@
     tools:context=".ProfileActivity"
     android:background="#8AE884">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,13 +17,13 @@
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         android:padding="25dp">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="120dp"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
@@ -105,8 +105,8 @@
                     app:layout_constraintVertical_bias="1.0"
                     android:text="Ruiru" />
 
-            </android.support.constraint.ConstraintLayout>
-        </android.support.v7.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:id="@+id/layout_location"
@@ -129,7 +129,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <android.support.v7.widget.SwitchCompat
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/location_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,6 +149,6 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_location"
             app:layout_constraintVertical_bias="0.234" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

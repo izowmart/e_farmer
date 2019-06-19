@@ -17,7 +17,7 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/animals"
             android:layout_width="130dp"
             android:layout_height="120dp"
@@ -59,12 +59,12 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/animal_fab" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
         <Space
             android:layout_width="12dp"
             android:layout_height="match_parent" />
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/farm_tasks"
             android:layout_width="130dp"
             android:layout_height="120dp"
@@ -106,7 +106,7 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/farm_tasks_fab"/>
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <Space
@@ -119,7 +119,7 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/animal_treatment"
             android:layout_width="130dp"
             android:layout_height="120dp"
@@ -161,13 +161,13 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/animal_treatment_fab" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <Space
             android:layout_width="12dp"
             android:layout_height="match_parent" />
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/land_crop_mngt"
             android:layout_width="130dp"
             android:layout_height="120dp"
@@ -209,7 +209,7 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/land_crop_fab" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <Space
@@ -222,7 +222,7 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/workers_timesheet"
             android:layout_width="130dp"
             android:layout_height="120dp"
@@ -264,13 +264,13 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/workers_fab" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <Space
             android:layout_width="12dp"
             android:layout_height="match_parent" />
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/farm_mngt"
             android:layout_width="130dp"
             android:layout_height="120dp"
@@ -312,14 +312,14 @@
                     android:layout_marginTop="8dp"
                     android:src="@drawable/farm_mngt_fab" />
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="5dp" />
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/farm_machinery"
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -361,6 +361,6 @@
                 android:layout_marginTop="8dp"
                 android:src="@drawable/farm_machinery_fab" />
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

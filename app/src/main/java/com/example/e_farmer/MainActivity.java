@@ -2,20 +2,22 @@ package com.example.e_farmer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.MenuItem;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+
+import android.view.MenuItem;
+
+import com.example.e_farmer.models.User;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.widget.Toast;
 
 import com.example.e_farmer.fragments.MyAnimalTreatment;
@@ -27,17 +29,32 @@ import com.example.e_farmer.fragments.MyFarmTasks;
 import com.example.e_farmer.fragments.MyLandAndCropMngt;
 import com.example.e_farmer.fragments.MyWorkersTimesheet;
 
+import io.objectbox.Box;
+import io.objectbox.query.Query;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IMainActivity {
 
     private Toolbar toolbar;
 
     private long backPressedTime = 0;
+    private Box<User> userBox;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        check for authentication. if not signed in,send to login activity
+        if (!Settings.isLoggedIn()) {
+            Intent sendToLogin = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(sendToLogin);
+            finish();
+
+            Toast.makeText(this, "Login required", Toast.LENGTH_SHORT).show();
+
+        }
         toolbar = findViewById(R.id.toolbar_main);
 //        setSupportActionBar(toolbar);
 
@@ -116,7 +133,7 @@ public class MainActivity extends AppCompatActivity
             doFragmentTransaction(new MyWorkersTimesheet(), getString(R.string.workers_time_sheet), false);
 
         } else if (id == R.id.profile) {
-            Intent intent = new Intent(this.getApplicationContext(),ProfileActivity.class);
+            Intent intent = new Intent(this.getApplicationContext(), ProfileActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.logout) {
@@ -137,19 +154,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void inflateFragment(String fragmentTag) {
 
-        if (fragmentTag.equals(getString(R.string.animals))){
+        if (fragmentTag.equals(getString(R.string.animals))) {
             doFragmentTransaction(new MyAnimals(), fragmentTag, false);
-        }else if (fragmentTag.equals(getString(R.string.farm_tasks))){
+        } else if (fragmentTag.equals(getString(R.string.farm_tasks))) {
             doFragmentTransaction(new MyFarmTasks(), fragmentTag, false);
-        }else if (fragmentTag.equals(getString(R.string.animal_treatment))){
+        } else if (fragmentTag.equals(getString(R.string.animal_treatment))) {
             doFragmentTransaction(new MyAnimalTreatment(), fragmentTag, false);
-        }else if (fragmentTag.equals(getString(R.string.crop_management))){
+        } else if (fragmentTag.equals(getString(R.string.crop_management))) {
             doFragmentTransaction(new MyLandAndCropMngt(), fragmentTag, false);
-        }else if (fragmentTag.equals(getString(R.string.workers_time_sheet))){
+        } else if (fragmentTag.equals(getString(R.string.workers_time_sheet))) {
             doFragmentTransaction(new MyWorkersTimesheet(), fragmentTag, false);
-        }else if (fragmentTag.equals(getString(R.string.farm_management))){
+        } else if (fragmentTag.equals(getString(R.string.farm_management))) {
             doFragmentTransaction(new MyFarmManagement(), fragmentTag, false);
-        }else if (fragmentTag.equals(getString(R.string.farm_machinery))){
+        } else if (fragmentTag.equals(getString(R.string.farm_machinery))) {
             doFragmentTransaction(new MyFarmMachinery(), fragmentTag, false);
         }
 
