@@ -112,6 +112,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (Settings.isLoggedIn()){
+            goToMainActivity();
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -150,16 +158,20 @@ public class LoginActivity extends AppCompatActivity {
             Settings.setLoggedInSharedPref(true);
             Settings.setIsFacebook(false);
 
-            Intent login = new Intent(LoginActivity.this, MainActivity.class);
-            login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(login);
-            finish();
+            goToMainActivity();
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
+    }
+
+    private void goToMainActivity() {
+        Intent login = new Intent(LoginActivity.this, MainActivity.class);
+//        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(login);
+        finish();
     }
 
     private void displayUserInfo(JSONObject object) {
@@ -182,10 +194,7 @@ public class LoginActivity extends AppCompatActivity {
             Settings.setLoggedInSharedPref(true);
             Settings.setIsFacebook(true);
 
-            Intent login = new Intent(LoginActivity.this, MainActivity.class);
-            login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(login);
-            finish();
+            goToMainActivity();
 
 
         } catch (JSONException e) {

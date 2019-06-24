@@ -69,9 +69,7 @@ public class MainActivity extends AppCompatActivity
 
         // check for authentication. if not signed in,send to login activity
         if (!Settings.isLoggedIn()) {
-            Intent sendToLogin = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(sendToLogin);
-            finish();
+            goToLoginActivity();
 
             Toast.makeText(this, "Login required", Toast.LENGTH_SHORT).show();
 
@@ -180,17 +178,14 @@ public class MainActivity extends AppCompatActivity
             new GraphRequest(AccessToken.getCurrentAccessToken(), "me/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
                 @Override
                 public void onCompleted(GraphResponse response) {
-
+                    Toast.makeText(MainActivity.this, "Logging out", Toast.LENGTH_LONG).show();
                     LoginManager.getInstance().logOut();
 //                    Clear shared pref file
                     Settings.setLoggedInSharedPref(false);
 //                    clear local DB
                     userBox.removeAll();
-                    Toast.makeText(MainActivity.this, "Logging out", Toast.LENGTH_LONG).show();
 //                    Redirect user to login page
-                    Intent intent = new Intent(MainActivity.this.getApplicationContext(), LoginActivity.class);
-                    MainActivity.this.startActivity(intent);
-                    MainActivity.this.finish();
+                    goToLoginActivity();
 
                 }
             }).executeAsync();
@@ -198,19 +193,22 @@ public class MainActivity extends AppCompatActivity
             mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-
+                    Toast.makeText(MainActivity.this, "Logging out", Toast.LENGTH_LONG).show();
                     //Clear Shared Pref File
                     Settings.setLoggedInSharedPref(false);
                     //Clear Local DB
                     userBox.removeAll();
-                    Toast.makeText(MainActivity.this, "Logging out", Toast.LENGTH_LONG).show();
                     //Redirect User to Login Page
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                    goToLoginActivity();
                 }
             });
         }
+    }
+
+    private void goToLoginActivity() {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
