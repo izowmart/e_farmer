@@ -151,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
             Settings.setIsFacebook(false);
 
             Intent login = new Intent(LoginActivity.this, MainActivity.class);
+            login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(login);
             finish();
 
@@ -182,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
             Settings.setIsFacebook(true);
 
             Intent login = new Intent(LoginActivity.this, MainActivity.class);
+            login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(login);
             finish();
 

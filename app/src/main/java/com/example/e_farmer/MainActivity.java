@@ -3,6 +3,7 @@ package com.example.e_farmer;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,19 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.example.e_farmer.models.User;
+import com.example.e_farmer.models.User_;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -28,25 +42,32 @@ import com.example.e_farmer.fragments.MyFarmManagement;
 import com.example.e_farmer.fragments.MyFarmTasks;
 import com.example.e_farmer.fragments.MyLandAndCropMngt;
 import com.example.e_farmer.fragments.MyWorkersTimesheet;
+import com.google.android.material.snackbar.Snackbar;
 
 import io.objectbox.Box;
+import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IMainActivity {
 
     private Toolbar toolbar;
-
+    private GoogleSignInClient mGoogleSignInClient;
     private long backPressedTime = 0;
     private Box<User> userBox;
+    private BoxStore farmerApp;
     private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        objectBox initialization
+        farmerApp = FarmerApp.getBoxStore();
+        userBox = farmerApp.boxFor(User.class);
+        user = userBox.query().build().findFirst();
 
-//        check for authentication. if not signed in,send to login activity
+        // check for authentication. if not signed in,send to login activity
         if (!Settings.isLoggedIn()) {
             Intent sendToLogin = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(sendToLogin);
@@ -55,6 +76,14 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Login required", Toast.LENGTH_SHORT).show();
 
         }
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         toolbar = findViewById(R.id.toolbar_main);
 //        setSupportActionBar(toolbar);
 
@@ -67,6 +96,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         init();
+
     }
 
     //    This method inflates the selector fragment fast to our container so as to allow other transactions to take place there.vry dope!
@@ -137,13 +167,50 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.logout) {
-//            TODO CALL THE SESSION OFF USING SHARED PREFFERNCE
-
+            logout();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logout() {
+        if (Settings.isFacebook()) {
+            new GraphRequest(AccessToken.getCurrentAccessToken(), "me/permissions/", null, HttpMethod.DELETE, new GraphRequest.Callback() {
+                @Override
+                public void onCompleted(GraphResponse response) {
+
+                    LoginManager.getInstance().logOut();
+//                    Clear shared pref file
+                    Settings.setLoggedInSharedPref(false);
+//                    clear local DB
+                    userBox.removeAll();
+                    Toast.makeText(MainActivity.this, "Logging out", Toast.LENGTH_LONG).show();
+//                    Redirect user to login page
+                    Intent intent = new Intent(MainActivity.this.getApplicationContext(), LoginActivity.class);
+                    MainActivity.this.startActivity(intent);
+                    MainActivity.this.finish();
+
+                }
+            }).executeAsync();
+        } else {
+            mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    //Clear Shared Pref File
+                    Settings.setLoggedInSharedPref(false);
+                    //Clear Local DB
+                    userBox.removeAll();
+                    Toast.makeText(MainActivity.this, "Logging out", Toast.LENGTH_LONG).show();
+                    //Redirect User to Login Page
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }
     }
 
     @Override
