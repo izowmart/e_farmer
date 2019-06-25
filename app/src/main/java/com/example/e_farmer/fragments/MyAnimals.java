@@ -5,8 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.e_farmer.adapters.MyAnimalAdapter;
+import com.example.e_farmer.models.Animals;
+import com.example.e_farmer.viewmodels.MyAnimalViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +24,13 @@ import com.example.e_farmer.AddAnimal;
 import com.example.e_farmer.IMainActivity;
 import com.example.e_farmer.R;
 
+import java.util.List;
+
 public class MyAnimals extends Fragment {
     private FloatingActionButton fab;
+    private MyAnimalViewModel myAnimalViewModel;
+    private MyAnimalAdapter myAnimalAdapter;
+    private RecyclerView mRecyclerView;
 
     IMainActivity iMainActivity;
     @Override
@@ -29,6 +43,19 @@ public class MyAnimals extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         iMainActivity.setToolbarTitle(getTag());
+
+//        instantiate the viewmodel class here
+        myAnimalViewModel = ViewModelProviders.of(this).get(MyAnimalViewModel.class);
+        myAnimalViewModel.init();
+
+        myAnimalViewModel.getAnimal().observe(this, new Observer<List<Animals>>() {
+            @Override
+            public void onChanged(List<Animals> animals) {
+                myAnimalAdapter.setUpdatedData(animals);
+                myAnimalAdapter.notifyDataSetChanged();
+
+            }
+        });
     }
 
     @Nullable
@@ -37,9 +64,9 @@ public class MyAnimals extends Fragment {
         return inflater.inflate(R.layout.my_animals,container,false);
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mRecyclerView = view.findViewById(R.id.animal_recyclerview);
         fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,5 +75,14 @@ public class MyAnimals extends Fragment {
                 startActivity(intent);
             }
         });
+
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        myAnimalAdapter = new MyAnimalAdapter(getContext());
+        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(myAnimalAdapter);
     }
 }

@@ -243,8 +243,8 @@
                 app:layout_constraintStart_toStartOf="@+id/textview_horn_type"
                 app:layout_constraintTop_toBottomOf="@+id/horn_type" />
 
-            <Spinner
-                android:id="@+id/kids_number"
+            <EditText
+                android:id="@+id/animal_kids"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -262,8 +262,8 @@
                 android:text="Source"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/kids_number"
-                app:layout_constraintTop_toBottomOf="@+id/kids_number" />
+                app:layout_constraintStart_toStartOf="@+id/animal_kids"
+                app:layout_constraintTop_toBottomOf="@+id/animal_kids" />
 
             <EditText
                 android:id="@+id/animal_source"
@@ -295,9 +295,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:drawableStart="@drawable/ic_camera_alt_black_24dp"
-                android:drawablePadding="5dp"
+                android:drawablePadding="4dp"
                 android:text="ADD PHOTO"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="@+id/animal_image" />
@@ -311,10 +311,10 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableStart="@drawable/ic_add_black_24dp"
-                android:drawablePadding="5dp"
+                android:drawablePadding="4dp"
                 android:text="ADD ANIMAL"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/animal_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
