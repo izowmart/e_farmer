@@ -62,10 +62,12 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 //        objectBox initialization
+        long user_id = Settings.getUserId();
         farmerApp = FarmerApp.getBoxStore();
         userBox = farmerApp.boxFor(User.class);
-        user = userBox.query().build().findFirst();
+        user = userBox.query().equal(User_.id,user_id).build().findFirst();
 
         // check for authentication. if not signed in,send to login activity
         if (!Settings.isLoggedIn()) {

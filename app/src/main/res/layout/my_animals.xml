@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
+    android:padding="6dp"
     android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchview"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             app:queryHint="Search an Animal Type"/>
 
         <androidx.recyclerview.widget.RecyclerView

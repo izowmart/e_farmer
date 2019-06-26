@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3497873276965733948",
-      "lastPropertyId": "16:7366351012581569660",
+      "lastPropertyId": "17:1719627850179688696",
       "name": "Animals",
       "properties": [
         {
@@ -55,6 +55,11 @@
         {
           "id": "16:7366351012581569660",
           "name": "sex"
+        },
+        {
+          "id": "17:1719627850179688696",
+          "indexId": "1:1298875594025538391",
+          "name": "userId"
         }
       ],
       "relations": []
@@ -81,7 +86,7 @@
     }
   ],
   "lastEntityId": "2:1383490266576073740",
-  "lastIndexId": "0:0",
+  "lastIndexId": "1:1298875594025538391",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

@@ -44,18 +44,12 @@ public class MyAnimals extends Fragment {
         super.onCreate(savedInstanceState);
         iMainActivity.setToolbarTitle(getTag());
 
+
 //        instantiate the viewmodel class here
         myAnimalViewModel = ViewModelProviders.of(this).get(MyAnimalViewModel.class);
         myAnimalViewModel.init();
 
-        myAnimalViewModel.getAnimal().observe(this, new Observer<List<Animals>>() {
-            @Override
-            public void onChanged(List<Animals> animals) {
-                myAnimalAdapter.setUpdatedData(animals);
-                myAnimalAdapter.notifyDataSetChanged();
 
-            }
-        });
     }
 
     @Nullable
@@ -77,6 +71,16 @@ public class MyAnimals extends Fragment {
         });
 
         initRecyclerView();
+
+        myAnimalViewModel.getAnimal().observe(this, new Observer<List<Animals>>() {
+            @Override
+            public void onChanged(List<Animals> animals) {
+                myAnimalAdapter.setUpdatedData(animals);
+                myAnimalAdapter.notifyDataSetChanged();
+
+            }
+        });
+
     }
 
     private void initRecyclerView() {

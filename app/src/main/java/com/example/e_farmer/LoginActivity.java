@@ -155,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Log.d(TAG, "handleSignInResult: "  + userBox.count());
 
+            Settings.setUserId(user.getId());
             Settings.setLoggedInSharedPref(true);
             Settings.setIsFacebook(false);
 
@@ -191,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
 
             Log.d(TAG, "displayUserInfo: user count" + userBox.count());
 
+            Settings.setUserId(user.getId());
             Settings.setLoggedInSharedPref(true);
             Settings.setIsFacebook(true);
 

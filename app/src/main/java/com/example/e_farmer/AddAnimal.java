@@ -16,6 +16,8 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.e_farmer.models.Animals;
+import com.example.e_farmer.models.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,16 +39,17 @@ import java.util.Date;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 
-public class AddAnimal extends AppCompatActivity {
+public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "AddAnimal";
-    public static final int REQUEST_TAKE_PHOTO  = 1;
+    public static final int REQUEST_TAKE_PHOTO = 1;
     private String currentPhotoPath;
     private Bitmap mImageBitmap;
 
     private Toolbar toolbar;
     private EditText animalType, animalColour, animalTag, animalBreed, animalWeight, animalKids, animalSource, animalAge;
     private Spinner animalHornType;
+    private String[] items;
     private Button addPhoto, saveAnimal;
     private ImageView animalImage;
     private RadioButton radioDoe, radioBuck;
@@ -91,7 +95,14 @@ public class AddAnimal extends AppCompatActivity {
         radioDoe = findViewById(R.id.radio_doe);
         radioBuck = findViewById(R.id.radio_buck);
         radioGroup = findViewById(R.id.radio_group);
-        
+
+        // Setting up spinner arrayAdapter
+        // Setting up spinner using arrayAdapter
+        items = new String[]{"Horned", "No Horn"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        animalHornType.setAdapter(adapter);
+
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +138,7 @@ public class AddAnimal extends AppCompatActivity {
             }
         }
     }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -147,9 +159,9 @@ public class AddAnimal extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 //            This magic saves much whe converting a bitmap from a string.
-            Toast.makeText(this, "This is image uri : "+ currentPhotoPath, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "This is image uri : " + currentPhotoPath, Toast.LENGTH_SHORT).show();
             try {
-                mImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),Uri.parse(currentPhotoPath));
+                mImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(currentPhotoPath));
                 animalImage.setImageBitmap(mImageBitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -165,20 +177,11 @@ public class AddAnimal extends AppCompatActivity {
         tag = animalTag.getText().toString().trim();
         colour = animalColour.getText().toString().trim();
         breed = animalBreed.getText().toString().trim();
-//        horntype = animalHornType.getAdapter().toString().trim();
         source = animalSource.getText().toString().trim();
         weight = animalWeight.getText().toString().trim();
         age = animalAge.getText().toString().trim();
         kids = animalKids.getText().toString().trim();
 
-
-        if(radioBuck.isChecked()){
-            sex = radioBuck.getText().toString().trim();
-        }else if(radioDoe.isChecked()){
-            sex = radioDoe.getText().toString().trim();
-        }else{
-            radioBuck.setError("Select!");
-        }
 
 
         if (TextUtils.isEmpty(type)) {
@@ -197,12 +200,21 @@ public class AddAnimal extends AppCompatActivity {
             animalAge.setError("Field Required!");
         } else if (TextUtils.isEmpty(kids)) {
             animalKids.setError("Field Required!");
-        } else{
+        } else {
 
 
-        // This where everything is collected and stored in our local database
-//            todo come fix and adapter for the spinner
+            if (radioBuck.isChecked()) {
+                sex = radioBuck.getText().toString().trim();
+            } else if (radioDoe.isChecked()) {
+                sex = radioDoe.getText().toString().trim();
+            } else {
+                radioBuck.setError("!");
+            }
+            // This where everything is collected and stored in our local database
+            User user = new User();
+
             animals = new Animals();
+
             animals.setAge(age);
             animals.setImage(currentPhotoPath);
             animals.setType(type);
@@ -210,12 +222,15 @@ public class AddAnimal extends AppCompatActivity {
             animals.setColour(colour);
             animals.setBreed(breed);
             animals.setSex(sex);
-            animals.setHorn_type("horned");
+            animals.setHorn_type("horntype");
             animals.setWeight(weight);
             animals.setKids(kids);
             animals.setSource(source);
 
+            animals.user.setTarget(user);
             animalBox.put(animals);
+
+
 
         }
     }
@@ -233,5 +248,17 @@ public class AddAnimal extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+        horntype = String.valueOf(adapterView.getItemAtPosition(i));
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        // Another interface callback
     }
 }

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddAnimalTreatment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_animal_treatment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <ScrollView
+        android:id="@+id/add_animal_treatment"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textview_animal_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Animal Name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_treatment_type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_animal_name"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Name i.e Rabbit"/>\
+            <TextView
+                android:id="@+id/textview_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/animal_treatment_type"
+                android:text="Animal Tag"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_treatment_tag"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_tag"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="i.e 0021"/>
+            <TextView
+                android:id="@+id/textview_treatment_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/animal_treatment_tag"
+                android:text="Animal Treatment Reason"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_treatment_reason"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_treatment_reason"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="i.e Sleeping sickness"/>
+            <TextView
+                android:id="@+id/textview_medicine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/animal_treatment_reason"
+                android:text="Medicine Name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_medicine_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_medicine_name"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Enter name of the medicine administered"/>
+
+            <LinearLayout
+                android:id="@+id/lin"
+                android:layout_below="@+id/animal_medicine_name"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textview_dose_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dosage Start Date"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/animal_dose_start"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rectangle_strock_layout"
+                        android:hint="i.e 2019-25-01"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1.5"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textview_dose_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dosage End Date"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/animal_dose_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/rectangle_strock_layout"
+                        android:hint="i.e 2019-25-01"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview_dose_prescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Dose Prescription per day"
+                android:layout_below="@+id/lin"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_dose_prescription"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_dose_prescription"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Dose prescription i.e 2x3"/>
+            <TextView
+                android:id="@+id/textview_vet_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Administered By"
+                android:layout_below="@+id/animal_dose_prescription"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_vet_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_vet_name"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Enter vet name"/>
+            <TextView
+                android:id="@+id/textview_vet_contacts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/animal_vet_name"
+                android:layout_marginTop="8dp"
+                android:text="Vet Contacts"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_vet_contacts"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:inputType="phone"
+                android:layout_below="@+id/textview_vet_contacts"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Enter vet phone number"/>
+            <TextView
+                android:id="@+id/textview_descr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Description"
+                android:layout_below="@+id/animal_vet_contacts"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/animal_descr"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:inputType="textMultiLine"
+                android:layout_below="@+id/textview_descr"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Enter description here"/>
+
+            <Button
+                android:id="@+id/save_medication_btn"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginTop="8dp"
+                android:text="Save Medication"
+                android:textColor="#ffffff"
+                android:textSize="17sp"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_below="@+id/animal_descr"
+                android:drawableStart="@drawable/ic_add_black_24dp"/>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

@@ -10,6 +10,8 @@ public class Settings {
     public static final String SHARED_PREF_NAME = "e_farmer";
 //    check if the user is logged in or not
     public static final String LOGGED_IN_SHARED_PREF = "loggedin";
+//    check for the current signed in user
+    public static final String SIGNED_IN_USER_ID = "user_id";
 //    check if its first time use
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLauch";
 //    check if its facebook or google
@@ -35,6 +37,14 @@ public class Settings {
     /**
      * Set Logged in
      */
+    public static void setUserId(long id){
+        settings.edit()
+                .putLong(SIGNED_IN_USER_ID,id)
+                .apply();
+    }
+    public static long getUserId(){
+        return settings.getLong(SIGNED_IN_USER_ID,-1);
+    }
     public static boolean isLoggedIn(){
         return settings.getBoolean(LOGGED_IN_SHARED_PREF, false);
 

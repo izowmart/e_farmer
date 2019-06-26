@@ -12,11 +12,14 @@ import com.example.e_farmer.R;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.relation.ToOne;
 
 @Entity
 public class Animals extends BaseObservable {
-    @Id
-    long id;
+    @Id(assignable = true)
+    private long id;
+    public ToOne<User> user;
+
     private String image;
     private String type;
     private String tag;
@@ -31,6 +34,7 @@ public class Animals extends BaseObservable {
 
     public Animals() {
     }
+
 
     public long getId() {
         return id;
