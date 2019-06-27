@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:3497873276965733948",
-      "lastPropertyId": "16:7366351012581569660",
+      "lastPropertyId": "17:1719627850179688696",
       "name": "Animals",
       "properties": [
         {
@@ -55,6 +55,11 @@
         {
           "id": "16:7366351012581569660",
           "name": "sex"
+        },
+        {
+          "id": "17:1719627850179688696",
+          "indexId": "1:1298875594025538391",
+          "name": "userId"
         }
       ],
       "relations": []
@@ -78,10 +83,67 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:829911222069220875",
+      "lastPropertyId": "12:3735030544774520874",
+      "name": "AnimalTreatment",
+      "properties": [
+        {
+          "id": "1:2415533215473145194",
+          "name": "id"
+        },
+        {
+          "id": "2:5393163093005908800",
+          "name": "type"
+        },
+        {
+          "id": "3:7121789035026434761",
+          "name": "tag"
+        },
+        {
+          "id": "4:3300151595205561122",
+          "name": "treatment_reason"
+        },
+        {
+          "id": "5:6291747230884552688",
+          "name": "medicine_name"
+        },
+        {
+          "id": "6:1911489543142873214",
+          "name": "dosage_start"
+        },
+        {
+          "id": "7:832438801331881318",
+          "name": "dosage_end"
+        },
+        {
+          "id": "8:9016743153406354217",
+          "name": "dosage_prescription"
+        },
+        {
+          "id": "9:5572019802623899066",
+          "name": "vet_name"
+        },
+        {
+          "id": "10:8809593116039599692",
+          "name": "vet_contacts"
+        },
+        {
+          "id": "11:6450351032915225389",
+          "name": "description"
+        },
+        {
+          "id": "12:3735030544774520874",
+          "indexId": "2:1119026031411947414",
+          "name": "userId"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:1383490266576073740",
-  "lastIndexId": "0:0",
+  "lastEntityId": "3:829911222069220875",
+  "lastIndexId": "2:1119026031411947414",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

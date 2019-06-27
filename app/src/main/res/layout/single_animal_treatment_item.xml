@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <data>
+        <variable
+            name="treatment"
+            type="com.example.e_farmer.models.AnimalTreatment" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/animal_treatment_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        app:cardCornerRadius="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/treatment_card_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{treatment.type}"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    tools:text="Rabbit :" />
+
+                <TextView
+                    android:id="@+id/treatment_card_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{treatment.tag}"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    tools:text="0051" />
+
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/more_vert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear"
+                tools:src="@drawable/ic_more_vert_black_24dp" />
+
+            <TextView
+                android:id="@+id/textview_medicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:text="Medicine name     :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear" />
+
+            <TextView
+                android:id="@+id/treatment_card_medicine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{treatment.medicine_name}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_medicine"
+                app:layout_constraintStart_toEndOf="@+id/textview_medicine"
+                app:layout_constraintTop_toTopOf="@+id/textview_medicine"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="parametrician" />
+
+            <TextView
+                android:id="@+id/textview_start_dosage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Start of dosage     :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_medicine"
+                app:layout_constraintTop_toBottomOf="@+id/textview_medicine" />
+
+            <TextView
+                android:id="@+id/treatment_card_srt_dose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{treatment.dosage_start}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_start_dosage"
+                app:layout_constraintStart_toEndOf="@+id/textview_start_dosage"
+                app:layout_constraintTop_toTopOf="@+id/textview_start_dosage"
+                tools:text="25-02-2019" />
+
+            <TextView
+                android:id="@+id/textview_end_dosage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="End of dosage       :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_start_dosage"
+                app:layout_constraintTop_toBottomOf="@+id/textview_start_dosage" />
+
+            <TextView
+                android:id="@+id/treatment_card_end_dose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{treatment.dosage_end}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_end_dosage"
+                app:layout_constraintStart_toEndOf="@+id/textview_end_dosage"
+                app:layout_constraintTop_toTopOf="@+id/textview_end_dosage"
+                tools:text="28-02-2019" />
+            <TextView
+                android:id="@+id/textview_prescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Dose prescription  :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_end_dosage"
+                app:layout_constraintTop_toBottomOf="@+id/textview_end_dosage" />
+
+            <TextView
+                android:id="@+id/treatment_card_prescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{treatment.dosage_prescription}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_prescription"
+                app:layout_constraintStart_toEndOf="@+id/textview_prescription"
+                app:layout_constraintTop_toTopOf="@+id/textview_prescription"
+                tools:text="2 X 3" />
+
+            <TextView
+                android:id="@+id/textview_vet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Administered by    :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_prescription"
+                app:layout_constraintTop_toBottomOf="@+id/textview_prescription" />
+
+            <TextView
+                android:id="@+id/treatment_card_vet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{treatment.vet_name}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_vet"
+                app:layout_constraintStart_toEndOf="@+id/textview_vet"
+                app:layout_constraintTop_toTopOf="@+id/textview_vet"
+                tools:text="Dr.Kingori" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

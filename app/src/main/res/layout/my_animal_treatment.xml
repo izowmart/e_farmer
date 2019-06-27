@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,15 +15,15 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/treatment_searchview"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             app:queryHint="Search an Animal Type" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/animal_treatment_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/searchview"
-            tools:listitem="@layout/single_animal_item_card">
+            android:layout_below="@+id/treatment_searchview"
+            tools:listitem="@layout/single_animal_treatment_item">
 
         </androidx.recyclerview.widget.RecyclerView>
     </RelativeLayout>

@@ -38,26 +38,30 @@ public class MyAnimalTreatment extends Fragment {
         super.onAttach(context);
         iMainActivity = (IMainActivity) this.getActivity();
 
-        //        instantiate the viewmodel class here
-        animalTreatmentViewModel = ViewModelProviders.of(this).get(AnimalTreatmentViewmodel.class);
-        animalTreatmentViewModel.init();
+
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         iMainActivity.setToolbarTitle(getTag());
+
+        //        instantiate the viewmodel class here
+        animalTreatmentViewModel = ViewModelProviders.of(this).get(AnimalTreatmentViewmodel.class);
+        animalTreatmentViewModel.init();
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.my_animal_treatment,container,false);
+        View view =  inflater.inflate(R.layout.my_animal_treatment,container,false);
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mRecyclerView = view.findViewById(R.id.animal_recyclerview);
+        mRecyclerView = view.findViewById(R.id.animal_treatment_recyclerview);
         fabTreatment = view.findViewById(R.id.fab_treatment);
         fabTreatment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +73,7 @@ public class MyAnimalTreatment extends Fragment {
 
         initRecyclerView();
 
-        animalTreatmentViewModel.getAnimal().observe(this, new Observer<List<AnimalTreatment>>() {
+        animalTreatmentViewModel.getAnimalTreatment().observe(this, new Observer<List<AnimalTreatment>>() {
             @Override
             public void onChanged(List<AnimalTreatment> animalTreatments) {
                 animalTreatmentAdapter.setUpdatedData(animalTreatments);

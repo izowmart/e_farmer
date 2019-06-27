@@ -1,12 +1,16 @@
 package com.example.e_farmer.adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.e_farmer.R;
+import com.example.e_farmer.databinding.SingleAnimalTreatmentItemBinding;
 import com.example.e_farmer.models.AnimalTreatment;
 import com.example.e_farmer.models.Animals;
 
@@ -26,12 +30,14 @@ public class AnimalTreatmentAdapter extends RecyclerView.Adapter<AnimalTreatment
     @NonNull
     @Override
     public TreatmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        SingleAnimalTreatmentItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.single_animal_treatment_item,parent,false);
+        return new TreatmentViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TreatmentViewHolder holder, int position) {
-
+        animalTreatment = animalTreatmentList.get(position);
+        holder.binding.setTreatment(animalTreatment);
     }
 
     @Override
@@ -44,8 +50,10 @@ public class AnimalTreatmentAdapter extends RecyclerView.Adapter<AnimalTreatment
     }
 
     public class TreatmentViewHolder extends RecyclerView.ViewHolder{
-        public TreatmentViewHolder(@NonNull View itemView) {
-            super(itemView);
+        SingleAnimalTreatmentItemBinding binding;
+        public TreatmentViewHolder(@NonNull SingleAnimalTreatmentItemBinding binding) {
+            super(binding.animalTreatmentCardview);
+            this.binding = binding;
         }
     }
 }

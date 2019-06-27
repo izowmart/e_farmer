@@ -24,7 +24,8 @@ public class AnimalTreatmentViewmodel extends ViewModel {
         mAnimalTreatment = animalTreatmentRepo.getAnimalTreatment();
     }
 
-    public LiveData<List<AnimalTreatment>> getAnimal(){
+
+    public LiveData<List<AnimalTreatment>> getAnimalTreatment(){
         return mAnimalTreatment;
     }
 }

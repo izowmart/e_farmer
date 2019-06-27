@@ -3,6 +3,7 @@ package com.example.e_farmer.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -10,6 +11,7 @@ import com.example.e_farmer.adapters.MyAnimalAdapter;
 import com.example.e_farmer.models.Animals;
 import com.example.e_farmer.viewmodels.MyAnimalViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -33,6 +35,7 @@ public class MyAnimals extends Fragment {
     private RecyclerView mRecyclerView;
 
     IMainActivity iMainActivity;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -44,22 +47,17 @@ public class MyAnimals extends Fragment {
         super.onCreate(savedInstanceState);
         iMainActivity.setToolbarTitle(getTag());
 
-
-//        instantiate the viewmodel class here
+        //        instantiate the viewmodel class here
         myAnimalViewModel = ViewModelProviders.of(this).get(MyAnimalViewModel.class);
         myAnimalViewModel.init();
-
 
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.my_animals,container,false);
-    }
+        View view = inflater.inflate(R.layout.my_animals, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mRecyclerView = view.findViewById(R.id.animal_recyclerview);
         fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +69,6 @@ public class MyAnimals extends Fragment {
         });
 
         initRecyclerView();
-
         myAnimalViewModel.getAnimal().observe(this, new Observer<List<Animals>>() {
             @Override
             public void onChanged(List<Animals> animals) {
@@ -81,6 +78,7 @@ public class MyAnimals extends Fragment {
             }
         });
 
+        return view;
     }
 
     private void initRecyclerView() {

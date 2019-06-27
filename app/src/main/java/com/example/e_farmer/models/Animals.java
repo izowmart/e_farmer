@@ -50,7 +50,7 @@ public class Animals extends BaseObservable {
     }
 
     @BindingAdapter("image")
-    public static void loardImage(ImageView view, String imageUrl) {
+    public static void loadImage(ImageView view, String imageUrl) {
 
         RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.trac)

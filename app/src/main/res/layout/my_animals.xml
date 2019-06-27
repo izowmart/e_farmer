@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchview"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             app:queryHint="Search an Animal Type"/>
 
         <androidx.recyclerview.widget.RecyclerView

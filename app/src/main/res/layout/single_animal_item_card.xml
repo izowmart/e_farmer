@@ -13,7 +13,7 @@
         android:id="@+id/animal_cardview"
         android:layout_width="match_parent"
         android:layout_marginTop="7dp"
-        android:layout_height="300dp"
+        android:layout_height="230dp"
         app:cardCornerRadius="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Tag :"
+                android:text="Tag            :"
                 android:textColor="@android:color/black"
                 android:textSize="19sp"
                 app:layout_constraintStart_toEndOf="@+id/animal_image"
@@ -55,16 +55,16 @@
                 android:id="@+id/tag"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                tools:text="04154"
                 android:text="@{animal.tag}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView"
                 app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView" />
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                tools:text="04154" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Type :"
+                android:text="Type          :"
                 android:textColor="@android:color/black"
                 android:textSize="19sp"
                 app:layout_constraintStart_toEndOf="@+id/animal_image"
@@ -82,65 +82,15 @@
                 android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="Rabbit"
+                android:layout_marginStart="8dp"
                 android:text="@{animal.type}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView2"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2"
-                app:layout_constraintVertical_bias="1.0" />
+                tools:text="Rabbit" />
 
-            <TextView
-                android:id="@+id/textview_colour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Colour :"
-                android:textColor="@android:color/black"
-                android:textSize="19sp"
-                app:layout_constraintStart_toEndOf="@+id/animal_image"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <TextView
-                android:id="@+id/colour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="White"
-                android:text="@{animal.colour}"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_colour"
-                app:layout_constraintStart_toEndOf="@+id/textview_colour"
-                app:layout_constraintTop_toTopOf="@+id/textview_colour" />
-
-            <TextView
-                android:id="@+id/textview_breed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Breed :"
-                android:textColor="@android:color/black"
-                android:textSize="19sp"
-                app:layout_constraintStart_toEndOf="@+id/animal_image"
-                app:layout_constraintTop_toBottomOf="@+id/textview_colour" />
-
-            <TextView
-                android:id="@+id/breed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="New Zeland"
-                android:text="@{animal.breed}"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_breed"
-                app:layout_constraintStart_toEndOf="@+id/textview_breed"
-                app:layout_constraintTop_toTopOf="@+id/textview_breed" />
 
             <TextView
                 android:id="@+id/textview_horn"
@@ -154,21 +104,20 @@
                 android:textSize="19sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/animal_image"
-                app:layout_constraintTop_toBottomOf="@+id/textview_weight"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/textview_weight" />
 
             <TextView
                 android:id="@+id/horn_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                tools:text="Horned"
                 android:text="@{animal.horn_type}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textview_horn"
                 app:layout_constraintStart_toEndOf="@+id/textview_horn"
-                app:layout_constraintTop_toTopOf="@+id/textview_horn" />
+                app:layout_constraintTop_toTopOf="@+id/textview_horn"
+                tools:text="Horned" />
 
             <TextView
                 android:id="@+id/textview_sex"
@@ -176,49 +125,49 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Sex :"
+                android:text="Sex            :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toEndOf="@+id/animal_image"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{animal.sex}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_sex"
+                app:layout_constraintStart_toEndOf="@+id/textview_sex"
+                app:layout_constraintTop_toTopOf="@+id/textview_sex"
+                tools:text="Doe" />
+
+            <TextView
+                android:id="@+id/textview_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Weight      :"
                 android:textColor="@android:color/black"
                 android:textSize="19sp"
                 app:layout_constraintStart_toEndOf="@+id/animal_image"
                 app:layout_constraintTop_toBottomOf="@+id/textview_age" />
 
             <TextView
-                android:id="@+id/sex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="Doe"
-                android:text="@{animal.sex}"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_sex"
-                app:layout_constraintStart_toEndOf="@+id/textview_sex"
-                app:layout_constraintTop_toTopOf="@+id/textview_sex" />
-
-            <TextView
-                android:id="@+id/textview_weight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Weight :"
-                android:textColor="@android:color/black"
-                android:textSize="19sp"
-                app:layout_constraintStart_toEndOf="@+id/animal_image"
-                app:layout_constraintTop_toBottomOf="@+id/textview_kids" />
-
-            <TextView
                 android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="5Kg"
+                android:layout_marginStart="8dp"
                 android:text="@{animal.weight}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textview_weight"
                 app:layout_constraintStart_toEndOf="@+id/textview_weight"
-                app:layout_constraintTop_toTopOf="@+id/textview_weight" />
+                app:layout_constraintTop_toTopOf="@+id/textview_weight"
+                tools:text="5Kg" />
 
             <TextView
                 android:id="@+id/textview_kids"
@@ -226,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Kids :"
+                android:text="Kids           :"
                 android:textColor="@android:color/black"
                 android:textSize="19sp"
                 app:layout_constraintStart_toEndOf="@+id/animal_image"
@@ -236,14 +185,14 @@
                 android:id="@+id/kids"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="5"
+                android:layout_marginStart="8dp"
                 android:text="@{animal.kids}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textview_kids"
                 app:layout_constraintStart_toEndOf="@+id/textview_kids"
-                app:layout_constraintTop_toTopOf="@+id/textview_kids" />
+                app:layout_constraintTop_toTopOf="@+id/textview_kids"
+                tools:text="5" />
 
             <TextView
                 android:id="@+id/textview_age"
@@ -251,24 +200,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="age :"
+                android:text="age            :"
                 android:textColor="@android:color/black"
                 android:textSize="19sp"
                 app:layout_constraintStart_toEndOf="@+id/animal_image"
-                app:layout_constraintTop_toBottomOf="@+id/textview_breed" />
+                app:layout_constraintTop_toBottomOf="@+id/textview_kids" />
 
             <TextView
                 android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                tools:text="3 Months"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@{animal.age}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textview_age"
                 app:layout_constraintStart_toEndOf="@+id/textview_age"
-                app:layout_constraintTop_toTopOf="@+id/textview_age" />
+                app:layout_constraintTop_toTopOf="@+id/textview_age"
+                tools:text="3 Months" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

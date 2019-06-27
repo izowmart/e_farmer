@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    tools:context=".AddAnimalTreatment">
+    tools:context=".LandAndCropMngt">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_animal_treatment"
+        android:id="@+id/toolbar_land_crop_mngt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -17,7 +17,7 @@
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
     <ScrollView
-        android:id="@+id/add_animal_treatment"
+        android:id="@+id/add_land_crop_mngt"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:padding="5dp">
@@ -28,80 +28,64 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textview_animal_name"
+                android:id="@+id/textview_land_crop_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Animal Name"
+                android:text="Land Name"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/animal_treatment_type"
+                android:id="@+id/land_crop_name"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/textview_animal_name"
+                android:layout_below="@+id/textview_land_crop_name"
                 android:background="@drawable/rectangle_strock_layout"
-                android:hint="Name i.e Rabbit"/>\
+                android:hint="Name i.e kibit farm"/>
             <TextView
-                android:id="@+id/textview_tag"
+                android:id="@+id/textview_land_crop_square"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_below="@+id/animal_treatment_type"
-                android:text="Animal Tag"
+                android:layout_below="@+id/land_crop_name"
+                android:text="Square Number"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/animal_treatment_tag"
+                android:id="@+id/land_crop_square"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/textview_tag"
+                android:layout_below="@+id/textview_land_crop_square"
                 android:background="@drawable/rectangle_strock_layout"
                 android:hint="i.e 0021"/>
+
             <TextView
-                android:id="@+id/textview_treatment_reason"
+                android:id="@+id/textview_land_crop_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_below="@+id/animal_treatment_tag"
-                android:text="Animal Treatment Reason"
+                android:layout_below="@+id/land_crop_square"
+                android:text="Task to be carried out"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/animal_treatment_reason"
+                android:id="@+id/land_crop_task"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="5dp"
-                android:layout_below="@+id/textview_treatment_reason"
+                android:layout_below="@+id/textview_land_crop_task"
                 android:background="@drawable/rectangle_strock_layout"
-                android:hint="i.e Sleeping sickness"/>
-            <TextView
-                android:id="@+id/textview_medicine_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/animal_treatment_reason"
-                android:text="Medicine Name"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
+                android:hint="ie. Land Tilling"/>
 
-            <EditText
-                android:id="@+id/animal_medicine_name"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/textview_medicine_name"
-                android:background="@drawable/rectangle_strock_layout"
-                android:hint="Enter name of the medicine administered"/>
 
             <LinearLayout
                 android:id="@+id/lin"
-                android:layout_below="@+id/animal_medicine_name"
+                android:layout_below="@+id/land_crop_task"
                 android:orientation="horizontal"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
@@ -109,21 +93,21 @@
                 android:weightSum="3">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:layout_weight="1.5"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textview_dose_start"
+                        android:id="@+id/textview_land_crop_start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dosage Start Date"
+                        android:text="Task Start Date"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp" />
 
                     <EditText
-                        android:id="@+id/animal_dose_start"
+                        android:id="@+id/land_crop_start"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
                         android:layout_marginTop="5dp"
@@ -131,21 +115,21 @@
                         android:hint="i.e 2019-25-01"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:layout_weight="1.5"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/textview_dose_end"
+                        android:id="@+id/textview_land_crop_end"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dosage End Date"
+                        android:text="Completion Date"
                         android:textColor="@color/colorPrimary"
                         android:textSize="20sp" />
 
                     <EditText
-                        android:id="@+id/animal_dose_end"
+                        android:id="@+id/land_crop_end"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
                         android:layout_marginTop="5dp"
@@ -156,91 +140,60 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textview_dose_prescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Dose Prescription per day"
+            <ImageView
+                android:id="@+id/land_crop_image"
+                android:layout_width="170dp"
+                android:layout_height="150dp"
                 android:layout_below="@+id/lin"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/animal_dose_prescription"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/textview_dose_prescription"
-                android:background="@drawable/rectangle_strock_layout"
-                android:hint="Dose prescription i.e 2x3"/>
-            <TextView
-                android:id="@+id/textview_vet_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Administered By"
-                android:layout_below="@+id/animal_dose_prescription"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/placeholder" />
 
-            <EditText
-                android:id="@+id/animal_vet_name"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/textview_vet_name"
-                android:background="@drawable/rectangle_strock_layout"
-                android:hint="Enter vet name"/>
+            <Button
+                android:id="@+id/add_land_img_btn"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/lin"
+                android:layout_alignRight="@+id/land_crop_image"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="60dp"
+                android:layout_marginRight="-192dp"
+                android:drawableStart="@drawable/ic_camera_alt_black_24dp"
+                android:drawablePadding="4dp"
+                android:text="ADD PHOTO"
+                android:textSize="14sp" />
             <TextView
-                android:id="@+id/textview_vet_contacts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/animal_vet_name"
-                android:layout_marginTop="8dp"
-                android:text="Vet Contacts"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/animal_vet_contacts"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginTop="5dp"
-                android:inputType="phone"
-                android:layout_below="@+id/textview_vet_contacts"
-                android:background="@drawable/rectangle_strock_layout"
-                android:hint="Enter vet phone number"/>
-            <TextView
-                android:id="@+id/textview_descr"
+                android:id="@+id/textview_land_crop_descr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Description"
-                android:layout_below="@+id/animal_vet_contacts"
+                android:layout_below="@+id/land_crop_image"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/animal_descr"
+                android:id="@+id/land_crop_descr"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="5dp"
                 android:inputType="textMultiLine"
-                android:layout_below="@+id/textview_descr"
+                android:layout_below="@+id/textview_land_crop_descr"
                 android:background="@drawable/rectangle_strock_layout"
                 android:hint="Enter description here"/>
 
             <Button
-                android:id="@+id/save_medication_btn"
+                android:id="@+id/save_land_crop_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
-                android:text="Save Medication"
+                android:text="Save Land and Crop Activities"
                 android:textColor="#ffffff"
-                android:textSize="17sp"
+                android:textSize="16sp"
                 android:backgroundTint="@color/colorPrimary"
-                android:layout_below="@+id/animal_descr"
+                android:layout_below="@+id/land_crop_descr"
                 android:drawableStart="@drawable/ic_add_black_24dp"/>
 
         </RelativeLayout>

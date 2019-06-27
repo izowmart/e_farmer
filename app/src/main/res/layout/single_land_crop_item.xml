@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <data>
+        <variable
+            name="landCrop"
+            type="com.example.e_farmer.models.LandAndCrop"/>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/land_crop_cardview"
+        android:layout_width="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_height="170dp"
+        app:cardCornerRadius="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/land_crop_image"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/sungura"
+                app:landImage="@{landCrop.landImage}"/>
+
+            <TextView
+                android:id="@+id/textview_land_crop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name         :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/land_crop_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/more_vert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_more_vert_black_24dp" />
+
+            <TextView
+                android:id="@+id/land_crop_land_name"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{landCrop.name}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_land_crop"
+                app:layout_constraintStart_toEndOf="@+id/textview_land_crop"
+                app:layout_constraintTop_toTopOf="@+id/textview_land_crop"
+                tools:text="04154" />
+
+            <TextView
+                android:id="@+id/textview_land_crop_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Square No :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/land_crop_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_land_crop" />
+
+            <TextView
+                android:id="@+id/crop_land_square"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{landCrop.square_number}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_land_crop_number"
+                app:layout_constraintStart_toEndOf="@+id/textview_land_crop_number"
+                app:layout_constraintTop_toTopOf="@+id/textview_land_crop_number"
+                tools:text="Rabbit" />
+
+            <TextView
+                android:id="@+id/textview_crop_land_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Task           :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/land_crop_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_land_crop_number" />
+
+            <TextView
+                android:id="@+id/land_crop_task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{landCrop.task}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_crop_land_task"
+                app:layout_constraintStart_toEndOf="@+id/textview_crop_land_task"
+                app:layout_constraintTop_toTopOf="@+id/textview_crop_land_task"
+                tools:text="Doe" />
+
+            <TextView
+                android:id="@+id/textview_land_crop_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Start date  :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/land_crop_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_crop_land_task" />
+
+            <TextView
+                android:id="@+id/land_crop_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{landCrop.start_date}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_land_crop_start_date"
+                app:layout_constraintStart_toEndOf="@+id/textview_land_crop_start_date"
+                app:layout_constraintTop_toTopOf="@+id/textview_land_crop_start_date"
+                tools:text="5" />
+
+            <TextView
+                android:id="@+id/textview_land_crop_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="End date    :"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                app:layout_constraintStart_toEndOf="@+id/land_crop_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_land_crop_start_date" />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{landCrop.completion_date}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_land_crop_end_date"
+                app:layout_constraintStart_toEndOf="@+id/textview_land_crop_end_date"
+                app:layout_constraintTop_toTopOf="@+id/textview_land_crop_end_date"
+                tools:text="3 Months" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
