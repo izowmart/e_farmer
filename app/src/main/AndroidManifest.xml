@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LandAndCropMngt"></activity>
+        <activity
+            android:name=".MyFarmTasks"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".LandAndCropMngt"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".AddAnimalTreatment"
             android:parentActivityName=".MainActivity" />

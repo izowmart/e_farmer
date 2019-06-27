@@ -140,10 +140,55 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:5652165563148055917",
+      "lastPropertyId": "9:8042439346854208745",
+      "name": "LandAndCrop",
+      "properties": [
+        {
+          "id": "1:5189450691828985299",
+          "name": "id"
+        },
+        {
+          "id": "2:3495830606693795296",
+          "name": "name"
+        },
+        {
+          "id": "3:1102919781077768819",
+          "name": "square_number"
+        },
+        {
+          "id": "4:1403922656481105443",
+          "name": "task"
+        },
+        {
+          "id": "5:9013100107477990908",
+          "name": "start_date"
+        },
+        {
+          "id": "6:3579790177195769209",
+          "name": "completion_date"
+        },
+        {
+          "id": "7:6729960276189914878",
+          "name": "description"
+        },
+        {
+          "id": "8:4014154528639006203",
+          "name": "landImage"
+        },
+        {
+          "id": "9:8042439346854208745",
+          "indexId": "3:5102269824639075190",
+          "name": "userId"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:829911222069220875",
-  "lastIndexId": "2:1119026031411947414",
+  "lastEntityId": "4:5652165563148055917",
+  "lastIndexId": "3:5102269824639075190",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
