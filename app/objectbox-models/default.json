@@ -279,10 +279,59 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "7:2035109736298026215",
+      "lastPropertyId": "10:3330275835012513925",
+      "name": "Finance",
+      "properties": [
+        {
+          "id": "1:8197479408337311017",
+          "name": "id"
+        },
+        {
+          "id": "2:8213979381597924626",
+          "name": "name"
+        },
+        {
+          "id": "3:7253059200338694326",
+          "name": "category"
+        },
+        {
+          "id": "4:4436268157035652509",
+          "name": "transaction_date"
+        },
+        {
+          "id": "5:6834930882140201637",
+          "name": "item_amount"
+        },
+        {
+          "id": "6:6393071414327658293",
+          "name": "quantity"
+        },
+        {
+          "id": "7:9131755822855305290",
+          "name": "payment_type"
+        },
+        {
+          "id": "8:3556478527645939072",
+          "name": "notes"
+        },
+        {
+          "id": "9:7785546220711536890",
+          "name": "finance_type"
+        },
+        {
+          "id": "10:3330275835012513925",
+          "indexId": "6:8957116734725654781",
+          "name": "userId"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "6:8746724318320686353",
-  "lastIndexId": "5:8232660159154230933",
+  "lastEntityId": "7:2035109736298026215",
+  "lastIndexId": "6:8957116734725654781",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

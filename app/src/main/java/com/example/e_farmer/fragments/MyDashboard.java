@@ -17,7 +17,7 @@ import com.example.e_farmer.R;
 public class MyDashboard extends Fragment implements View.OnClickListener {
 
     IMainActivity iMainActivity;
-    private CardView animals,farm_task, animal_treatment,land_crop_mngt,workers_timesheet,farm_mngt,farm_machinery;
+    private CardView animals,farm_task, animal_treatment,land_crop_mngt,finance_management,farm_machinery;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -39,16 +39,14 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
         farm_task = view.findViewById(R.id.farm_tasks);
         animal_treatment = view.findViewById(R.id.animal_treatment);
         land_crop_mngt = view.findViewById(R.id.land_crop_mngt);
-        workers_timesheet = view.findViewById(R.id.workers_timesheet);
-        farm_mngt = view.findViewById(R.id.farm_mngt);
+        finance_management = view.findViewById(R.id.finance_management);
         farm_machinery = view.findViewById(R.id.farm_machinery);
 
         animals.setOnClickListener(this);
         farm_task.setOnClickListener(this);
         animal_treatment.setOnClickListener(this);
         land_crop_mngt.setOnClickListener(this);
-        workers_timesheet.setOnClickListener(this);
-        farm_mngt.setOnClickListener(this);
+        finance_management.setOnClickListener(this);
         farm_machinery.setOnClickListener(this);
         return view;
     }
@@ -69,14 +67,11 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
                 case R.id.land_crop_mngt:
                 iMainActivity.inflateFragment(getString(R.string.crop_management));
                 break;
-                case R.id.workers_timesheet:
-                iMainActivity.inflateFragment(getString(R.string.workers_time_sheet));
-                break;
-                case R.id.farm_mngt:
-                iMainActivity.inflateFragment(getString(R.string.farm_management));
-                break;
                 case R.id.farm_machinery:
                 iMainActivity.inflateFragment(getString(R.string.farm_machinery));
+                break;
+                case R.id.finance_management:
+                iMainActivity.inflateFragment(getString(R.string.finance_management));
                 break;
         }
 

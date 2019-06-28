@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".FinanceActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".MyMachinery"
             android:parentActivityName=".MainActivity" />
         <activity

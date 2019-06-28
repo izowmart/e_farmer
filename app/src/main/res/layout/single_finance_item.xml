@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <data>
+        <variable
+            name="finance"
+            type="com.example.e_farmer.models.Finance" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/finance_cardview"
+        android:layout_width="match_parent"
+        android:layout_height="205dp"
+        app:cardCornerRadius="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Date :"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/finance_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{finance.transaction_date}"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp"
+                    tools:text="25/2/2019" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/more_vert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear"
+                tools:src="@drawable/ic_more_vert_black_24dp" />
+
+            <TextView
+                android:id="@+id/textview_finance_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:text="Item name                :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear" />
+
+            <TextView
+                android:id="@+id/finance_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{finance.name}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_finance_name"
+                app:layout_constraintStart_toEndOf="@+id/textview_finance_name"
+                app:layout_constraintTop_toTopOf="@+id/textview_finance_name"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="Kameni" />
+
+            <TextView
+                android:id="@+id/textview_finance_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Finance type            :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_finance_name"
+                app:layout_constraintTop_toBottomOf="@+id/textview_finance_name" />
+
+            <TextView
+                android:id="@+id/finance_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{finance.finance_type}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_finance_type"
+                app:layout_constraintStart_toEndOf="@+id/textview_finance_type"
+                app:layout_constraintTop_toTopOf="@+id/textview_finance_type"
+                tools:text="Revenue" />
+
+            <TextView
+                android:id="@+id/textview_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Total amount           :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_finance_type"
+                app:layout_constraintTop_toBottomOf="@+id/textview_finance_type" />
+
+            <TextView
+                android:id="@+id/finance_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{finance.item_amount}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_amount"
+                app:layout_constraintStart_toEndOf="@+id/textview_amount"
+                app:layout_constraintTop_toTopOf="@+id/textview_amount"
+                tools:text="500" />
+            <TextView
+                android:id="@+id/textview_item_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Item quantity           :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_amount"
+                app:layout_constraintTop_toBottomOf="@+id/textview_amount" />
+
+            <TextView
+                android:id="@+id/item_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{finance.quantity}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_item_quantity"
+                app:layout_constraintStart_toEndOf="@+id/textview_item_quantity"
+                app:layout_constraintTop_toTopOf="@+id/textview_item_quantity"
+                tools:text="10" />
+            <TextView
+                android:id="@+id/textview_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Payment method    :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toStartOf="@+id/textview_item_quantity"
+                app:layout_constraintTop_toBottomOf="@+id/textview_item_quantity" />
+
+            <TextView
+                android:id="@+id/payment_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{finance.payment_type}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_method"
+                app:layout_constraintStart_toEndOf="@+id/textview_method"
+                app:layout_constraintTop_toTopOf="@+id/textview_method"
+                tools:text="Bank" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

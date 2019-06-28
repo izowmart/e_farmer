@@ -26,17 +26,13 @@
             android:icon="@drawable/tasks"
             android:title="My Farm Tasks" />
         <item
-            android:id="@+id/farm_management"
-            android:icon="@drawable/farm_mngt"
-            android:title="My Farm Management" />
-        <item
             android:id="@+id/farm_machinery"
             android:icon="@drawable/tractor"
             android:title="My Farm Machinery" />
         <item
-            android:id="@+id/workers_timesheet"
+            android:id="@+id/finance_management"
             android:icon="@drawable/workers"
-            android:title="Workers Timesheet" />
+            android:title="Finance Management" />
     </group>
 
     <item android:title="Sub items">

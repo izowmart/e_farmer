@@ -18,11 +18,9 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -38,15 +36,12 @@ import com.example.e_farmer.fragments.MyAnimalTreatment;
 import com.example.e_farmer.fragments.MyAnimals;
 import com.example.e_farmer.fragments.MyDashboard;
 import com.example.e_farmer.fragments.MyFarmMachinery;
-import com.example.e_farmer.fragments.MyFarmManagement;
 import com.example.e_farmer.fragments.MyFarmTasks;
 import com.example.e_farmer.fragments.MyLandAndCropMngt;
-import com.example.e_farmer.fragments.MyWorkersTimesheet;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.e_farmer.fragments.FinanceManagement;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
-import io.objectbox.query.Query;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IMainActivity {
@@ -153,14 +148,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.farm_tasks) {
             doFragmentTransaction(new MyFarmTasks(), getString(R.string.farm_tasks), false);
 
-        } else if (id == R.id.farm_management) {
-            doFragmentTransaction(new MyFarmManagement(), getString(R.string.farm_management), false);
-
         } else if (id == R.id.farm_machinery) {
             doFragmentTransaction(new MyFarmMachinery(), getString(R.string.farm_machinery), false);
 
-        } else if (id == R.id.workers_timesheet) {
-            doFragmentTransaction(new MyWorkersTimesheet(), getString(R.string.workers_time_sheet), false);
+        } else if (id == R.id.finance_management) {
+            doFragmentTransaction(new FinanceManagement(), getString(R.string.finance_management), false);
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this.getApplicationContext(), ProfileActivity.class);
@@ -229,11 +221,9 @@ public class MainActivity extends AppCompatActivity
             doFragmentTransaction(new MyAnimalTreatment(), fragmentTag, false);
         } else if (fragmentTag.equals(getString(R.string.crop_management))) {
             doFragmentTransaction(new MyLandAndCropMngt(), fragmentTag, false);
-        } else if (fragmentTag.equals(getString(R.string.workers_time_sheet))) {
-            doFragmentTransaction(new MyWorkersTimesheet(), fragmentTag, false);
-        } else if (fragmentTag.equals(getString(R.string.farm_management))) {
-            doFragmentTransaction(new MyFarmManagement(), fragmentTag, false);
-        } else if (fragmentTag.equals(getString(R.string.farm_machinery))) {
+        } else if (fragmentTag.equals(getString(R.string.finance_management))) {
+            doFragmentTransaction(new FinanceManagement(), fragmentTag, false);
+        }  else if (fragmentTag.equals(getString(R.string.farm_machinery))) {
             doFragmentTransaction(new MyFarmMachinery(), fragmentTag, false);
         }
 

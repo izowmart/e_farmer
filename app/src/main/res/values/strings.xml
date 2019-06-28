@@ -18,9 +18,8 @@
     <string name="animal_treatment">Animal Treatment</string>
     <string name="crop_management">Land and Crop Management</string>
     <string name="farm_tasks">My Farm Tasks</string>
-    <string name="farm_management">My Farm Management</string>
     <string name="farm_machinery">My Farm Machinery</string>
-    <string name="workers_time_sheet">Workers Timesheet</string>
+    <string name="finance_management">Finance Management</string>
     <!--facebook_strings-->
     <string name="facebook_app_id">457352881491681</string>
     <string name="fb_login_protocol_scheme">fb457352881491681</string>

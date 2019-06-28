@@ -227,7 +227,7 @@
             android:weightSum="2">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/workers_timesheet"
+                android:id="@+id/farm_machinery"
                 android:layout_width="130dp"
                 android:layout_height="120dp"
                 android:layout_weight="1"
@@ -243,19 +243,19 @@
                     android:paddingLeft="3dp">
 
                     <TextView
-                        android:id="@+id/workers_text"
+                        android:id="@+id/machine_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Workers Timesheet"
+                        android:text="Farm Machinery"
                         android:textColor="@android:color/black"
                         android:textSize="17dp" />
 
                     <View
-                        android:id="@+id/workers_view"
+                        android:id="@+id/machine_view"
                         android:layout_width="110dp"
                         android:layout_height="2dp"
-                        android:layout_below="@+id/workers_text"
+                        android:layout_below="@+id/machine_text"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:background="@color/colorAccent" />
@@ -263,10 +263,10 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_below="@+id/workers_view"
+                        android:layout_below="@+id/machine_view"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
-                        android:src="@drawable/workers_fab" />
+                        android:src="@drawable/farm_machinery_fab" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -275,7 +275,7 @@
                 android:layout_height="match_parent" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/farm_mngt"
+                android:id="@+id/finance_management"
                 android:layout_width="130dp"
                 android:layout_height="120dp"
                 android:layout_weight="1"
@@ -291,19 +291,19 @@
                     android:paddingLeft="3dp">
 
                     <TextView
-                        android:id="@+id/farm_mngt_text"
+                        android:id="@+id/finance_management_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="My Farm Mngt"
+                        android:text="My Finance"
                         android:textColor="@android:color/black"
                         android:textSize="18dp" />
 
                     <View
-                        android:id="@+id/farm_mngt_view"
+                        android:id="@+id/finance_management_view"
                         android:layout_width="110dp"
                         android:layout_height="2dp"
-                        android:layout_below="@+id/farm_mngt_text"
+                        android:layout_below="@+id/finance_management_text"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="5dp"
                         android:background="@color/colorAccent" />
@@ -311,7 +311,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:layout_below="@+id/farm_mngt_view"
+                        android:layout_below="@+id/finance_management_view"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
                         android:src="@drawable/farm_mngt_fab" />
@@ -323,8 +323,14 @@
             android:layout_width="match_parent"
             android:layout_height="5dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finance Income and Expenses"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"/>
         <androidx.cardview.widget.CardView
-            android:id="@+id/farm_machinery"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_margin="6dp"
@@ -339,31 +345,24 @@
                 android:paddingBottom="3dp"
                 android:paddingLeft="3dp">
 
-                <TextView
-                    android:id="@+id/machinery_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="My Farm Machinery"
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp" />
+                <!--<TextView-->
+                    <!--android:id="@+id/machinery_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:text="My Farm Machinery"-->
+                    <!--android:textColor="@android:color/black"-->
+                    <!--android:textSize="18dp" />-->
 
-                <View
-                    android:id="@+id/machinery_view"
-                    android:layout_width="270dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/machinery_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorAccent" />
+                <!--<View-->
+                    <!--android:id="@+id/machinery_view"-->
+                    <!--android:layout_width="270dp"-->
+                    <!--android:layout_height="2dp"-->
+                    <!--android:layout_below="@+id/machinery_text"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:background="@color/colorAccent" />-->
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/machinery_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/farm_machinery_fab" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
