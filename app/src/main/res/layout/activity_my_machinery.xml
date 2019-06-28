@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    tools:context=".MyMachinery">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_machinery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <ScrollView
+        android:id="@+id/add_machinery_name"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textview_machinery_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Machinery Name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/machinery_name"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_machinery_name"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Name i.e Beast"/>
+            <TextView
+                android:id="@+id/textview_machinery_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/machinery_name"
+                android:text="Machine Type"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/machinery_type"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_machinery_type"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="i.e Lorry"/>
+            <TextView
+                android:id="@+id/textview_reg_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/machinery_type"
+                android:text="Year of Registration"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/registration_year"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_reg_year"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="i.e 2011"/>
+
+            <TextView
+                android:id="@+id/textview_date_of_purchase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/registration_year"
+                android:text="Date of Purchase"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/date_of_purchase"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_date_of_purchase"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="ie. 24/04/2017"/>
+            <TextView
+                android:id="@+id/textview_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/date_of_purchase"
+                android:text="Original Price"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_price"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="ie. KSH 2,000,000"/>
+            <TextView
+                android:id="@+id/textview_current_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/price"
+                android:text="Current Price"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/current_price"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_current_price"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="ie. KSH 1,400,000"/>
+            <TextView
+                android:id="@+id/textview_miles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/current_price"
+                android:text="Original Kilometers/hours"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/miles_per_hour"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/textview_miles"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="ie. 10,000 Km/Hrs"/>
+            <TextView
+                android:id="@+id/textview_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/miles_per_hour"
+                android:text="Press on the camera icon to take a picture"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/machine_image"
+                android:layout_width="170dp"
+                android:layout_height="150dp"
+                android:layout_below="@+id/textview_picture"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/ic_menu_camera" />
+
+            <TextView
+                android:id="@+id/textview_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Description"
+                android:layout_below="@+id/machine_image"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/machine_notes"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:inputType="textMultiLine"
+                android:layout_below="@+id/textview_notes"
+                android:background="@drawable/rectangle_strock_layout"
+                android:hint="Enter some notes here"/>
+
+            <Button
+                android:id="@+id/save_machinery_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:text="Save Machinery"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_below="@+id/machine_notes"
+                android:drawableStart="@drawable/ic_add_black_24dp"/>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

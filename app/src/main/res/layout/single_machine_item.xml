@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <data>
+        <variable
+            name="machine"
+            type="com.example.e_farmer.models.Machine" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/machine_cardview"
+        android:layout_width="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_height="230dp"
+        app:cardCornerRadius="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/machine_image"
+                android:layout_width="160dp"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/sungura"
+                app:machineImage="@{machine.machineImage}"/>
+
+            <TextView
+                android:id="@+id/textview_machine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Name        :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toEndOf="@+id/machine_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/more_vert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_more_vert_black_24dp" />
+
+            <TextView
+                android:id="@+id/machine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{machine.name}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_machine_name"
+                app:layout_constraintStart_toEndOf="@+id/textview_machine_name"
+                app:layout_constraintTop_toTopOf="@+id/textview_machine_name"
+                tools:text="Beast" />
+
+            <TextView
+                android:id="@+id/textview_machine_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Type          :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toEndOf="@+id/machine_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_machine_name" />
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{machine.type}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_machine_type"
+                app:layout_constraintStart_toEndOf="@+id/textview_machine_type"
+                app:layout_constraintTop_toTopOf="@+id/textview_machine_type"
+                tools:text="Lorry" />
+
+            <TextView
+                android:id="@+id/textview_machine_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Y.O.R         :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toEndOf="@+id/machine_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_machine_type" />
+
+            <TextView
+                android:id="@+id/registration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{machine.registration_year}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_machine_reg"
+                app:layout_constraintStart_toEndOf="@+id/textview_machine_reg"
+                app:layout_constraintTop_toTopOf="@+id/textview_machine_reg"
+                tools:text="2011" />
+
+            <TextView
+                android:id="@+id/textview_purchase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="D.O.P         :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toEndOf="@+id/machine_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_machine_reg" />
+
+            <TextView
+                android:id="@+id/purchase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{machine.purchase_date}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_purchase"
+                app:layout_constraintStart_toEndOf="@+id/textview_purchase"
+                app:layout_constraintTop_toTopOf="@+id/textview_purchase"
+                tools:text="24/05/2017" />
+
+            <TextView
+                android:id="@+id/textview_milemileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Mileage     :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toEndOf="@+id/machine_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_purchase" />
+
+            <TextView
+                android:id="@+id/mileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@{machine.milage}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_milemileage"
+                app:layout_constraintStart_toEndOf="@+id/textview_milemileage"
+                app:layout_constraintTop_toTopOf="@+id/textview_milemileage"
+                tools:text="10,000" />
+            <TextView
+                android:id="@+id/textview_orig_price"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Orig.Price  :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintStart_toEndOf="@+id/machine_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_milemileage" />
+
+            <TextView
+                android:id="@+id/orig_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{machine.original_price}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_orig_price"
+                app:layout_constraintStart_toEndOf="@+id/textview_orig_price"
+                app:layout_constraintTop_toTopOf="@+id/textview_orig_price"
+                tools:text="1,500,000" />
+            <TextView
+                android:id="@+id/current_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="Curr.Price  :"
+                android:textColor="@android:color/black"
+                android:textSize="19sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/machine_image"
+                app:layout_constraintTop_toBottomOf="@+id/textview_orig_price" />
+
+            <TextView
+                android:id="@+id/curr_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{machine.current_price}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/current_price"
+                app:layout_constraintStart_toEndOf="@+id/current_price"
+                app:layout_constraintTop_toTopOf="@+id/current_price"
+                tools:text="1,000,000" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

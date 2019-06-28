@@ -53,7 +53,7 @@ public class Animals extends BaseObservable {
     public static void loadImage(ImageView view, String imageUrl) {
 
         RequestOptions options = new RequestOptions()
-                .placeholder(R.drawable.trac)
+                .placeholder(R.drawable.placeholder)
                 .error(R.drawable.ic_launcher_background);
 
         Glide.with(view.getContext())

@@ -1,20 +1,38 @@
 package com.example.e_farmer.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.e_farmer.IMainActivity;
+import com.example.e_farmer.MyMachinery;
 import com.example.e_farmer.R;
+import com.example.e_farmer.adapters.MachineAdapter;
+import com.example.e_farmer.models.Machine;
+import com.example.e_farmer.viewmodels.MachineViewmodel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class MyFarmMachinery extends Fragment {
+    private FloatingActionButton fab;
+    private MachineViewmodel machineViewmodel;
+    private MachineAdapter machineAdapter;
+    private RecyclerView mRecyclerView;
 
     IMainActivity iMainActivity;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -30,9 +48,37 @@ public class MyFarmMachinery extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.my_farm_machinery,container,false);
+        View view = inflater.inflate(R.layout.my_farm_machinery, container, false);
+        mRecyclerView = view.findViewById(R.id.machine_recyclerview);
+        fab = view.findViewById(R.id.fab_machine);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyMachinery.class);
+                startActivity(intent);
+            }
+        });
+
+        initRecyclerView();
+        //        instantiate the viewmodel class here
+        machineViewmodel = ViewModelProviders.of(this).get(MachineViewmodel.class);
+        machineViewmodel.init();
+
+        machineViewmodel.getMachine().observe(this, new Observer<List<Machine>>() {
+            @Override
+            public void onChanged(List<Machine> machines) {
+                machineAdapter.setUpdatedData(machines);
+                machineAdapter.notifyDataSetChanged();
+            }
+        });
+
+        return view;
     }
 
-
-
+    private void initRecyclerView() {
+        machineAdapter = new MachineAdapter(getContext());
+        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.setAdapter(machineAdapter);
+    }
 }

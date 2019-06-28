@@ -1,366 +1,372 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#FAFAFA"
-    android:orientation="vertical"
-    android:paddingStart="14dp"
-    android:paddingTop="14dp"
-    android:paddingEnd="14dp"
-    android:paddingBottom="14dp">
-
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:background="#FAFAFA"
+        android:orientation="vertical"
+        android:paddingStart="14dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="14dp"
+        android:paddingBottom="14dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/animals"
-            android:layout_width="130dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingRight="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp">
-
-                <TextView
-                    android:id="@+id/animal_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="My Animals"
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp" />
-
-                <View
-                    android:id="@+id/animal_view"
-                    android:layout_width="110dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/animal_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorAccent" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/animal_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/animal_fab" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-        <Space
-            android:layout_width="12dp"
-            android:layout_height="match_parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/farm_tasks"
-            android:layout_width="130dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingRight="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp">
-
-                <TextView
-                    android:id="@+id/farm_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Fram Tasks"
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp" />
-
-                <View
-                    android:id="@+id/farm_view"
-                    android:layout_width="110dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/farm_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorAccent" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/farm_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/farm_tasks_fab"/>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/animal_treatment"
-            android:layout_width="130dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingRight="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp">
-
-                <TextView
-                    android:id="@+id/animal_treatment_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Animal Treatment"
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp" />
-
-                <View
-                    android:id="@+id/animal_treatment_view"
-                    android:layout_width="110dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/animal_treatment_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorAccent" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/animal_treatment_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/animal_treatment_fab" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <Space
-            android:layout_width="12dp"
-            android:layout_height="match_parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/land_crop_mngt"
-            android:layout_width="130dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingRight="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp">
-
-                <TextView
-                    android:id="@+id/land_mngt_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Land $ Crop Mngt"
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp" />
-
-                <View
-                    android:id="@+id/land_mngt_view"
-                    android:layout_width="110dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/land_mngt_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorAccent" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/land_mngt_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/land_crop_fab" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="10dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/workers_timesheet"
-            android:layout_width="130dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingRight="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp">
-
-                <TextView
-                    android:id="@+id/workers_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="Workers Timesheet"
-                    android:textColor="@android:color/black"
-                    android:textSize="17dp" />
-
-                <View
-                    android:id="@+id/workers_view"
-                    android:layout_width="110dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/workers_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorAccent" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/workers_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/workers_fab" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <Space
-            android:layout_width="12dp"
-            android:layout_height="match_parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/farm_mngt"
-            android:layout_width="130dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingRight="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp">
-
-                <TextView
-                    android:id="@+id/farm_mngt_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="My Farm Mngt"
-                    android:textColor="@android:color/black"
-                    android:textSize="18dp" />
-
-                <View
-                    android:id="@+id/farm_mngt_view"
-                    android:layout_width="110dp"
-                    android:layout_height="2dp"
-                    android:layout_below="@+id/farm_mngt_text"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/colorAccent" />
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/farm_mngt_view"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/farm_mngt_fab" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/farm_machinery"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_margin="6dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp">
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:paddingRight="3dp"
-            android:paddingBottom="3dp"
-            android:paddingLeft="3dp">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <TextView
-                android:id="@+id/machinery_text"
-                android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/animals"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp">
+
+                    <TextView
+                        android:id="@+id/animal_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="My Animals"
+                        android:textColor="@android:color/black"
+                        android:textSize="18dp" />
+
+                    <View
+                        android:id="@+id/animal_view"
+                        android:layout_width="110dp"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/animal_text"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorAccent" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/animal_view"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/animal_fab" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="match_parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/farm_tasks"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp">
+
+                    <TextView
+                        android:id="@+id/farm_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Fram Tasks"
+                        android:textColor="@android:color/black"
+                        android:textSize="18dp" />
+
+                    <View
+                        android:id="@+id/farm_view"
+                        android:layout_width="110dp"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/farm_text"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorAccent" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/farm_view"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/farm_tasks_fab"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/animal_treatment"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp">
+
+                    <TextView
+                        android:id="@+id/animal_treatment_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Animal Treatment"
+                        android:textColor="@android:color/black"
+                        android:textSize="18dp" />
+
+                    <View
+                        android:id="@+id/animal_treatment_view"
+                        android:layout_width="110dp"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/animal_treatment_text"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorAccent" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/animal_treatment_view"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/animal_treatment_fab" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="match_parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/land_crop_mngt"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp">
+
+                    <TextView
+                        android:id="@+id/land_mngt_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Land $ Crop Mngt"
+                        android:textColor="@android:color/black"
+                        android:textSize="18dp" />
+
+                    <View
+                        android:id="@+id/land_mngt_view"
+                        android:layout_width="110dp"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/land_mngt_text"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorAccent" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/land_mngt_view"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/land_crop_fab" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/workers_timesheet"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp">
+
+                    <TextView
+                        android:id="@+id/workers_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Workers Timesheet"
+                        android:textColor="@android:color/black"
+                        android:textSize="17dp" />
+
+                    <View
+                        android:id="@+id/workers_view"
+                        android:layout_width="110dp"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/workers_text"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorAccent" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/workers_view"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/workers_fab" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="match_parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/farm_mngt"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingRight="3dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp">
+
+                    <TextView
+                        android:id="@+id/farm_mngt_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="My Farm Mngt"
+                        android:textColor="@android:color/black"
+                        android:textSize="18dp" />
+
+                    <View
+                        android:id="@+id/farm_mngt_view"
+                        android:layout_width="110dp"
+                        android:layout_height="2dp"
+                        android:layout_below="@+id/farm_mngt_text"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorAccent" />
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/farm_mngt_view"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/farm_mngt_fab" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/farm_machinery"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_margin="6dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="2dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="My Farm Machinery"
-                android:textColor="@android:color/black"
-                android:textSize="18dp" />
+                android:paddingTop="15dp"
+                android:paddingRight="3dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="3dp">
 
-            <View
-                android:id="@+id/machinery_view"
-                android:layout_width="270dp"
-                android:layout_height="2dp"
-                android:layout_below="@+id/machinery_text"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:background="@color/colorAccent" />
+                <TextView
+                    android:id="@+id/machinery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="My Farm Machinery"
+                    android:textColor="@android:color/black"
+                    android:textSize="18dp" />
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_below="@+id/machinery_view"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/farm_machinery_fab" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <View
+                    android:id="@+id/machinery_view"
+                    android:layout_width="270dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@+id/machinery_text"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorAccent" />
 
-</LinearLayout>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/machinery_view"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/farm_machinery_fab" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
