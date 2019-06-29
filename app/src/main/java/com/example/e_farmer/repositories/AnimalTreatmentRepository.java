@@ -21,7 +21,6 @@ public class AnimalTreatmentRepository {
     private static final String TAG = "AnimalTreatmentReposito";
 
     private static AnimalTreatmentRepository instance;
-    private ArrayList<AnimalTreatment> animalTreatmentArrayList = new ArrayList<>();
     private List<AnimalTreatment> animalTreatmentList;
     private Box<AnimalTreatment> animalTreatmentBox;
     private BoxStore farmerApp;
@@ -37,7 +36,7 @@ public class AnimalTreatmentRepository {
     public MutableLiveData<List<AnimalTreatment>> getAnimalTreatment() {
         setAnimalTreatment();
         MutableLiveData<List<AnimalTreatment>> data = new MutableLiveData<>();
-        data.setValue(animalTreatmentArrayList);
+        data.setValue(animalTreatmentList);
         return data;
     }
 
@@ -51,7 +50,5 @@ public class AnimalTreatmentRepository {
 
         Log.d(TAG, "setAnimals: " + Animals_.userId);
 
-        animalTreatmentArrayList.addAll(animalTreatmentList);
-        Log.d(TAG, "setAnimalsTreatment: animalTreatment list was set here " + animalTreatmentArrayList);
     }
 }

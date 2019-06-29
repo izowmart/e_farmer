@@ -43,6 +43,7 @@ public class MyFarmTasks extends Fragment {
         super.onCreate(savedInstanceState);
         iMainActivity.setToolbarTitle(getTag());
 
+
     }
 
     @Nullable
@@ -68,7 +69,6 @@ public class MyFarmTasks extends Fragment {
             @Override
             public void onChanged(List<FarmTask> farmTasks) {
                 farmTaskAdapter.setUpdatedData(farmTasks);
-                farmTaskAdapter.notifyDataSetChanged();
             }
         });
 

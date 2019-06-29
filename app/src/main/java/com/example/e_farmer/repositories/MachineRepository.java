@@ -18,7 +18,6 @@ import io.objectbox.BoxStore;
 public class MachineRepository {
     private static final String TAG = "MachineRepository";
     private static MachineRepository instance;
-    private ArrayList<Machine> machineArrayList = new ArrayList<>();
     private List<Machine> machineList;
     private Box<Machine> machineBox;
     private BoxStore farmerApp;
@@ -34,7 +33,7 @@ public class MachineRepository {
     public MutableLiveData<List<Machine>> getMachine() {
         setMachine();
         MutableLiveData<List<Machine>> data = new MutableLiveData<>();
-        data.setValue(machineArrayList);
+        data.setValue(machineList);
         return data;
     }
 
@@ -48,7 +47,5 @@ public class MachineRepository {
 
         Log.d(TAG, "setMachine: " + Machine_.userId);
 
-        machineArrayList.addAll(machineList);
-        Log.d(TAG, "setMachine: animal list was set here " + machineArrayList);
     }
 }

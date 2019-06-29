@@ -10,7 +10,7 @@ import io.objectbox.relation.ToOne;
 
 @Entity
 public class AnimalTreatment extends BaseObservable {
-    @Id(assignable = true)
+    @Id
     private long id;
     public ToOne<User> user;
 

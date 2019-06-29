@@ -19,7 +19,6 @@ public class FinanceRepository {
     private static final String TAG = "FinanceRepository";
 
     private static FinanceRepository instance;
-    private ArrayList<Finance> financeArrayList = new ArrayList<>();
     private List<Finance> financeList;
     private Box<Finance> financeBox;
     private BoxStore farmerApp;
@@ -35,7 +34,7 @@ public class FinanceRepository {
     public MutableLiveData<List<Finance>> getFinance() {
         setFinance();
         MutableLiveData<List<Finance>> data = new MutableLiveData<>();
-        data.setValue(financeArrayList);
+        data.setValue(financeList);
         return data;
     }
 
@@ -47,9 +46,7 @@ public class FinanceRepository {
         financeBox = farmerApp.boxFor(Finance.class);
         financeList = financeBox.query().build().find();
 
-        Log.d(TAG, "setFinance: " + Finance_.userId);
+        Log.d(TAG, "setFinance: " + Finance_.user.relationId);
 
-        financeArrayList.addAll(financeList);
-        Log.d(TAG, "setFinance: finance list was set here " + financeArrayList);
     }
 }

@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_farmer.R;
 import com.example.e_farmer.databinding.SingleFarmTaskItemBinding;
 import com.example.e_farmer.models.FarmTask;
+import com.example.e_farmer.utils.FarmTaskDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +23,18 @@ public class FarmTaskAdapter  extends RecyclerView.Adapter<FarmTaskAdapter.FarmT
     private FarmTask farmTask;
     private Context context;
     private List<FarmTask> farmTaskList =  new ArrayList<>();
+    private FarmTaskDiffUtil farmTaskDiffUtil;
 
     public FarmTaskAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setUpdatedData(List<FarmTask> farmTasks) {
+        farmTaskDiffUtil = new FarmTaskDiffUtil(farmTaskList, farmTasks);
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(farmTaskDiffUtil);
+
+        farmTaskList.addAll(farmTasks);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull
@@ -44,10 +55,6 @@ public class FarmTaskAdapter  extends RecyclerView.Adapter<FarmTaskAdapter.FarmT
         return farmTaskList.size();
     }
 
-    public void setUpdatedData(List<FarmTask> farmTasks) {
-        this.farmTaskList = farmTasks;
-        notifyDataSetChanged();
-    }
 
     public class FarmTaskViewHolder extends RecyclerView.ViewHolder{
         SingleFarmTaskItemBinding binding;

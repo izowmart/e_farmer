@@ -20,7 +20,6 @@ public class FarmTasksRepository {
     private static final String TAG = "FarmTasksRepository";
 
     private static FarmTasksRepository instance;
-    private ArrayList<FarmTask> farmTaskArrayList = new ArrayList<>();
     private List<FarmTask> farmTasks;
     private Box<FarmTask> farmTaskBox;
     private BoxStore farmerApp;
@@ -37,7 +36,7 @@ public class FarmTasksRepository {
     public MutableLiveData<List<FarmTask>> getFarmTask() {
         setFarmTask();
         MutableLiveData<List<FarmTask>> data = new MutableLiveData<>();
-        data.setValue(farmTaskArrayList);
+        data.setValue(farmTasks);
         return data;
     }
 
@@ -51,7 +50,5 @@ public class FarmTasksRepository {
 
         Log.d(TAG, "setFarmTasks: " + FarmTask_.userId);
 
-        farmTaskArrayList.addAll(farmTasks);
-        Log.d(TAG, "setFarmTasks: farmTaskList was set here " + farmTaskArrayList);
     }
 }

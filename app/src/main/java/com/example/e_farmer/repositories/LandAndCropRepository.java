@@ -19,7 +19,6 @@ public class LandAndCropRepository {
     private static final String TAG = "LandAndCropRepository";
 
     private static LandAndCropRepository instance;
-    private ArrayList<LandAndCrop> animalsArrayList = new ArrayList<>();
     private List<LandAndCrop> landCropList;
     private Box<LandAndCrop> landAndCropBox;
     private BoxStore farmerApp;
@@ -35,7 +34,7 @@ public class LandAndCropRepository {
     public MutableLiveData<List<LandAndCrop>> getLandAndCrop() {
         setLandAndCrop();
         MutableLiveData<List<LandAndCrop>> data = new MutableLiveData<>();
-        data.setValue(animalsArrayList);
+        data.setValue(landCropList);
         return data;
     }
 
@@ -49,7 +48,5 @@ public class LandAndCropRepository {
 
         Log.d(TAG, "setLandAndCrop: " + LandAndCrop_.userId);
 
-        animalsArrayList.addAll(landCropList);
-        Log.d(TAG, "setLandAndCrop: animal list was set here " + animalsArrayList);
     }
 }
