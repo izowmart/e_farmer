@@ -3,14 +3,18 @@ package com.example.e_farmer;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
+import android.util.Log;
 import android.view.MenuItem;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.e_farmer.models.User;
 import com.example.e_farmer.models.User_;
 import com.facebook.AccessToken;
@@ -30,6 +34,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_farmer.fragments.MyAnimalTreatment;
@@ -45,6 +51,7 @@ import io.objectbox.BoxStore;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IMainActivity {
+    private static final String TAG = "MainActivity";
 
     private Toolbar toolbar;
     private GoogleSignInClient mGoogleSignInClient;
@@ -53,16 +60,21 @@ public class MainActivity extends AppCompatActivity
     private BoxStore farmerApp;
     private User user;
 
+    private TextView mUsername,mEmail;
+    private de.hdodenhof.circleimageview.CircleImageView navProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        user = new User();
 //        objectBox initialization
         long user_id = Settings.getUserId();
         farmerApp = FarmerApp.getBoxStore();
         userBox = farmerApp.boxFor(User.class);
         user = userBox.query().equal(User_.id,user_id).build().findFirst();
+        Log.d(TAG, "onCreate: " + User_.id);
 
         // check for authentication. if not signed in,send to login activity
         if (!Settings.isLoggedIn()) {
@@ -72,6 +84,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
+        Log.d(TAG, "onCreate: "+ mEmail+ mUsername + navProfile);
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -89,6 +102,25 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+//        very important when referencing ids
+        View headerView = navigationView.getHeaderView(0);
+
+        mUsername = headerView.findViewById(R.id.nav_bar_username);
+        mEmail = headerView.findViewById(R.id.nav_bar_email);
+        navProfile = headerView.findViewById(R.id.nav_bar_profile);
+
+        mUsername.setText(user.getName());
+        mEmail.setText(user.getEmail());
+
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.avatar);
+
+        Glide.with(getApplicationContext())
+                .applyDefaultRequestOptions(options)
+                .load(user.getImageUrl())
+                .into(navProfile);
+
 
         init();
 

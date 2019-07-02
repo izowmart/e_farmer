@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,link");
+                parameters.putString("fields", "id,name,email,link");
                 graphRequest.setParameters(parameters);
                 graphRequest.executeAsync();
             }
@@ -141,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
             assert account != null;
 
             String name = account.getDisplayName();
+            String email = account.getEmail();
             String imageUrl = String.valueOf(account.getPhotoUrl());
 
             /*
@@ -150,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
              */
             User user = new User();
             user.setName(name);
+            user.setEmail(email);
             user.setImageUrl(imageUrl);
             userBox.put(user);
 
@@ -178,6 +180,7 @@ public class LoginActivity extends AppCompatActivity {
     private void displayUserInfo(JSONObject object) {
         try {
             String name = object.getString("name");
+            String email = object.getString("email");
             String image_url = "http://graph.facebook.com/" + userId + "/picture?type=large";
 
             /*
@@ -187,10 +190,11 @@ public class LoginActivity extends AppCompatActivity {
              */
             User user = new User();
             user.setName(name);
+            user.setEmail(email);
             user.setImageUrl(image_url);
             userBox.put(user);
 
-            Log.d(TAG, "displayUserInfo: user count" + userBox.count());
+            Log.d(TAG, "displayUserInfo: user count :" + userBox.count());
 
             Settings.setUserId(user.getId());
             Settings.setLoggedInSharedPref(true);

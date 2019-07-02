@@ -15,9 +15,14 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.e_farmer.R;
+import com.example.e_farmer.models.User;
+import com.example.e_farmer.models.User_;
 import com.google.android.gms.common.ConnectionResult;
 //make sure you remove the current location listener and replace with this
 import com.google.android.gms.location.LocationListener;
@@ -35,7 +40,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class ProfileActivity extends FragmentActivity implements OnMapReadyCallback,
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
+
+public class ProfileActivity extends AppCompatActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -48,20 +56,49 @@ public class ProfileActivity extends FragmentActivity implements OnMapReadyCallb
     private Marker currentUserLocation;
     public static final int REQUEST_USER_LOCATION_CODE = 95;
 
+    private Box<User> userBox;
+    private BoxStore farmerApp;
+    private User user;
+
+    private TextView mUsername,mEmail;
+    private de.hdodenhof.circleimageview.CircleImageView profile_photo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        //        objectBox initialization
+        long user_id = Settings.getUserId();
+        farmerApp = FarmerApp.getBoxStore();
+        userBox = farmerApp.boxFor(User.class);
+        user = userBox.query().equal(User_.id,user_id).build().findFirst();
+
+
         //        this convention should follow to have a successful toolbar set with the correct set title.
         profile_toolbar = findViewById(R.id.toolbar_profile);
         profile_toolbar.setTitle("Profile");
 
-//        setSupportActionBar(profile_toolbar);
-//
-//        if (getSupportActionBar()!= null){
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        }
+        setSupportActionBar(profile_toolbar);
+
+        if (getSupportActionBar()!= null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        mUsername = findViewById(R.id.profile_name);
+        mEmail = findViewById(R.id.profile_email);
+        profile_photo = findViewById(R.id.profile_photo);
+
+        mUsername.setText(user.getName());
+        mEmail.setText(user.getEmail());
+
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.drawable.avatar);
+
+        Glide.with(getApplicationContext())
+                .applyDefaultRequestOptions(options)
+                .load(user.getImageUrl())
+                .into(profile_photo);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkUserLocationPermission();
