@@ -9,7 +9,6 @@ import com.example.e_farmer.Settings;
 import com.example.e_farmer.models.Finance;
 import com.example.e_farmer.models.Finance_;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.objectbox.Box;
@@ -49,4 +48,42 @@ public class FinanceRepository {
         Log.d(TAG, "setFinance: " + Finance_.user.relationId);
 
     }
+
+//    public MutableLiveData<Object> getRevenue(){
+//        farmerApp = FarmerApp.getBoxStore();
+//        financeBox = farmerApp.boxFor(Finance.class);
+//        Finance revenue = financeBox.query().build().findFirst();
+//
+//        MutableLiveData<Object> revenue_data = new MutableLiveData<>();
+//        revenue_data.setValue(revenue != null ? revenue.getTotal_revenue() : 0);
+//
+//        Log.d(TAG, "getRevenue: " + (revenue != null ? revenue.getTotal_revenue() : 0));
+//
+//        return (MutableLiveData<Object>) (revenue != null ? revenue.getTotal_revenue() : 0);
+//
+//    }
+//
+//    public MutableLiveData<Object>  getExpenditure(){
+//        farmerApp = FarmerApp.getBoxStore();
+//        financeBox = farmerApp.boxFor(Finance.class);
+//        Finance expenditure = financeBox.query().build().findFirst();
+//
+//        MutableLiveData<Object> expenditure_data = new MutableLiveData<>();
+//        expenditure_data.setValue(expenditure != null ? expenditure.getTotal_expenditure() : 0);
+//        Log.d(TAG, "getExpenditure: " + (expenditure != null ? expenditure.getTotal_expenditure() : 0));
+//        return (MutableLiveData<Object>)(expenditure != null ? expenditure.getTotal_expenditure() : 0);
+//    }
+//
+//    public MutableLiveData<Object>  getProfit(){
+//        farmerApp = FarmerApp.getBoxStore();
+//        financeBox = farmerApp.boxFor(Finance.class);
+//        Finance profit = financeBox.query().build().findFirst();
+//
+//        MutableLiveData<Object> expenditure_data = new MutableLiveData<>();
+//        expenditure_data.setValue(profit != null ? profit.getProfit() : 0);
+//        Log.d(TAG, "getProfit: " + (profit != null ? profit.getProfit() : 0));
+//        return profit != null ? profit.getProfit() : 0;
+//    }
+
+
 }

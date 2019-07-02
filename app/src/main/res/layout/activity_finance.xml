@@ -157,6 +157,7 @@
                         android:id="@+id/amount"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:inputType="number"
                         android:hint="Amount i.e 500"
                         android:background="@drawable/rectangle_strock_layout"
                         android:layout_marginTop="5dp"/>
@@ -179,6 +180,7 @@
                         android:id="@+id/quantity"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
+                        android:inputType="number"
                         android:hint="quantity i.e 10 "
                         android:background="@drawable/rectangle_strock_layout"
                         android:layout_marginTop="5dp"/>

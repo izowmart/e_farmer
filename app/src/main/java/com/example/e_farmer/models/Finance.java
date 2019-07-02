@@ -16,11 +16,14 @@ public class Finance extends BaseObservable {
     private String name;
     private String category;
     private String transaction_date;
-    private String item_amount;
+    private String total_amount;
     private String quantity;
     private String payment_type;
     private String notes;
     private String finance_type;
+    private int profit;
+    private int total_revenue;
+    private int total_expenditure;
 
     public Finance() {
     }
@@ -53,6 +56,15 @@ public class Finance extends BaseObservable {
     }
 
     @Bindable
+    public Integer getProfit() {
+        return profit;
+    }
+
+    public void setProfit(Integer profit) {
+        this.profit = profit;
+    }
+
+    @Bindable
     public String getName() {
         return name;
     }
@@ -79,13 +91,32 @@ public class Finance extends BaseObservable {
         this.transaction_date = transaction_date;
     }
 
+
     @Bindable
-    public String getItem_amount() {
-        return item_amount;
+    public String getTotal_amount() {
+        return total_amount;
     }
 
-    public void setItem_amount(String item_amount) {
-        this.item_amount = item_amount;
+    public void setTotal_amount(String total_amount) {
+        this.total_amount = total_amount;
+    }
+
+    @Bindable
+    public int getTotal_revenue() {
+        return total_revenue;
+    }
+
+    public void setTotal_revenue(int total_revenue) {
+        this.total_revenue = total_revenue;
+    }
+
+    @Bindable
+    public int getTotal_expenditure() {
+        return total_expenditure;
+    }
+
+    public void setTotal_expenditure(int total_expenditure) {
+        this.total_expenditure = total_expenditure;
     }
 
     @Bindable

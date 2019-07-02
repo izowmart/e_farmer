@@ -59,6 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="5dp"
+                android:inputType="number"
                 android:layout_below="@+id/textview_tag"
                 android:background="@drawable/rectangle_strock_layout"
                 android:hint="i.e 0021"/>

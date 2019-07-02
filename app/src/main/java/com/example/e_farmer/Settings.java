@@ -72,3 +72,5 @@ public class Settings {
         return settings.getBoolean(IS_FACEBOOK, true);
     }
 }
+
+

@@ -23,5 +23,6 @@
     <!--facebook_strings-->
     <string name="facebook_app_id">457352881491681</string>
     <string name="fb_login_protocol_scheme">fb457352881491681</string>
+    <string name="title_activity_profile">Map</string>
 
 </resources>

@@ -77,6 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="5dp"
+                android:inputType="number"
                 android:layout_below="@+id/textview_reg_year"
                 android:background="@drawable/rectangle_strock_layout"
                 android:hint="i.e 2011"/>
@@ -132,6 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="5dp"
+                android:inputType="number"
                 android:layout_below="@+id/textview_current_price"
                 android:background="@drawable/rectangle_strock_layout"
                 android:hint="ie. KSH 1,400,000"/>
@@ -150,6 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginTop="5dp"
+                android:inputType="number"
                 android:layout_below="@+id/textview_miles"
                 android:background="@drawable/rectangle_strock_layout"
                 android:hint="ie. 10,000 Km/Hrs"/>

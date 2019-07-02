@@ -26,7 +26,6 @@
                 android:layout_width="130dp"
                 android:layout_height="120dp"
                 android:layout_weight="1"
-                app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
 
                 <RelativeLayout
@@ -337,33 +336,118 @@
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="3dp"
                 android:paddingTop="15dp"
                 android:paddingRight="3dp"
-                android:paddingBottom="3dp"
-                android:paddingLeft="3dp">
+                android:paddingBottom="3dp">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/machinery_text"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerHorizontal="true"-->
-                    <!--android:text="My Farm Machinery"-->
-                    <!--android:textColor="@android:color/black"-->
-                    <!--android:textSize="18dp" />-->
+                <TextView
+                    android:id="@+id/textview_revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-                <!--<View-->
-                    <!--android:id="@+id/machinery_view"-->
-                    <!--android:layout_width="270dp"-->
-                    <!--android:layout_height="2dp"-->
-                    <!--android:layout_below="@+id/machinery_text"-->
-                    <!--android:layout_centerHorizontal="true"-->
-                    <!--android:layout_marginTop="5dp"-->
-                    <!--android:background="@color/colorAccent" />-->
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Revenue"
+                    android:textColor="@android:color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textview_revenue"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textview_revenue"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_revenue"
+                    android:text="1000" />
+
+                <View
+                    android:id="@+id/revenue_view"
+                    android:layout_width="1dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textview_revenue"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textview_expenditure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Expenditure"
+                    android:textColor="@android:color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toEndOf="@+id/revenue_view"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/expenditure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textview_expenditure"
+                    app:layout_constraintHorizontal_bias="0.566"
+                    app:layout_constraintStart_toStartOf="@+id/textview_expenditure"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_expenditure"
+                    android:text="600" />
+
+                <View
+                    android:id="@+id/expenditure_view"
+                    android:layout_width="1dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/colorAccent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textview_expenditure"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textview_profit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="Profit"
+                    android:textColor="@android:color/black"
+                    android:textSize="18dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/expenditure_view"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/profit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/com_facebook_blue"
+                    android:textSize="20dp"
+                    app:layout_constraintEnd_toEndOf="@+id/textview_profit"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textview_profit"
+                    app:layout_constraintTop_toBottomOf="@+id/textview_profit"
+                    android:text="400" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>

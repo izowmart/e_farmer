@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_farmer.models.Animals;
@@ -65,6 +66,8 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_animal);
 
+
+
 //        objectBox initialization
         farmerApp = FarmerApp.getBoxStore();
         animalBox = farmerApp.boxFor(Animals.class);
@@ -98,10 +101,23 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
 
         // Setting up spinner arrayAdapter
         // Setting up spinner using arrayAdapter
-        items = new String[]{"Horned", "No Horn"};
+        items = new String[]{"No Horn","Horned"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         animalHornType.setAdapter(adapter);
+
+        animalHornType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                horntype = (String) adapterView.getItemAtPosition(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                TextView errorText = (TextView)animalHornType.getSelectedView();
+                errorText.setError("Required!");
+            }
+        });
 
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,7 +199,6 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
         kids = animalKids.getText().toString().trim();
 
 
-
         if (TextUtils.isEmpty(type)) {
             animalType.setError("Field Required!");
         } else if (TextUtils.isEmpty(tag)) {
@@ -210,6 +225,8 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
             } else {
                 radioBuck.setError("!");
             }
+
+
             // This where everything is collected and stored in our local database
             User user = new User();
 
@@ -222,7 +239,7 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
             animals.setColour(colour);
             animals.setBreed(breed);
             animals.setSex(sex);
-            animals.setHorn_type("horntype");
+            animals.setHorn_type(horntype);
             animals.setWeight(weight);
             animals.setKids(kids);
             animals.setSource(source);
