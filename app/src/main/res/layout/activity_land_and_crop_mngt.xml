@@ -25,6 +25,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <TextView
@@ -111,6 +112,9 @@
                         android:id="@+id/land_crop_start"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rectangle_strock_layout"
                         android:hint="i.e 2019-25-01"/>
@@ -133,6 +137,9 @@
                         android:id="@+id/land_crop_end"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rectangle_strock_layout"
                         android:hint="i.e 2019-25-01"/>

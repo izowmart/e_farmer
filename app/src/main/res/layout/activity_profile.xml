@@ -42,7 +42,7 @@
             android:layout_below="@+id/profile_photo"
             android:padding="4dp"
             app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
+            app:cardElevation="2.9dp"
             app:contentPaddingBottom="15dp"
             app:contentPaddingLeft="15dp"
             app:contentPaddingRight="15dp"

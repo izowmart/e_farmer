@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,7 +30,9 @@ import com.example.e_farmer.models.User;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import io.objectbox.Box;
@@ -99,6 +103,41 @@ public class LandAndCropMngt extends AppCompatActivity {
                 addLandCropActivity();
             }
         });
+
+        taskStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDate(taskStartDate);
+            }
+        });
+        taskEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setDate(taskEndDate);
+            }
+        });
+    }
+
+    private void setDate(final EditText editText){
+        DatePickerDialog datePickerDialog;
+        int year,month,dayOfMonth;
+        Calendar calendar;
+
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        datePickerDialog = new DatePickerDialog(LandAndCropMngt.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                editText.setText(day+"-"+(month+1)+"-"+year);
+
+            }
+        },year, month, dayOfMonth);
+
+        datePickerDialog.show();
+
     }
 
 

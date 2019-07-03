@@ -3,7 +3,7 @@
 <item>
     <shape
         android:shape="oval">
-        <solid android:color="#77A5F8"/>
+        <solid android:color="#CDDC39"/>
     </shape>
 </item>
 <item android:drawable="@drawable/tractor"

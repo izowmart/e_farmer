@@ -24,6 +24,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -127,6 +128,9 @@
                         android:id="@+id/animal_dose_start"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rectangle_strock_layout"
                         android:hint="i.e 2019-25-01"/>
@@ -149,6 +153,9 @@
                         android:id="@+id/animal_dose_end"
                         android:layout_width="match_parent"
                         android:layout_height="46dp"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
                         android:layout_marginTop="5dp"
                         android:background="@drawable/rectangle_strock_layout"
                         android:hint="i.e 2019-25-01"/>
