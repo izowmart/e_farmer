@@ -2,6 +2,7 @@ package com.example.e_farmer.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -27,11 +28,12 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "MyDashboard";
     IMainActivity iMainActivity;
-    private CardView animals,farm_task, animal_treatment,land_crop_mngt,finance_management,farm_machinery;
+    private CardView animals, farm_task, animal_treatment, land_crop_mngt, finance_management, farm_machinery;
     private TextView revenue, expenditure, profit;
     private Finance finance;
 
     private FinanceViemodel financeViemodel;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -52,7 +54,7 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.my_dashboard_fragment,container,false);
+        View view = inflater.inflate(R.layout.my_dashboard_fragment, container, false);
         animals = view.findViewById(R.id.animals);
         farm_task = view.findViewById(R.id.farm_tasks);
         animal_treatment = view.findViewById(R.id.animal_treatment);
@@ -69,7 +71,6 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
         land_crop_mngt.setOnClickListener(this);
         finance_management.setOnClickListener(this);
         farm_machinery.setOnClickListener(this);
-
 
 
         financeViemodel.getFinance().observe(this, new Observer<List<Finance>>() {
@@ -101,23 +102,23 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.animals:
                 iMainActivity.inflateFragment(getString(R.string.animals));
                 break;
-                case R.id.farm_tasks:
+            case R.id.farm_tasks:
                 iMainActivity.inflateFragment(getString(R.string.farm_tasks));
                 break;
-                case R.id.animal_treatment:
+            case R.id.animal_treatment:
                 iMainActivity.inflateFragment(getString(R.string.animal_treatment));
                 break;
-                case R.id.land_crop_mngt:
+            case R.id.land_crop_mngt:
                 iMainActivity.inflateFragment(getString(R.string.crop_management));
                 break;
-                case R.id.farm_machinery:
+            case R.id.farm_machinery:
                 iMainActivity.inflateFragment(getString(R.string.farm_machinery));
                 break;
-                case R.id.finance_management:
+            case R.id.finance_management:
                 iMainActivity.inflateFragment(getString(R.string.finance_management));
                 break;
         }

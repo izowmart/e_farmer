@@ -152,12 +152,34 @@
                 android:layout_below="@+id/textview_description"
                 android:hint="Enter description here"/>
 
+            <ProgressBar
+                android:id="@+id/tasks_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-40dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:layout_below="@id/task_description"/>
+
+            <Button
+                android:id="@+id/saving_tasks_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:text="Saving tasks for you"
+                android:textColor="#ffffff"
+                android:visibility="gone"
+                android:textSize="17sp"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_below="@+id/task_description"
+                android:drawableStart="@drawable/ic_add_black_24dp"/>
             <Button
                 android:id="@+id/save_task_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
                 android:text="Save Task"
+                android:visibility="visible"
                 android:textColor="#ffffff"
                 android:textSize="17sp"
                 android:backgroundTint="@color/colorPrimary"

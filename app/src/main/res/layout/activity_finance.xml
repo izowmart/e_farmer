@@ -207,6 +207,26 @@
                 android:inputType="textMultiLine"
                 android:layout_below="@+id/textview_notes"
                 android:hint="Enter notes here"/>
+            <ProgressBar
+                android:id="@+id/finance_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-40dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                android:layout_below="@id/notes"/>
+            <Button
+                android:id="@+id/saving_finance_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:text="Saving Transaction for you"
+                android:visibility="gone"
+                android:textColor="#ffffff"
+                android:textSize="17sp"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_below="@+id/notes"
+                android:drawableStart="@drawable/ic_add_black_24dp"/>
 
             <Button
                 android:id="@+id/save_finance_btn"

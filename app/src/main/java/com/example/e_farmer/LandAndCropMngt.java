@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,10 +17,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.e_farmer.models.Finance;
 import com.example.e_farmer.models.LandAndCrop;
 import com.example.e_farmer.models.User;
 
@@ -43,7 +46,8 @@ public class LandAndCropMngt extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText landName, squareNumber, landTask, taskStartDate, taskEndDate, landDescription;
 
-    private Button saveOperations;
+    private Button saveOperations, savingBtn;
+    private ProgressBar progressBar;
     private ImageView landImage;
     private String name, square_number, task, start_date, completion_date, description;
 
@@ -76,6 +80,9 @@ public class LandAndCropMngt extends AppCompatActivity {
         taskEndDate = findViewById(R.id.land_crop_end);
         landDescription = findViewById(R.id.land_crop_descr);
         landImage = findViewById(R.id.land_crop_image);
+
+        savingBtn = findViewById(R.id.saving_land_btn);
+        progressBar = findViewById(R.id.land_progress_bar);
 
         saveOperations = findViewById(R.id.save_land_crop_btn);
 
@@ -177,20 +184,57 @@ public class LandAndCropMngt extends AppCompatActivity {
             landDescription.setError("Field Required!");
         } else {
 
-            // This where everything is collected and stored in our local database
-            User user = new User();
-            landAndCrop = new LandAndCrop();
+            AsyncTask<Void, Void, Void> land = new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    progressBar.setVisibility(View.VISIBLE);
+                    saveOperations.setVisibility(View.GONE);
+                    savingBtn.setVisibility(View.VISIBLE);
+                }
 
-            landAndCrop.setName(name);
-            landAndCrop.setSquare_number(square_number);
-            landAndCrop.setTask(task);
-            landAndCrop.setStart_date(start_date);
-            landAndCrop.setCompletion_date(completion_date);
-            landAndCrop.setDescription(description);
-            landAndCrop.setLandImage(currentPhotoPath);
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    try {
+                        Thread.sleep(1500);
 
-            landAndCrop.user.setTarget(user);
-            landAndCropBox.put(landAndCrop);
+                        // This where everything is collected and stored in our local database
+                        User user = new User();
+                        landAndCrop = new LandAndCrop();
+
+                        landAndCrop.setName(name);
+                        landAndCrop.setSquare_number(square_number);
+                        landAndCrop.setTask(task);
+                        landAndCrop.setStart_date(start_date);
+                        landAndCrop.setCompletion_date(completion_date);
+                        landAndCrop.setDescription(description);
+                        landAndCrop.setLandImage(currentPhotoPath);
+
+                        landAndCrop.user.setTarget(user);
+                        landAndCropBox.put(landAndCrop);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    progressBar.setVisibility(View.GONE);
+                    saveOperations.setVisibility(View.VISIBLE);
+                    savingBtn.setVisibility(View.GONE);
+
+                    Intent toDashboardActivity = new Intent(LandAndCropMngt.this, MainActivity.class);
+                    startActivity(toDashboardActivity);
+                    finish();
+                    Toast.makeText(LandAndCropMngt.this, "Land & Corp added successfully", Toast.LENGTH_SHORT).show();
+
+                }
+            };
+
+            land.execute();
 
         }
     }

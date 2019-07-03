@@ -3,7 +3,9 @@ package com.example.e_farmer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -11,9 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.e_farmer.models.AnimalTreatment;
 import com.example.e_farmer.models.Animals;
@@ -28,7 +32,8 @@ public class AddAnimalTreatment extends AppCompatActivity {
 
     private Toolbar toolbar;
     private EditText animalType, animalTreatmentReason, animalTag, animalMedicineName, animalDosageStart, animalDosageEnd, animalDosagePrescription, animalVetName, animalVetContacts, animalDescription;
-    private Button saveMedication;
+    private Button saveMedication, savingBtn;
+    private ProgressBar progressBar;
     private String type, tag, treatment_reason, medicine_name, dosage_start, dosage_end, dosage_prescription, vet_name, vet_contacts, description;
 
     private AnimalTreatment animalTreatment;
@@ -64,6 +69,9 @@ public class AddAnimalTreatment extends AppCompatActivity {
         animalVetContacts = findViewById(R.id.animal_vet_contacts);
         animalDescription = findViewById(R.id.animal_descr);
         saveMedication = findViewById(R.id.save_medication_btn);
+
+        savingBtn = findViewById(R.id.saving_medication_btn);
+        progressBar = findViewById(R.id.treatment_progress_bar);
 
         saveMedication.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,24 +116,62 @@ public class AddAnimalTreatment extends AppCompatActivity {
             animalDescription.setError("Field Required!");
         } else {
 
-            // This where everything is collected and stored in our local database
-            User user = new User();
+            AsyncTask<Void, Void, Void> treatment_async = new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    progressBar.setVisibility(View.VISIBLE);
+                    saveMedication.setVisibility(View.GONE);
+                    savingBtn.setVisibility(View.VISIBLE);
+                }
 
-            animalTreatment = new AnimalTreatment();
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    try {
+                        Thread.sleep(1500);
 
-            animalTreatment.setTag(tag);
-            animalTreatment.setType(type);
-            animalTreatment.setTreatment_reason(treatment_reason);
-            animalTreatment.setMedicine_name(medicine_name);
-            animalTreatment.setDosage_start(dosage_start);
-            animalTreatment.setDosage_end(dosage_end);
-            animalTreatment.setDosage_prescription(dosage_prescription);
-            animalTreatment.setVet_name(vet_name);
-            animalTreatment.setVet_contacts(vet_contacts);
-            animalTreatment.setDescription(description);
+                        // This where everything is collected and stored in our local database
+                        User user = new User();
 
-            animalTreatment.user.setTarget(user);
-            animalTretmentBox.put(animalTreatment);
+                        animalTreatment = new AnimalTreatment();
+
+                        animalTreatment.setTag(tag);
+                        animalTreatment.setType(type);
+                        animalTreatment.setTreatment_reason(treatment_reason);
+                        animalTreatment.setMedicine_name(medicine_name);
+                        animalTreatment.setDosage_start(dosage_start);
+                        animalTreatment.setDosage_end(dosage_end);
+                        animalTreatment.setDosage_prescription(dosage_prescription);
+                        animalTreatment.setVet_name(vet_name);
+                        animalTreatment.setVet_contacts(vet_contacts);
+                        animalTreatment.setDescription(description);
+
+                        animalTreatment.user.setTarget(user);
+                        animalTretmentBox.put(animalTreatment);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    progressBar.setVisibility(View.GONE);
+                    saveMedication.setVisibility(View.VISIBLE);
+                    savingBtn.setVisibility(View.GONE);
+
+                    Intent toDashboardActivity = new Intent(AddAnimalTreatment.this, MainActivity.class);
+                    startActivity(toDashboardActivity);
+                    finish();
+                    Toast.makeText(AddAnimalTreatment.this, "Medication added successfully", Toast.LENGTH_SHORT).show();
+
+                }
+            };
+
+            treatment_async.execute();
+
 
         }
     }

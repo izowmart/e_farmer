@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
 
     private TextView mUsername,mEmail;
     private de.hdodenhof.circleimageview.CircleImageView navProfile;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar_main);
 //        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -145,7 +146,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         long t = System.currentTimeMillis();
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.profile) {
             Intent intent = new Intent(this.getApplicationContext(), ProfileActivity.class);
+            drawer.closeDrawer(GravityCompat.START);
             startActivity(intent);
 
         } else if (id == R.id.logout) {

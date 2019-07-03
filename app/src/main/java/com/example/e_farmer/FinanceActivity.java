@@ -3,6 +3,8 @@ package com.example.e_farmer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -11,8 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.e_farmer.models.AnimalTreatment;
 import com.example.e_farmer.models.Finance;
 import com.example.e_farmer.models.User;
 
@@ -26,7 +31,8 @@ public class FinanceActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText itemName, itemCategory, transactionDate, itemAmount, itemQuantity, itemNotes;
     private Spinner paymentType, financeType;
-    private Button save_finance_btn;
+    private Button save_finance_btn, savingBtn;
+    private ProgressBar progressBar;
     private String name, category, transaction_date, item_amount, quantity, notes, payment_type, finance_type;
     private String[] payment_type_items, finance_type_items;
 
@@ -67,6 +73,9 @@ public class FinanceActivity extends AppCompatActivity {
         paymentType = findViewById(R.id.spinner_payment_methode);
         financeType = findViewById(R.id.spinner_type);
         save_finance_btn = findViewById(R.id.save_finance_btn);
+
+        savingBtn = findViewById(R.id.saving_finance_btn);
+        progressBar = findViewById(R.id.finance_progress_bar);
 
 //        spinner 1
         // Setting up spinner arrayAdapter
@@ -138,28 +147,66 @@ public class FinanceActivity extends AppCompatActivity {
             itemNotes.setError("Field Required!");
         } else {
 
-            // This where everything is collected and stored in our local database
-            User user = new User();
+            AsyncTask<Void, Void, Void> finance_async = new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    progressBar.setVisibility(View.VISIBLE);
+                    save_finance_btn.setVisibility(View.GONE);
+                    savingBtn.setVisibility(View.VISIBLE);
+                }
 
-            // setup the finance revenue and expenditures.
-            financeSetup();
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    try {
+                        Thread.sleep(1500);
+                        // This where everything is collected and stored in our local database
+                        User user = new User();
 
-            finance = new Finance();
+                        // setup the finance revenue and expenditures.
+                        financeSetup();
 
-            finance.setName(name);
-            finance.setCategory(category);
-            finance.setFinance_type(finance_type);
-            finance.setPayment_type(payment_type);
-            finance.setTransaction_date(transaction_date);
-            finance.setTotal_amount(String.valueOf(total_amount));
-            finance.setTotal_expenditure(total_expenditure);
-            finance.setTotal_revenue(total_revenue);
-            finance.setProfit(profit);
-            finance.setQuantity(quantity);
-            finance.setNotes(notes);
+                        finance = new Finance();
 
-            finance.user.setTarget(user);
-            financeBox.put(finance);
+                        finance.setName(name);
+                        finance.setCategory(category);
+                        finance.setFinance_type(finance_type);
+                        finance.setPayment_type(payment_type);
+                        finance.setTransaction_date(transaction_date);
+                        finance.setTotal_amount(String.valueOf(total_amount));
+                        finance.setTotal_expenditure(total_expenditure);
+                        finance.setTotal_revenue(total_revenue);
+                        finance.setProfit(profit);
+                        finance.setQuantity(quantity);
+                        finance.setNotes(notes);
+
+                        finance.user.setTarget(user);
+                        financeBox.put(finance);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    progressBar.setVisibility(View.GONE);
+                    save_finance_btn.setVisibility(View.VISIBLE);
+                    savingBtn.setVisibility(View.GONE);
+
+                    Intent toDashboardActivity = new Intent(FinanceActivity.this, MainActivity.class);
+                    startActivity(toDashboardActivity);
+                    finish();
+                    Toast.makeText(FinanceActivity.this, "Medication added successfully", Toast.LENGTH_SHORT).show();
+
+                }
+            };
+
+            finance_async.execute();
+
+
 
         }
 

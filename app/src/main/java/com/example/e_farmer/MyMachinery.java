@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,8 +17,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_farmer.models.FarmTask;
 import com.example.e_farmer.models.Machine;
 import com.example.e_farmer.models.User;
 
@@ -37,7 +40,8 @@ public class MyMachinery extends AppCompatActivity {
     private Bitmap mImageBitmap;
     private Toolbar toolbar;
     private EditText machineName, machineType, machineRegYear, machinePurchaceDate, machineOriginalPrice, machineCurrentPrice, machinemilage, machineNotes;
-    private Button saveMachine;
+    private Button saveMachine, savingBtn;
+    private ProgressBar progressBar;
     private ImageView machineImage;
     private String name, type, registration_year, purchase_date, original_price, current_price, milage, notes;
 
@@ -71,6 +75,9 @@ public class MyMachinery extends AppCompatActivity {
         machineCurrentPrice = findViewById(R.id.current_price);
         machinemilage = findViewById(R.id.miles_per_hour);
         machineNotes = findViewById(R.id.machine_notes);
+
+        savingBtn = findViewById(R.id.saving_machinery_btn);
+        progressBar = findViewById(R.id.machinery_progress_bar);
 
         saveMachine = findViewById(R.id.save_machinery_btn);
         machineImage = findViewById(R.id.machine_image);
@@ -171,23 +178,63 @@ public class MyMachinery extends AppCompatActivity {
             machineNotes.setError("Field Required!");
         } else {
 
-            // This where everything is collected and stored in our local database
-            User user = new User();
 
-            machine = new Machine();
+            AsyncTask<Void, Void, Void> machinery = new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    progressBar.setVisibility(View.VISIBLE);
+                    saveMachine.setVisibility(View.GONE);
+                    savingBtn.setVisibility(View.VISIBLE);
+                }
 
-            machine.setName(name);
-            machine.setType(type);
-            machine.setRegistration_year(registration_year);
-            machine.setPurchase_date(purchase_date);
-            machine.setOriginal_price(original_price);
-            machine.setCurrent_price(current_price);
-            machine.setMilage(milage);
-            machine.setNotes(notes);
-            machine.setMachineImage(currentPhotoPath);
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    try {
+                        Thread.sleep(1500);
 
-            machine.user.setTarget(user);
-            machineBox.put(machine);
+                        // This where everything is collected and stored in our local database
+                        User user = new User();
+
+                        machine = new Machine();
+
+                        machine.setName(name);
+                        machine.setType(type);
+                        machine.setRegistration_year(registration_year);
+                        machine.setPurchase_date(purchase_date);
+                        machine.setOriginal_price(original_price);
+                        machine.setCurrent_price(current_price);
+                        machine.setMilage(milage);
+                        machine.setNotes(notes);
+                        machine.setMachineImage(currentPhotoPath);
+
+                        machine.user.setTarget(user);
+                        machineBox.put(machine);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    progressBar.setVisibility(View.GONE);
+                    saveMachine.setVisibility(View.VISIBLE);
+                    savingBtn.setVisibility(View.GONE);
+
+                    Intent toDashboardActivity = new Intent(MyMachinery.this, MainActivity.class);
+                    startActivity(toDashboardActivity);
+                    finish();
+                    Toast.makeText(MyMachinery.this, "Machinery added successfully", Toast.LENGTH_SHORT).show();
+
+                }
+            };
+
+            machinery.execute();
+
+
 
         }
     }

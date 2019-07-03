@@ -3,13 +3,18 @@ package com.example.e_farmer;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -21,14 +26,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.e_farmer.fragments.MyAnimals;
 import com.example.e_farmer.models.Animals;
 import com.example.e_farmer.models.User;
+import com.example.e_farmer.viewmodels.MyAnimalViewModel;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -43,6 +52,7 @@ import io.objectbox.BoxStore;
 public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "AddAnimal";
+    IMainActivity iMainActivity;
     public static final int REQUEST_TAKE_PHOTO = 1;
     private String currentPhotoPath;
     private Bitmap mImageBitmap;
@@ -51,21 +61,23 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
     private EditText animalType, animalColour, animalTag, animalBreed, animalWeight, animalKids, animalSource, animalAge;
     private Spinner animalHornType;
     private String[] items;
-    private Button addPhoto, saveAnimal;
+    private Button saveAnimal, savingBtn;
+    private ProgressBar progressBar;
     private ImageView animalImage;
     private RadioButton radioDoe, radioBuck;
     private RadioGroup radioGroup;
     private String type, tag, colour, breed, sex, horntype, source, weight, age, kids;
 
+    private MyAnimalViewModel myAnimalViewModel;
     private Animals animals;
     private Box<Animals> animalBox;
     private BoxStore farmerApp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_animal);
-
 
 
 //        objectBox initialization
@@ -91,17 +103,21 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
         animalAge = findViewById(R.id.animal_age);
 
         animalHornType = findViewById(R.id.horn_type);
-        addPhoto = findViewById(R.id.add_photo_btn);
         saveAnimal = findViewById(R.id.save_btn);
-        animalImage = findViewById(R.id.animal_image);
+        animalImage = findViewById(R.id.add_animal_image);
+        savingBtn = findViewById(R.id.saving);
+        progressBar = findViewById(R.id.animal_progress_bar);
 
         radioDoe = findViewById(R.id.radio_doe);
         radioBuck = findViewById(R.id.radio_buck);
         radioGroup = findViewById(R.id.radio_group);
 
+//        viewmodel instantiation
+        myAnimalViewModel = ViewModelProviders.of(this).get(MyAnimalViewModel.class);
+
         // Setting up spinner arrayAdapter
         // Setting up spinner using arrayAdapter
-        items = new String[]{"No Horn","Horned"};
+        items = new String[]{"No Horn", "Horned"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         animalHornType.setAdapter(adapter);
@@ -114,12 +130,12 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                TextView errorText = (TextView)animalHornType.getSelectedView();
+                TextView errorText = (TextView) animalHornType.getSelectedView();
                 errorText.setError("Required!");
             }
         });
 
-        addPhoto.setOnClickListener(new View.OnClickListener() {
+        animalImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dispatchTakePictureIntent();
@@ -130,10 +146,11 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
             @Override
             public void onClick(View view) {
                 addAnimal();
+
             }
         });
-    }
 
+    }
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -178,7 +195,9 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
             Toast.makeText(this, "This is image uri : " + currentPhotoPath, Toast.LENGTH_SHORT).show();
             try {
                 mImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.parse(currentPhotoPath));
-                animalImage.setImageBitmap(mImageBitmap);
+                Glide.with(getApplicationContext())
+                        .load(mImageBitmap)
+                        .into(animalImage);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -198,7 +217,6 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
         age = animalAge.getText().toString().trim();
         kids = animalKids.getText().toString().trim();
 
-
         if (TextUtils.isEmpty(type)) {
             animalType.setError("Field Required!");
         } else if (TextUtils.isEmpty(tag)) {
@@ -217,7 +235,6 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
             animalKids.setError("Field Required!");
         } else {
 
-
             if (radioBuck.isChecked()) {
                 sex = radioBuck.getText().toString().trim();
             } else if (radioDoe.isChecked()) {
@@ -226,31 +243,68 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
                 radioBuck.setError("!");
             }
 
+            AsyncTask<Void, Void, Void> animal_async = new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    progressBar.setVisibility(View.VISIBLE);
+                    saveAnimal.setVisibility(View.GONE);
+                    savingBtn.setVisibility(View.VISIBLE);
+                }
 
-            // This where everything is collected and stored in our local database
-            User user = new User();
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    try {
+                        Thread.sleep(1500);
 
-            animals = new Animals();
+                        // This where everything is collected and stored in our local database
+                        User user = new User();
 
-            animals.setAge(age);
-            animals.setImage(currentPhotoPath);
-            animals.setType(type);
-            animals.setTag(tag);
-            animals.setColour(colour);
-            animals.setBreed(breed);
-            animals.setSex(sex);
-            animals.setHorn_type(horntype);
-            animals.setWeight(weight);
-            animals.setKids(kids);
-            animals.setSource(source);
+                        animals = new Animals();
 
-            animals.user.setTarget(user);
-            animalBox.put(animals);
+                        animals.setAge(age);
+                        animals.setImage(currentPhotoPath);
+                        animals.setType(type);
+                        animals.setTag(tag);
+                        animals.setColour(colour);
+                        animals.setBreed(breed);
+                        animals.setSex(sex);
+                        animals.setHorn_type(horntype);
+                        animals.setWeight(weight);
+                        animals.setKids(kids);
+                        animals.setSource(source);
+
+                        animals.user.setTarget(user);
+                        animalBox.put(animals);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
 
 
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+                    progressBar.setVisibility(View.GONE);
+                    saveAnimal.setVisibility(View.VISIBLE);
+                    savingBtn.setVisibility(View.GONE);
+
+                    Intent toDashboardActivity = new Intent(AddAnimal.this, MainActivity.class);
+                    startActivity(toDashboardActivity);
+                    finish();
+                    Toast.makeText(AddAnimal.this, "Animal added successfully", Toast.LENGTH_SHORT).show();
+
+                }
+            };
+
+            animal_async.execute();
 
         }
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

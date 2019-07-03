@@ -16,10 +16,11 @@
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <ScrollView
         android:id="@+id/add_animal"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,8 +129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
-                android:inputType="number"
                 android:hint="5Kg"
+                android:inputType="number"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="@+id/textview_weight"
                 app:layout_constraintTop_toBottomOf="@+id/textview_weight" />
@@ -152,12 +153,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
-                android:inputType="number"
                 android:hint="6 Months"
+                android:inputType="number"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/textview_age"
                 app:layout_constraintTop_toBottomOf="@+id/textview_age" />
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
@@ -185,8 +187,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
-                android:inputType="number"
                 android:hint="Tag i.e 042"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textview_tag"
                 app:layout_constraintTop_toBottomOf="@+id/textview_tag" />
@@ -252,8 +254,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="16dp"
-                android:inputType="number"
                 android:hint="6"
+                android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textview_kids"
                 app:layout_constraintTop_toBottomOf="@+id/textview_kids" />
@@ -280,41 +282,56 @@
                 app:layout_constraintStart_toStartOf="@+id/textview_source"
                 app:layout_constraintTop_toBottomOf="@+id/textview_source" />
 
-            <ImageView
-                android:id="@+id/animal_image"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:layout_marginStart="16dp"
+            <TextView
+                android:id="@+id/textview_add_animal_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lin"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/placeholder"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                android:text="Press on the camera icon to take a picture"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/animal_age" />
 
-            <Button
-                android:id="@+id/add_photo_btn"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+            <ImageView
+                android:id="@+id/add_animal_image"
+                android:layout_width="170dp"
+                android:layout_height="120dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:drawableStart="@drawable/ic_camera_alt_black_24dp"
-                android:drawablePadding="4dp"
-                android:text="ADD PHOTO"
-                android:textSize="14sp"
+                android:background="@drawable/ic_menu_camera"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="@+id/animal_image" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_add_animal_img" />
+
+            <ProgressBar
+                android:id="@+id/animal_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/add_animal_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/add_animal_image" />
 
             <Button
                 android:id="@+id/save_btn"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:drawableStart="@drawable/ic_add_black_24dp"
+                android:visibility="visible"
                 android:drawablePadding="4dp"
                 android:text="ADD ANIMAL"
                 android:textColor="#ffffff"
@@ -322,9 +339,28 @@
                 app:layout_constraintBottom_toBottomOf="@+id/animal_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/add_photo_btn"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_animal_image" />
+
+            <Button
+                android:id="@+id/saving"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:drawableStart="@drawable/ic_add_black_24dp"
+                android:drawablePadding="4dp"
+                android:text="Adding an animal for you"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/animal_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_animal_image" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
