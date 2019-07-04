@@ -44,9 +44,9 @@ public class FinanceActivity extends AppCompatActivity {
     private String[] payment_type_items, finance_type_items;
 
     private int total_amount;
-    private int profit ;
-    private int total_expenditure;
-    private int total_income;
+    private int profit = 0;
+    private int total_expenditure = 0;
+    private int total_income = 0;
 
     private Finance finance;
     private Box<Finance> financeBox;
@@ -136,9 +136,9 @@ public class FinanceActivity extends AppCompatActivity {
         });
     }
 
-    private void setDate(final EditText editText){
+    private void setDate(final EditText editText) {
         DatePickerDialog datePickerDialog;
-        int year,month,dayOfMonth;
+        int year, month, dayOfMonth;
         Calendar calendar;
 
         calendar = Calendar.getInstance();
@@ -149,10 +149,10 @@ public class FinanceActivity extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(FinanceActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                editText.setText(day+"-"+(month+1)+"-"+year);
+                editText.setText(day + "-" + (month + 1) + "-" + year);
 
             }
-        },year, month, dayOfMonth);
+        }, year, month, dayOfMonth);
 
         datePickerDialog.show();
 
@@ -209,7 +209,7 @@ public class FinanceActivity extends AppCompatActivity {
                         finance.setFinance_type(finance_type);
                         finance.setPayment_type(payment_type);
                         finance.setTransaction_date(transaction_date);
-                        finance.setTotal_amount(String.valueOf(total_amount));
+                        finance.setTotal_amount(total_amount);
                         finance.setTotal_expenditure(total_expenditure);
                         finance.setTotal_income(total_income);
                         finance.setProfit(profit);
@@ -242,33 +242,27 @@ public class FinanceActivity extends AppCompatActivity {
 
             finance_async.execute();
 
-
         }
-
 
     }
 
-//    this method allows us to set the finance record to our dashboard item.
+    //    this method allows us to set the finance record to our dashboard item.
     public void financeSetup() {
-        List<Finance> financeList = financeBox.query().build().find();
         total_amount = Integer.valueOf(item_amount) * Integer.valueOf(quantity);
 
         if (finance_type.equals("Income")) {
-//          for (int i = 0; i < financeList.size(); i++) {
-////            Finance finance = financeList.get(i);
-////            profit += finance.getProfit();
-////        }
             total_income += total_amount;
             profit += total_amount;
         } else {
+
             total_expenditure += total_amount;
             profit -= total_amount;
         }
 
-        Log.d(TAG, "financeSetup: profit "+ profit);
-        Log.d(TAG, "financeSetup: total_income "+ total_income);
-        Log.d(TAG, "financeSetup: total_amount "+ total_amount);
-        Log.d(TAG, "financeSetup: total_expenditure "+ total_expenditure);
+        Log.d(TAG, "financeSetup: profit " + profit);
+        Log.d(TAG, "financeSetup: total_income " + total_income);
+        Log.d(TAG, "financeSetup: total_amount " + total_amount);
+        Log.d(TAG, "financeSetup: total_expenditure " + total_expenditure);
 
     }
 

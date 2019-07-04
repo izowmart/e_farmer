@@ -31,6 +31,10 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
     private CardView animals, farm_task, animal_treatment, land_crop_mngt, finance_management, farm_machinery;
     private TextView income, expenditure, profit;
 
+    private int current_expenditure = 0;
+    private int current_income = 0;
+    private int current_profit = 0;
+
     private FinanceViemodel financeViemodel;
 
     @Override
@@ -71,41 +75,26 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
         finance_management.setOnClickListener(this);
         farm_machinery.setOnClickListener(this);
 
-        financeViemodel.getProfit().observe(this, new Observer<Integer>() {
+        financeViemodel.getFinance().observe(this, new Observer<List<Finance>>() {
             @Override
-            public void onChanged(Integer integer) {
-                if (integer != null){
-                    profit.setText(String.valueOf(integer));
-                }else{
-                    profit.setText("0.00");
+            public void onChanged(List<Finance> finances) {
+                for (int i = 0; i < finances.size(); i++) {
+                    Finance finance = finances.get(i);
+                     current_expenditure += finance.getTotal_expenditure();
+                     current_income += finance.getTotal_income();
+                     current_profit += finance.getProfit();
                 }
+                profit.setText(String.valueOf(current_profit));
+                income.setText(String.valueOf(current_income));
+                expenditure.setText(String.valueOf(current_expenditure));
 
+                Log.d(TAG, "onChanged finances: " + finances);
+                Log.d(TAG, "onChanged current_expenditure: " + current_expenditure);
+                Log.d(TAG, "onChanged current_income: " + current_income);
+                Log.d(TAG, "onChanged current_profit: " + current_profit);
             }
         });
 
-        financeViemodel.getIncome().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if (integer != null){
-                    income.setText(String.valueOf(integer));
-                }else{
-                    income.setText("0.00");
-                }
-
-            }
-        });
-
-        financeViemodel.getExpenditure().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if (integer != null){
-                    expenditure.setText(String.valueOf(integer));
-                }else{
-                    expenditure.setText("0.00");
-                }
-
-            }
-        });
         return view;
     }
 

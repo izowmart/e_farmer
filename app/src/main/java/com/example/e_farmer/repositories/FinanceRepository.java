@@ -22,9 +22,6 @@ public class FinanceRepository {
     private Box<Finance> financeBox;
     private BoxStore farmerApp;
 
-    private int current_finance = 0;
-    private int current_income = 0;
-    private int current_profit = 0;
 
     public static FinanceRepository getInstance() {
         if (instance == null) {
@@ -48,59 +45,4 @@ public class FinanceRepository {
 
         return financeList;
     }
-
-    public MutableLiveData<Integer> getIncome(){
-        farmerApp = FarmerApp.getBoxStore();
-        financeBox = farmerApp.boxFor(Finance.class);
-        Finance finance = financeBox.query().build().findFirst();
-
-        Log.d(TAG, "getIncome: " + current_income);
-        MutableLiveData<Integer> income_data = new MutableLiveData<>();
-        income_data.setValue(finance != null ? finance.getTotal_income() : null);
-
-        return income_data;
-
-    }
-
-    public MutableLiveData<Integer> getExpenditure(){
-        farmerApp = FarmerApp.getBoxStore();
-        financeBox = farmerApp.boxFor(Finance.class);
-        Finance finance = financeBox.query().build().findFirst();
-
-        Log.d(TAG, "getExpenditure: " + current_finance);
-        MutableLiveData<Integer> expenditure_data = new MutableLiveData<>();
-
-        expenditure_data.setValue(finance != null ? finance.getTotal_expenditure() : null);
-
-        return expenditure_data;
-
-    }
-
-    public MutableLiveData<Integer> getProfit() {
-        farmerApp = FarmerApp.getBoxStore();
-        financeBox = farmerApp.boxFor(Finance.class);
-        Finance finance = financeBox.query().build().findFirst();
-
-        Log.d(TAG, "getProfit: " + current_profit);
-        MutableLiveData<Integer> profit_data = new MutableLiveData<>();
-        profit_data.setValue(finance != null ? finance.getProfit() : null);
-
-        return profit_data;
-    }
-
-//    public MutableLiveData<Integer> getProfit() {
-//        getFinanceList();
-//        for (int i = 0; i < financeList.size(); i++) {
-//            Finance finance = financeList.get(i);
-//            current_profit += finance.getProfit();
-//        }
-//
-//        Log.d(TAG, "getProfit: " + current_profit);
-//        MutableLiveData<Integer> profit_data = new MutableLiveData<>();
-//        profit_data.setValue(current_profit);
-//
-//        return profit_data;
-//    }
-
-
 }

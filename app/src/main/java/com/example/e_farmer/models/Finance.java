@@ -16,7 +16,7 @@ public class Finance extends BaseObservable {
     private String name;
     private String category;
     private String transaction_date;
-    private String total_amount;
+    private Integer total_amount;
     private String quantity;
     private String payment_type;
     private String notes;
@@ -93,11 +93,11 @@ public class Finance extends BaseObservable {
 
 
     @Bindable
-    public String getTotal_amount() {
+    public Integer getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(String total_amount) {
+    public void setTotal_amount(Integer total_amount) {
         this.total_amount = total_amount;
     }
 

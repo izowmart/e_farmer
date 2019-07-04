@@ -15,9 +15,6 @@ public class FinanceViemodel extends ViewModel {
 
     //    mutableLive data its changeable unlike LiveData which is observable only.mutableLiveData is a subclass of LiveData.
     private MutableLiveData<List<Finance>> mFinance;
-    private MutableLiveData<Integer> mProfit;
-    private MutableLiveData<Integer> mExpenditure;
-    private MutableLiveData<Integer> mIncome;
 
     public void init() {
         if (mFinance != null) {
@@ -27,28 +24,10 @@ public class FinanceViemodel extends ViewModel {
         financeRepository = FinanceRepository.getInstance();
         mFinance = financeRepository.getFinance();
 
-        mProfit = financeRepository.getProfit();
-        mExpenditure = financeRepository.getExpenditure();
-        mIncome = financeRepository.getIncome();
     }
-
 
     public LiveData<List<Finance>> getFinance() {
         return mFinance;
     }
 
-    public LiveData<Integer> getProfit() {
-        return mProfit;
-
-    }
-
-    public LiveData<Integer> getExpenditure() {
-
-        return mExpenditure;
-    }
-
-    public LiveData<Integer> getIncome() {
-
-        return mIncome;
-    }
 }
