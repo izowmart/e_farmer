@@ -110,7 +110,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textview_finance_type"
                 app:layout_constraintStart_toEndOf="@+id/textview_finance_type"
                 app:layout_constraintTop_toTopOf="@+id/textview_finance_type"
-                tools:text="Revenue" />
+                tools:text="Income" />
 
             <TextView
                 android:id="@+id/textview_amount"

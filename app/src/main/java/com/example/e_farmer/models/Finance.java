@@ -21,9 +21,9 @@ public class Finance extends BaseObservable {
     private String payment_type;
     private String notes;
     private String finance_type;
-    private int profit;
-    private int total_revenue;
-    private int total_expenditure;
+    private Integer profit;
+    private Integer total_income;
+    private Integer total_expenditure;
 
     public Finance() {
     }
@@ -102,20 +102,20 @@ public class Finance extends BaseObservable {
     }
 
     @Bindable
-    public int getTotal_revenue() {
-        return total_revenue;
+    public Integer getTotal_income() {
+        return total_income;
     }
 
-    public void setTotal_revenue(int total_revenue) {
-        this.total_revenue = total_revenue;
+    public void setTotal_income(Integer total_income) {
+        this.total_income = total_income;
     }
 
     @Bindable
-    public int getTotal_expenditure() {
+    public Integer getTotal_expenditure() {
         return total_expenditure;
     }
 
-    public void setTotal_expenditure(int total_expenditure) {
+    public void setTotal_expenditure(Integer total_expenditure) {
         this.total_expenditure = total_expenditure;
     }
 

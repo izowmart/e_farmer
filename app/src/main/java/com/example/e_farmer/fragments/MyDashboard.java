@@ -29,8 +29,7 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
     private static final String TAG = "MyDashboard";
     IMainActivity iMainActivity;
     private CardView animals, farm_task, animal_treatment, land_crop_mngt, finance_management, farm_machinery;
-    private TextView revenue, expenditure, profit;
-    private Finance finance;
+    private TextView income, expenditure, profit;
 
     private FinanceViemodel financeViemodel;
 
@@ -53,7 +52,7 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_dashboard_fragment, container, false);
         animals = view.findViewById(R.id.animals);
         farm_task = view.findViewById(R.id.farm_tasks);
@@ -61,7 +60,7 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
         land_crop_mngt = view.findViewById(R.id.land_crop_mngt);
         finance_management = view.findViewById(R.id.finance_management);
         farm_machinery = view.findViewById(R.id.farm_machinery);
-        revenue = view.findViewById(R.id.revenue);
+        income = view.findViewById(R.id.revenue);
         expenditure = view.findViewById(R.id.expenditure);
         profit = view.findViewById(R.id.profit);
 
@@ -72,28 +71,39 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
         finance_management.setOnClickListener(this);
         farm_machinery.setOnClickListener(this);
 
-
-        financeViemodel.getFinance().observe(this, new Observer<List<Finance>>() {
+        financeViemodel.getProfit().observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(List<Finance> finances) {
-//                finance = new Finance();
-//                if(finances.size() != 0) {
-//                    revenue.setText((CharSequence) finances.get(finance.getTotal_revenue()));
-//                    expenditure.setText((CharSequence) finances.get(finance.getTotal_expenditure()));
-//                    profit.setText((CharSequence) finances.get(finance.getProfit()));
-//
-//                    Log.d(TAG, "onChanged: " + revenue);
-//                    Log.d(TAG, "onChanged: " + profit);
-//                    Log.d(TAG, "onChanged: " + expenditure);
-//                }else{
-//                    revenue.setText("0.00");
-//                    expenditure.setText("0.00");
-//                    profit.setText("0.00");
-//
-//                    Log.d(TAG, "onChanged: " + revenue);
-//                    Log.d(TAG, "onChanged: " + profit);
-//                    Log.d(TAG, "onChanged: " + expenditure);
-//                }
+            public void onChanged(Integer integer) {
+                if (integer != null){
+                    profit.setText(String.valueOf(integer));
+                }else{
+                    profit.setText("0.00");
+                }
+
+            }
+        });
+
+        financeViemodel.getIncome().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer != null){
+                    income.setText(String.valueOf(integer));
+                }else{
+                    income.setText("0.00");
+                }
+
+            }
+        });
+
+        financeViemodel.getExpenditure().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer != null){
+                    expenditure.setText(String.valueOf(integer));
+                }else{
+                    expenditure.setText("0.00");
+                }
+
             }
         });
         return view;

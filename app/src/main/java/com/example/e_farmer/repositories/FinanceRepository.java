@@ -22,6 +22,10 @@ public class FinanceRepository {
     private Box<Finance> financeBox;
     private BoxStore farmerApp;
 
+    private int current_finance = 0;
+    private int current_income = 0;
+    private int current_profit = 0;
+
     public static FinanceRepository getInstance() {
         if (instance == null) {
             instance = new FinanceRepository();
@@ -31,58 +35,71 @@ public class FinanceRepository {
 
     //Through this method we are able to set data to our viewmodel
     public MutableLiveData<List<Finance>> getFinance() {
-        setFinance();
+        getFinanceList();
         MutableLiveData<List<Finance>> data = new MutableLiveData<>();
         data.setValue(financeList);
         return data;
     }
 
-    private void setFinance() {
-        long user_id = Settings.getUserId();
-//        here we shall get our list item from the database.objectbox
-//        objectBox initialization
+    private List<Finance> getFinanceList() {
         farmerApp = FarmerApp.getBoxStore();
         financeBox = farmerApp.boxFor(Finance.class);
         financeList = financeBox.query().build().find();
 
-        Log.d(TAG, "setFinance: " + Finance_.user.relationId);
+        return financeList;
+    }
+
+    public MutableLiveData<Integer> getIncome(){
+        farmerApp = FarmerApp.getBoxStore();
+        financeBox = farmerApp.boxFor(Finance.class);
+        Finance finance = financeBox.query().build().findFirst();
+
+        Log.d(TAG, "getIncome: " + current_income);
+        MutableLiveData<Integer> income_data = new MutableLiveData<>();
+        income_data.setValue(finance != null ? finance.getTotal_income() : null);
+
+        return income_data;
 
     }
 
-//    public MutableLiveData<Object> getRevenue(){
-//        farmerApp = FarmerApp.getBoxStore();
-//        financeBox = farmerApp.boxFor(Finance.class);
-//        Finance revenue = financeBox.query().build().findFirst();
+    public MutableLiveData<Integer> getExpenditure(){
+        farmerApp = FarmerApp.getBoxStore();
+        financeBox = farmerApp.boxFor(Finance.class);
+        Finance finance = financeBox.query().build().findFirst();
+
+        Log.d(TAG, "getExpenditure: " + current_finance);
+        MutableLiveData<Integer> expenditure_data = new MutableLiveData<>();
+
+        expenditure_data.setValue(finance != null ? finance.getTotal_expenditure() : null);
+
+        return expenditure_data;
+
+    }
+
+    public MutableLiveData<Integer> getProfit() {
+        farmerApp = FarmerApp.getBoxStore();
+        financeBox = farmerApp.boxFor(Finance.class);
+        Finance finance = financeBox.query().build().findFirst();
+
+        Log.d(TAG, "getProfit: " + current_profit);
+        MutableLiveData<Integer> profit_data = new MutableLiveData<>();
+        profit_data.setValue(finance != null ? finance.getProfit() : null);
+
+        return profit_data;
+    }
+
+//    public MutableLiveData<Integer> getProfit() {
+//        getFinanceList();
+//        for (int i = 0; i < financeList.size(); i++) {
+//            Finance finance = financeList.get(i);
+//            current_profit += finance.getProfit();
+//        }
 //
-//        MutableLiveData<Object> revenue_data = new MutableLiveData<>();
-//        revenue_data.setValue(revenue != null ? revenue.getTotal_revenue() : 0);
+//        Log.d(TAG, "getProfit: " + current_profit);
+//        MutableLiveData<Integer> profit_data = new MutableLiveData<>();
+//        profit_data.setValue(current_profit);
 //
-//        Log.d(TAG, "getRevenue: " + (revenue != null ? revenue.getTotal_revenue() : 0));
-//
-//        return (MutableLiveData<Object>) (revenue != null ? revenue.getTotal_revenue() : 0);
-//
-//    }
-//
-//    public MutableLiveData<Object>  getExpenditure(){
-//        farmerApp = FarmerApp.getBoxStore();
-//        financeBox = farmerApp.boxFor(Finance.class);
-//        Finance expenditure = financeBox.query().build().findFirst();
-//
-//        MutableLiveData<Object> expenditure_data = new MutableLiveData<>();
-//        expenditure_data.setValue(expenditure != null ? expenditure.getTotal_expenditure() : 0);
-//        Log.d(TAG, "getExpenditure: " + (expenditure != null ? expenditure.getTotal_expenditure() : 0));
-//        return (MutableLiveData<Object>)(expenditure != null ? expenditure.getTotal_expenditure() : 0);
-//    }
-//
-//    public MutableLiveData<Object>  getProfit(){
-//        farmerApp = FarmerApp.getBoxStore();
-//        financeBox = farmerApp.boxFor(Finance.class);
-//        Finance profit = financeBox.query().build().findFirst();
-//
-//        MutableLiveData<Object> expenditure_data = new MutableLiveData<>();
-//        expenditure_data.setValue(profit != null ? profit.getProfit() : 0);
-//        Log.d(TAG, "getProfit: " + (profit != null ? profit.getProfit() : 0));
-//        return profit != null ? profit.getProfit() : 0;
+//        return profit_data;
 //    }
 
 

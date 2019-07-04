@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ import com.example.e_farmer.models.User;
 
 import java.text.MessageFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -42,9 +44,9 @@ public class FinanceActivity extends AppCompatActivity {
     private String[] payment_type_items, finance_type_items;
 
     private int total_amount;
-    private int profit;
+    private int profit ;
     private int total_expenditure;
-    private int total_revenue;
+    private int total_income;
 
     private Finance finance;
     private Box<Finance> financeBox;
@@ -102,7 +104,7 @@ public class FinanceActivity extends AppCompatActivity {
         });
 
 //        spinner item 2
-        finance_type_items = new String[]{"Income", "Revenue"};
+        finance_type_items = new String[]{"Income", "Expenditure"};
         ArrayAdapter<String> finance_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, finance_type_items);
         finance_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         financeType.setAdapter(finance_adapter);
@@ -209,7 +211,7 @@ public class FinanceActivity extends AppCompatActivity {
                         finance.setTransaction_date(transaction_date);
                         finance.setTotal_amount(String.valueOf(total_amount));
                         finance.setTotal_expenditure(total_expenditure);
-                        finance.setTotal_revenue(total_revenue);
+                        finance.setTotal_income(total_income);
                         finance.setProfit(profit);
                         finance.setQuantity(quantity);
                         finance.setNotes(notes);
@@ -233,13 +235,12 @@ public class FinanceActivity extends AppCompatActivity {
                     Intent toDashboardActivity = new Intent(FinanceActivity.this, MainActivity.class);
                     startActivity(toDashboardActivity);
                     finish();
-                    Toast.makeText(FinanceActivity.this, "Medication added successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FinanceActivity.this, "Transaction added successfully", Toast.LENGTH_SHORT).show();
 
                 }
             };
 
             finance_async.execute();
-
 
 
         }
@@ -249,14 +250,26 @@ public class FinanceActivity extends AppCompatActivity {
 
 //    this method allows us to set the finance record to our dashboard item.
     public void financeSetup() {
+        List<Finance> financeList = financeBox.query().build().find();
         total_amount = Integer.valueOf(item_amount) * Integer.valueOf(quantity);
+
         if (finance_type.equals("Income")) {
-            total_revenue =+ total_amount;
-            profit = +total_amount;
+//          for (int i = 0; i < financeList.size(); i++) {
+////            Finance finance = financeList.get(i);
+////            profit += finance.getProfit();
+////        }
+            total_income += total_amount;
+            profit += total_amount;
         } else {
-            total_expenditure =+ total_amount;
-            profit = -total_amount;
+            total_expenditure += total_amount;
+            profit -= total_amount;
         }
+
+        Log.d(TAG, "financeSetup: profit "+ profit);
+        Log.d(TAG, "financeSetup: total_income "+ total_income);
+        Log.d(TAG, "financeSetup: total_amount "+ total_amount);
+        Log.d(TAG, "financeSetup: total_expenditure "+ total_expenditure);
+
     }
 
     @Override
