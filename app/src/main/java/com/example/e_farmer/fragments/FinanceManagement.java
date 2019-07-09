@@ -44,7 +44,7 @@ public class FinanceManagement extends Fragment {
         super.onCreate(savedInstanceState);
         iMainActivity.setToolbarTitle(getTag());
 
-        //        instantiate the viewmodel class here
+        // instantiate the viewmodel class here
         financeViemodel = ViewModelProviders.of(this).get(FinanceViemodel.class);
         financeViemodel.init();
     }
@@ -71,6 +71,20 @@ public class FinanceManagement extends Fragment {
                 financeAdapter.notifyDataSetChanged();
             }
         });
+
+        financeAdapter.setOnItemClickListener(new FinanceAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickDelete(Finance finance) {
+                // Here, we can do whatever we want with our card item selected.
+                financeViemodel.delete(finance);
+            }
+
+            @Override
+            public void onItemClickEdit(Finance finance) {
+
+            }
+        });
+
 
         return view;
     }

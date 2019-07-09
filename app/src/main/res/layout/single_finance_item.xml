@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="finance"
             type="com.example.e_farmer.models.Finance" />
@@ -28,7 +27,7 @@
                 android:id="@+id/linear"
                 android:layout_width="match_parent"
                 android:layout_height="29dp"
-                android:background="@{finance.finance_type == Revenue ? @color/colorPrimary : @color/com_facebook_blue}"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -54,7 +53,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/more_vert"
+                android:id="@+id/finance_vent"
                 android:layout_width="35dp"
                 android:layout_height="41dp"
                 android:backgroundTint="#fff"

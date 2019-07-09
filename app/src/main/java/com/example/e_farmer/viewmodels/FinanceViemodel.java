@@ -30,4 +30,8 @@ public class FinanceViemodel extends ViewModel {
         return mFinance;
     }
 
+    public void delete(Finance finance){
+        financeRepository.delete(finance);
+    }
+
 }

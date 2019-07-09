@@ -187,9 +187,9 @@ public class MainActivity extends AppCompatActivity
             doFragmentTransaction(new FinanceManagement(), getString(R.string.finance_management), false);
 
         } else if (id == R.id.profile) {
-            Intent intent = new Intent(this.getApplicationContext(), ProfileActivity.class);
-            drawer.closeDrawer(GravityCompat.START);
+            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 
         } else if (id == R.id.logout) {
             logout();

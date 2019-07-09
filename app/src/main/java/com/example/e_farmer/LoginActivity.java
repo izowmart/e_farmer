@@ -174,6 +174,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent login = new Intent(LoginActivity.this, MainActivity.class);
 //        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(login);
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
         finish();
     }
 
