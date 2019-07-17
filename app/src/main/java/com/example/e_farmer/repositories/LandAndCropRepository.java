@@ -1,52 +1,86 @@
 package com.example.e_farmer.repositories;
 
-import android.util.Log;
+import android.app.Application;
+import android.os.AsyncTask;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
-import com.example.e_farmer.FarmerApp;
 import com.example.e_farmer.Settings;
+import com.example.e_farmer.database.AppDatabase;
+import com.example.e_farmer.database.LandAndCropDao;
 import com.example.e_farmer.models.LandAndCrop;
-import com.example.e_farmer.models.LandAndCrop_;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class LandAndCropRepository {
     private static final String TAG = "LandAndCropRepository";
 
-    private static LandAndCropRepository instance;
-    private List<LandAndCrop> landCropList;
-    private Box<LandAndCrop> landAndCropBox;
-    private BoxStore farmerApp;
+    private LandAndCropDao landAndCropDao;
+    private LiveData<List<LandAndCrop>> landAndCropList;
 
-    public static LandAndCropRepository getInstance() {
-        if (instance == null) {
-            instance = new LandAndCropRepository();
+    public LandAndCropRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        landAndCropDao = database.landAndCropDao();
+        landAndCropList = landAndCropDao.getAllLands(Settings.getUserId());
+    }
+
+    public void insert(LandAndCrop land) {
+        new InsertLandAndCropAsyncTask(landAndCropDao).execute(land);
+    }
+
+    public void update(LandAndCrop land) {
+        new UpdateLandAndCropAsyncTask(landAndCropDao).execute(land);
+    }
+
+    public void delete(LandAndCrop land) {
+        new DeleteLandAndCropAsyncTask(landAndCropDao).execute(land);
+    }
+
+    public LiveData<List<LandAndCrop>> getLandAndCrop() {
+        return landAndCropList;
+    }
+
+    private static class InsertLandAndCropAsyncTask extends AsyncTask<LandAndCrop, Void, Void> {
+
+        private LandAndCropDao landAndCropDao;
+
+        private InsertLandAndCropAsyncTask(LandAndCropDao landAndCropDao) {
+            this.landAndCropDao = landAndCropDao;
         }
-        return instance;
+
+        @Override
+        protected Void doInBackground(LandAndCrop... land) {
+            landAndCropDao.insert(land[0]);
+            return null;
+        }
     }
 
-    //Through this method we are able to set data to our viewmodel
-    public MutableLiveData<List<LandAndCrop>> getLandAndCrop() {
-        setLandAndCrop();
-        MutableLiveData<List<LandAndCrop>> data = new MutableLiveData<>();
-        data.setValue(landCropList);
-        return data;
+    private static class UpdateLandAndCropAsyncTask extends AsyncTask<LandAndCrop, Void, Void> {
+        private LandAndCropDao landAndCropDao;
+
+        private UpdateLandAndCropAsyncTask(LandAndCropDao landAndCropDao) {
+            this.landAndCropDao = landAndCropDao;
+        }
+
+        @Override
+        protected Void doInBackground(LandAndCrop... land) {
+            landAndCropDao.update(land[0]);
+            return null;
+        }
     }
 
-    private void setLandAndCrop() {
-        long user_id = Settings.getUserId();
-//        here we shall get our list item from the database.objectbox
-//        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        landAndCropBox = farmerApp.boxFor(LandAndCrop.class);
-        landCropList = landAndCropBox.query().build().find();
+    private static class DeleteLandAndCropAsyncTask extends AsyncTask<LandAndCrop, Void, Void> {
+        private LandAndCropDao landAndCropDao;
 
-        Log.d(TAG, "setLandAndCrop: " + LandAndCrop_.userId);
+        private DeleteLandAndCropAsyncTask(LandAndCropDao landAndCropDao) {
+            this.landAndCropDao = landAndCropDao;
+        }
 
+        @Override
+        protected Void doInBackground(LandAndCrop... land) {
+            landAndCropDao.delete(land[0]);
+            return null;
+        }
     }
+
 }

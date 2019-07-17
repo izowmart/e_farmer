@@ -1,54 +1,87 @@
 package com.example.e_farmer.repositories;
 
-import android.util.Log;
+import android.app.Application;
+import android.os.AsyncTask;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
-import com.example.e_farmer.FarmerApp;
 import com.example.e_farmer.Settings;
-import com.example.e_farmer.models.Animals_;
+import com.example.e_farmer.database.AppDatabase;
+import com.example.e_farmer.database.FarmTaskDao;
 import com.example.e_farmer.models.FarmTask;
-import com.example.e_farmer.models.FarmTask_;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class FarmTasksRepository {
     private static final String TAG = "FarmTasksRepository";
 
-    private static FarmTasksRepository instance;
-    private List<FarmTask> farmTasks;
-    private Box<FarmTask> farmTaskBox;
-    private BoxStore farmerApp;
+    private FarmTaskDao farmTaskDao;
+    private LiveData<List<FarmTask>> taskList;
 
-    public static FarmTasksRepository getInstance() {
-        if (instance == null) {
-            instance = new FarmTasksRepository();
+    public FarmTasksRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        farmTaskDao = database.farmTaskDao();
+        taskList = farmTaskDao.getAllTasks(Settings.getUserId());
+    }
 
+    public void insert(FarmTask tasks) {
+        new InsertFarmTaskAsyncTask(farmTaskDao).execute(tasks);
+    }
+
+    public void update(FarmTask tasks) {
+        new UpdateFarmTaskAsyncTask(farmTaskDao).execute(tasks);
+    }
+
+    public void delete(FarmTask tasks) {
+        new DeleteFarmTaskAsyncTask(farmTaskDao).execute(tasks);
+    }
+
+    public LiveData<List<FarmTask>> getFarmTask() {
+        return taskList;
+    }
+
+    private static class InsertFarmTaskAsyncTask extends AsyncTask<FarmTask, Void, Void> {
+
+        private FarmTaskDao farmTaskDao;
+
+        private InsertFarmTaskAsyncTask(FarmTaskDao farmTaskDao) {
+            this.farmTaskDao = farmTaskDao;
         }
-        return instance;
+
+        @Override
+        protected Void doInBackground(FarmTask... tasks) {
+            farmTaskDao.insert(tasks[0]);
+            return null;
+        }
     }
 
-    //Through this method we are able to set data to our viewmodel
-    public MutableLiveData<List<FarmTask>> getFarmTask() {
-        setFarmTask();
-        MutableLiveData<List<FarmTask>> data = new MutableLiveData<>();
-        data.setValue(farmTasks);
-        return data;
+    private static class UpdateFarmTaskAsyncTask extends AsyncTask<FarmTask, Void, Void> {
+        private FarmTaskDao farmTaskDao;
+
+        private UpdateFarmTaskAsyncTask(FarmTaskDao farmTaskDao) {
+            this.farmTaskDao = farmTaskDao;
+        }
+
+        @Override
+        protected Void doInBackground(FarmTask... tasks) {
+            farmTaskDao.update(tasks[0]);
+            return null;
+        }
     }
 
-    private void setFarmTask() {
-        long user_id = Settings.getUserId();
-//        here we shall get our list item from the database.objectbox
-//        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        farmTaskBox = farmerApp.boxFor(FarmTask.class);
-        farmTasks = farmTaskBox.query().build().find();
+    private static class DeleteFarmTaskAsyncTask extends AsyncTask<FarmTask, Void, Void> {
+        private FarmTaskDao farmTaskDao;
 
-        Log.d(TAG, "setFarmTasks: " + FarmTask_.userId);
+        private DeleteFarmTaskAsyncTask(FarmTaskDao farmTaskDao) {
+            this.farmTaskDao = farmTaskDao;
+        }
 
+        @Override
+        protected Void doInBackground(FarmTask... tasks) {
+            farmTaskDao.delete(tasks[0]);
+            return null;
+        }
     }
+
 }

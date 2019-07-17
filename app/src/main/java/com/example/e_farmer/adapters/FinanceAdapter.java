@@ -6,6 +6,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -20,12 +22,15 @@ import com.example.e_farmer.models.Finance;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceViewHolder> {
+public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceViewHolder> implements Filterable {
     private Finance finance;
     private Context context;
-    private List<Finance> financeList = new ArrayList<>();
-    OnItemClickListener listener;
 
+    private List<Finance> financeList = new ArrayList<>();
+    private List<Finance> mFinances = new ArrayList<>();
+    private ArrayList<Finance> filteredList;
+
+    OnItemClickListener listener;
     public FinanceAdapter(Context context) {
         this.context = context;
     }
@@ -80,10 +85,48 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
         this.listener = listener;
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    financeList = mFinances;
+                } else {
+                    filteredList = new ArrayList<>();
+                    for (Finance row : financeList) {
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+                    financeList = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = financeList;
+                return filterResults;
+            }
+
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                financeList = (List<Finance>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+//
+
     public interface OnItemClickListener {
         void onItemClickDelete(Finance finance);
+
         void onItemClickEdit(Finance finance);
     }
+
 
     @Override
     public int getItemCount() {
@@ -92,6 +135,7 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
 
     public void setUpdatedData(List<Finance> finances) {
         this.financeList = finances;
+        this.mFinances = finances;
         notifyDataSetChanged();
     }
 

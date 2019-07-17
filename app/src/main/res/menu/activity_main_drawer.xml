@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/group1">
 
         <item
             android:id="@+id/dashboard"
@@ -35,20 +36,19 @@
             android:title="Finance Management" />
     </group>
 
-    <item android:title="Sub items">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/profile"
-                    android:icon="@drawable/profile"
-                    android:title="Profile" />
-                <item
-                    android:id="@+id/logout"
-                    android:icon="@drawable/logout"
-                    android:title="Log Out" />
-            </group>
-        </menu>
-    </item>
+
+    <group
+        android:id="@+id/group2">
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/logout"
+            android:title="Log Out" />
+    </group>
+
 
 </menu>
 

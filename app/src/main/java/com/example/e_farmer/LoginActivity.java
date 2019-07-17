@@ -1,12 +1,16 @@
 package com.example.e_farmer;
 
 import android.content.Intent;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.example.e_farmer.models.User;
+import com.example.e_farmer.viewmodels.UserViewModel;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -27,9 +31,6 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
-
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
@@ -39,22 +40,17 @@ public class LoginActivity extends AppCompatActivity {
     public static final String PROFILE_IMAGE = "public_profile";
     private LoginButton loginButton;
     private CallbackManager callbackManager;
-    private String first_name, last_name, email, id;
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton signInButton;
     private String userId;
+    private User user;
 
-    private Box<User> userBox;
-    private BoxStore farmerApp;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-//      objectBox
-        farmerApp = FarmerApp.getBoxStore();
-        userBox = farmerApp.boxFor(User.class);
 
 //        google
         signInButton = findViewById(R.id.mGoogleLogin);
@@ -63,6 +59,9 @@ public class LoginActivity extends AppCompatActivity {
         //        facebook
         loginButton = findViewById(R.id.mFacebookLogin);
         loginButton.setReadPermissions(Arrays.asList(EMAIL, PROFILE_IMAGE));
+
+        //viewmodel
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
         callbackManager = CallbackManager.Factory.create();
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -106,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (Settings.isLoggedIn()){
+        if (Settings.isLoggedIn()) {
             goToMainActivity();
         }
     }
@@ -142,26 +142,35 @@ public class LoginActivity extends AppCompatActivity {
 
             String name = account.getDisplayName();
             String email = account.getEmail();
+            String user_id = account.getId();
             String imageUrl = String.valueOf(account.getPhotoUrl());
 
             /*
-             * Save to ObjectBox ORM
+             * Save to Room ORM
              * Set the Logged in status to true
              * Navigate user to Main Activity
              */
-            User user = new User();
-            user.setName(name);
-            user.setEmail(email);
-            user.setImageUrl(imageUrl);
-            userBox.put(user);
+            user = userViewModel.getCurrentUser(user_id);
+            //check for user existence in database
+            if (user == null){
+                //Then this an new user.Add him to database
+                user = new User(user_id,name, email, imageUrl);
+                userViewModel.insert(user);
 
-            Log.d(TAG, "handleSignInResult: "  + userBox.count());
+                Settings.setUserId(user_id);
+                Settings.setLoggedInSharedPref(true);
+                Settings.setIsFacebook(false);
 
-            Settings.setUserId(user.getId());
-            Settings.setLoggedInSharedPref(true);
-            Settings.setIsFacebook(false);
+                goToMainActivity();
+            }else{
+                Settings.setUserId(user_id);
+                Settings.setLoggedInSharedPref(true);
+                Settings.setIsFacebook(false);
 
-            goToMainActivity();
+                goToMainActivity();
+            }
+
+            Log.d(TAG, "handleSignInResult: inserting a user to DB using google");
 
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -174,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent login = new Intent(LoginActivity.this, MainActivity.class);
 //        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(login);
-        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         finish();
     }
 
@@ -183,26 +192,33 @@ public class LoginActivity extends AppCompatActivity {
             String name = object.getString("name");
             String email = object.getString("email");
             String image_url = "http://graph.facebook.com/" + userId + "/picture?type=large";
-
             /*
-             * Save to ObjectBox ORM
+             * Save to Room ORM
              * Set the Logged in status to true
              * Navigate user to Main Activity
              */
-            User user = new User();
-            user.setName(name);
-            user.setEmail(email);
-            user.setImageUrl(image_url);
-            userBox.put(user);
 
-            Log.d(TAG, "displayUserInfo: user count :" + userBox.count());
+            user = userViewModel.getCurrentUser(userId);
+            //check for user existence in database
+            if (user == null){
+                //Then this an new user.Add him to database
+                user = new User(userId,name, email, image_url);
+                userViewModel.insert(user);
 
-            Settings.setUserId(user.getId());
-            Settings.setLoggedInSharedPref(true);
-            Settings.setIsFacebook(true);
+                Settings.setUserId(userId);
+                Settings.setLoggedInSharedPref(true);
+                Settings.setIsFacebook(true);
 
-            goToMainActivity();
+                goToMainActivity();
+            }else{
+                Settings.setUserId(userId);
+                Settings.setLoggedInSharedPref(true);
+                Settings.setIsFacebook(true);
 
+                goToMainActivity();
+            }
+
+            Log.d(TAG, "displayUserInfo: user count inserting user via facebook to Db:");
 
         } catch (JSONException e) {
             e.printStackTrace();

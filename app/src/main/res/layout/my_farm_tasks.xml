@@ -18,14 +18,19 @@
             android:layout_height="50dp"
             app:queryHint="Search an Animal Type" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/farm_task_recyclerview"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/task_swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/farm_task_searchview"
-            tools:listitem="@layout/single_farm_task_item">
+            android:layout_below="@+id/farm_task_searchview">
 
-        </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/farm_task_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/single_farm_task_item"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -2,6 +2,7 @@ package com.example.e_farmer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -14,22 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.e_farmer.models.AnimalTreatment;
-import com.example.e_farmer.models.Animals;
-import com.example.e_farmer.models.User;
+import com.example.e_farmer.viewmodels.AnimalTreatmentViewModel;
 
-import java.text.MessageFormat;
 import java.util.Calendar;
 
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class AddAnimalTreatment extends AppCompatActivity {
 
@@ -42,17 +35,16 @@ public class AddAnimalTreatment extends AppCompatActivity {
     private String type, tag, treatment_reason, medicine_name, dosage_start, dosage_end, dosage_prescription, vet_name, vet_contacts, description;
 
     private AnimalTreatment animalTreatment;
-    private Box<AnimalTreatment> animalTretmentBox;
-    private BoxStore farmerApp;
+    private AnimalTreatmentViewModel animalTreatmentViewModel;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_animal_treatment);
 
-//        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        animalTretmentBox = farmerApp.boxFor(AnimalTreatment.class);
+        userId = Settings.getUserId();
+        animalTreatmentViewModel = ViewModelProviders.of(this).get(AnimalTreatmentViewModel.class);
 
         // This convention should follow to have a successful toolbar set with the correct set title.
         toolbar = findViewById(R.id.toolbar_animal_treatment);
@@ -101,9 +93,9 @@ public class AddAnimalTreatment extends AppCompatActivity {
     }
 
 
-    private void setDate(final EditText animalDosage){
+    private void setDate(final EditText animalDosage) {
         DatePickerDialog datePickerDialog;
-        int year,month,dayOfMonth;
+        int year, month, dayOfMonth;
         Calendar calendar;
 
         calendar = Calendar.getInstance();
@@ -115,10 +107,10 @@ public class AddAnimalTreatment extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
 //                animalDosage.setText(MessageFormat.format("{0}-{1}-{2}", day, month + 1, year));
-                animalDosage.setText(day+"-"+(month+1)+"-"+year);
+                animalDosage.setText(day + "-" + (month + 1) + "-" + year);
 
             }
-        },year, month, dayOfMonth);
+        }, year, month, dayOfMonth);
 
         datePickerDialog.show();
 
@@ -172,30 +164,13 @@ public class AddAnimalTreatment extends AppCompatActivity {
                     try {
                         Thread.sleep(1500);
 
-                        // This where everything is collected and stored in our local database
-                        User user = new User();
-
-                        animalTreatment = new AnimalTreatment();
-
-                        animalTreatment.setTag(tag);
-                        animalTreatment.setType(type);
-                        animalTreatment.setTreatment_reason(treatment_reason);
-                        animalTreatment.setMedicine_name(medicine_name);
-                        animalTreatment.setDosage_start(dosage_start);
-                        animalTreatment.setDosage_end(dosage_end);
-                        animalTreatment.setDosage_prescription(dosage_prescription);
-                        animalTreatment.setVet_name(vet_name);
-                        animalTreatment.setVet_contacts(vet_contacts);
-                        animalTreatment.setDescription(description);
-
-                        animalTreatment.user.setTarget(user);
-                        animalTretmentBox.put(animalTreatment);
+                        animalTreatment = new AnimalTreatment(userId, type, tag, treatment_reason, medicine_name, dosage_start, dosage_end, dosage_prescription, vet_name, vet_contacts, description);
+                        animalTreatmentViewModel.insert(animalTreatment);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     return null;
                 }
-
 
                 @Override
                 protected void onPostExecute(Void aVoid) {

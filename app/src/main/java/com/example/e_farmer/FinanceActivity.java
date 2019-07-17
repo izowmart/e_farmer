@@ -2,6 +2,7 @@ package com.example.e_farmer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -20,16 +21,10 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.e_farmer.models.AnimalTreatment;
 import com.example.e_farmer.models.Finance;
-import com.example.e_farmer.models.User;
+import com.example.e_farmer.viewmodels.FinanceViewModel;
 
-import java.text.MessageFormat;
 import java.util.Calendar;
-import java.util.List;
-
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class FinanceActivity extends AppCompatActivity {
 
@@ -48,18 +43,18 @@ public class FinanceActivity extends AppCompatActivity {
     private int total_expenditure = 0;
     private int total_income = 0;
 
+    private FinanceViewModel financeViewModel;
     private Finance finance;
-    private Box<Finance> financeBox;
-    private BoxStore farmerApp;
+    private String userId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance);
 
-        //        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        financeBox = farmerApp.boxFor(Finance.class);
+        userId = Settings.getUserId();
+        financeViewModel = ViewModelProviders.of(this).get(FinanceViewModel.class);
 
         // This convention should follow to have a successful toolbar set with the correct set title.
         toolbar = findViewById(R.id.toolbar_finance);
@@ -196,28 +191,12 @@ public class FinanceActivity extends AppCompatActivity {
                 protected Void doInBackground(Void... voids) {
                     try {
                         Thread.sleep(1500);
-                        // This where everything is collected and stored in our local database
-                        User user = new User();
 
                         // setup the finance revenue and expenditures.
                         financeSetup();
 
-                        finance = new Finance();
-
-                        finance.setName(name);
-                        finance.setCategory(category);
-                        finance.setFinance_type(finance_type);
-                        finance.setPayment_type(payment_type);
-                        finance.setTransaction_date(transaction_date);
-                        finance.setTotal_amount(total_amount);
-                        finance.setTotal_expenditure(total_expenditure);
-                        finance.setTotal_income(total_income);
-                        finance.setProfit(profit);
-                        finance.setQuantity(quantity);
-                        finance.setNotes(notes);
-
-                        finance.user.setTarget(user);
-                        financeBox.put(finance);
+                        finance = new Finance(userId, name, category, transaction_date, total_amount, quantity, payment_type, notes, finance_type, profit, total_income, total_expenditure);
+                        financeViewModel.insert(finance);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

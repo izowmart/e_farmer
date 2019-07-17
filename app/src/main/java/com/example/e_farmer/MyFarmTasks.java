@@ -2,6 +2,7 @@ package com.example.e_farmer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -17,14 +18,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.e_farmer.models.FarmTask;
-import com.example.e_farmer.models.LandAndCrop;
-import com.example.e_farmer.models.User;
+import com.example.e_farmer.viewmodels.FarmTasksViewmodel;
 
-import java.text.MessageFormat;
 import java.util.Calendar;
 
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class MyFarmTasks extends AppCompatActivity {
 
@@ -36,17 +33,16 @@ public class MyFarmTasks extends AppCompatActivity {
     private String name, assignee, supervisor, start, due, description;
 
     private FarmTask farmTask;
-    private Box<FarmTask> farmTaskBox;
-    private BoxStore farmerApp;
+    private String userId;
+    private FarmTasksViewmodel farmTasksViewmodel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_farm_tasks);
 
-        //        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        farmTaskBox = farmerApp.boxFor(FarmTask.class);
+        userId = Settings.getUserId();
+        farmTasksViewmodel = ViewModelProviders.of(this).get(FarmTasksViewmodel.class);
 
         // This convention should follow to have a successful toolbar set with the correct set title.
         toolbar = findViewById(R.id.toolbar_farm_tasks);
@@ -89,9 +85,9 @@ public class MyFarmTasks extends AppCompatActivity {
 
     }
 
-    private void setDate(final EditText editText){
+    private void setDate(final EditText editText) {
         DatePickerDialog datePickerDialog;
-        int year,month,dayOfMonth;
+        int year, month, dayOfMonth;
         Calendar calendar;
 
         calendar = Calendar.getInstance();
@@ -102,10 +98,10 @@ public class MyFarmTasks extends AppCompatActivity {
         datePickerDialog = new DatePickerDialog(MyFarmTasks.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                editText.setText(day+"-"+(month+1)+"-"+year);
+                editText.setText(day + "-" + (month + 1) + "-" + year);
 
             }
-        },year, month, dayOfMonth);
+        }, year, month, dayOfMonth);
 
         datePickerDialog.show();
 
@@ -147,20 +143,9 @@ public class MyFarmTasks extends AppCompatActivity {
                     try {
                         Thread.sleep(1500);
 
-                        // This where everything is collected and stored in our local database
-                        User user = new User();
+                        farmTask = new FarmTask(userId, name, assignee, supervisor, start, due, description);
+                        farmTasksViewmodel.insert(farmTask);
 
-                        farmTask = new FarmTask();
-
-                        farmTask.setName(name);
-                        farmTask.setAssignee(assignee);
-                        farmTask.setSupervisor(supervisor);
-                        farmTask.setStart(start);
-                        farmTask.setDue(due);
-                        farmTask.setDescription(description);
-
-                        farmTask.user.setTarget(user);
-                        farmTaskBox.put(farmTask);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -184,7 +169,6 @@ public class MyFarmTasks extends AppCompatActivity {
             };
 
             tasks.execute();
-
 
 
         }

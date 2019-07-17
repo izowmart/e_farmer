@@ -2,17 +2,23 @@ package com.example.e_farmer.models;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
+import static androidx.room.ForeignKey.CASCADE;
+import static androidx.room.ForeignKey.SET_DEFAULT;
 
-@Entity
+
+@Entity(tableName = "finance",foreignKeys = @ForeignKey(entity = User.class,
+        parentColumns = "id",
+        childColumns = "userId",
+        onDelete = SET_DEFAULT) )
 public class Finance extends BaseObservable {
-    @Id
-    private long id;
-    public ToOne<User> user;
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+    private String userId;
     private String name;
     private String category;
     private String transaction_date;
@@ -25,7 +31,28 @@ public class Finance extends BaseObservable {
     private Integer total_income;
     private Integer total_expenditure;
 
-    public Finance() {
+    public Finance( String userId, String name, String category, String transaction_date, Integer total_amount, String quantity, String payment_type, String notes, String finance_type, Integer profit, Integer total_income, Integer total_expenditure) {
+        this.userId = userId;
+        this.name = name;
+        this.category = category;
+        this.transaction_date = transaction_date;
+        this.total_amount = total_amount;
+        this.quantity = quantity;
+        this.payment_type = payment_type;
+        this.notes = notes;
+        this.finance_type = finance_type;
+        this.profit = profit;
+        this.total_income = total_income;
+        this.total_expenditure = total_expenditure;
+    }
+
+    @Bindable
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Bindable

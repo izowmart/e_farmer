@@ -1,56 +1,86 @@
 package com.example.e_farmer.repositories;
 
-import android.util.Log;
-import android.widget.Toast;
+import android.app.Application;
+import android.os.AsyncTask;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
-import com.example.e_farmer.FarmerApp;
 import com.example.e_farmer.Settings;
+import com.example.e_farmer.database.AnimalsDao;
+import com.example.e_farmer.database.AppDatabase;
 import com.example.e_farmer.models.Animals;
-import com.example.e_farmer.models.Animals_;
-import com.example.e_farmer.models.User;
-import com.example.e_farmer.models.User_;
 
 
-import java.util.ArrayList;
 import java.util.List;
-
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
-
 
 public class AnimalsRepository {
     private static final String TAG = "AnimalsRepository";
-    private static AnimalsRepository instance;
-    private List<Animals> animalsList;
-    private Box<Animals> animalsBox;
-    private BoxStore farmerApp;
+    private AnimalsDao animalsDao;
+    private LiveData<List<Animals>> animalList;
 
-    public static AnimalsRepository getInstance() {
-        if (instance == null) {
-            instance = new AnimalsRepository();
+    public AnimalsRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        animalsDao = database.animalsDao();
+        animalList = animalsDao.getAllAnimals(Settings.getUserId());
+    }
+
+    public void insert(Animals animals) {
+        new InsertAnimalsAsyncTask(animalsDao).execute(animals);
+    }
+
+    public void update(Animals animals) {
+        new UpdateAnimalsAsyncTask(animalsDao).execute(animals);
+    }
+
+    public void delete(Animals animals) {
+        new DeleteAnimalsAsyncTask(animalsDao).execute(animals);
+    }
+
+    public LiveData<List<Animals>> getAnimals() {
+        return animalList;
+    }
+
+    private static class InsertAnimalsAsyncTask extends AsyncTask<Animals, Void, Void> {
+
+        private AnimalsDao animalsDao;
+
+        private InsertAnimalsAsyncTask(AnimalsDao animalsDao) {
+            this.animalsDao = animalsDao;
         }
-        return instance;
+
+        @Override
+        protected Void doInBackground(Animals... animals) {
+            animalsDao.insert(animals[0]);
+            return null;
+        }
     }
 
-    //Through this method we are able to set data to our viewmodel
-    public MutableLiveData<List<Animals>> getAnimals() {
-        setAnimals();
-        MutableLiveData<List<Animals>> data = new MutableLiveData<>();
-        data.setValue(animalsList);
-        return data;
+    private static class UpdateAnimalsAsyncTask extends AsyncTask<Animals, Void, Void> {
+        private AnimalsDao animalsDao;
+
+        private UpdateAnimalsAsyncTask(AnimalsDao animalsDao) {
+            this.animalsDao = animalsDao;
+        }
+
+        @Override
+        protected Void doInBackground(Animals... animals) {
+            animalsDao.update(animals[0]);
+            return null;
+        }
     }
 
-    private void setAnimals() {
-        long user_id = Settings.getUserId();
-//        here we shall get our list item from the database.objectbox
-//        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        animalsBox = farmerApp.boxFor(Animals.class);
-        animalsList = animalsBox.query().build().find();
+    private static class DeleteAnimalsAsyncTask extends AsyncTask<Animals, Void, Void> {
+        private AnimalsDao animalsDao;
 
-        Log.d(TAG, "setAnimals: " + Animals_.userId);
+        private DeleteAnimalsAsyncTask(AnimalsDao animalsDao) {
+            this.animalsDao = animalsDao;
+        }
 
+        @Override
+        protected Void doInBackground(Animals... animals) {
+            animalsDao.delete(animals[0]);
+            return null;
+        }
     }
+
 }

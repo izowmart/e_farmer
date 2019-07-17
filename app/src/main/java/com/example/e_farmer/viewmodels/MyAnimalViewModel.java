@@ -1,33 +1,45 @@
 package com.example.e_farmer.viewmodels;
 
-import android.os.AsyncTask;
+import android.app.Application;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.e_farmer.models.Animals;
 import com.example.e_farmer.repositories.AnimalsRepository;
 
 import java.util.List;
 
-public class MyAnimalViewModel extends ViewModel {
+public class MyAnimalViewModel extends AndroidViewModel {
+    private static final String TAG = "MyAnimalViewModel";
     private AnimalsRepository animalsRepo;
 
-    //    mutableLive data its changeable unlike LiveData which is observable only.mutableLiveData is a subclass of LiveData.
-    private MutableLiveData<List<Animals>> mAnimals;
+    private LiveData<List<Animals>> allAnimals;
 
-    public void init(){
-        if(mAnimals != null){
-//            here we check if our mAnimals list has anything,if it has we terminate the process here and use what we already have
-            return;
-        }
-        animalsRepo = AnimalsRepository.getInstance();
-        mAnimals = animalsRepo.getAnimals();
+    public MyAnimalViewModel(@NonNull Application application) {
+        super(application);
+        Log.d(TAG, "AnimalsViewModel: Retrieving data from the database");
+
+        animalsRepo = new AnimalsRepository(application);
+        allAnimals = animalsRepo.getAnimals();
     }
 
-    public LiveData<List<Animals>> getAnimal(){
-        return mAnimals;
+    public void insert(Animals animals) {
+        animalsRepo.insert(animals);
+    }
+
+    public void update(Animals animals) {
+        animalsRepo.update(animals);
+    }
+
+    public void delete(Animals animals) {
+        animalsRepo.delete(animals);
+    }
+
+    public LiveData<List<Animals>> getAllAnimals() {
+        return allAnimals;
     }
 
 }

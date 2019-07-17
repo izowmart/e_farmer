@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.example.e_farmer.IMainActivity;
 import com.example.e_farmer.R;
 import com.example.e_farmer.models.Finance;
-import com.example.e_farmer.viewmodels.FinanceViemodel;
+import com.example.e_farmer.viewmodels.FinanceViewModel;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
     private int current_income = 0;
     private int current_profit = 0;
 
-    private FinanceViemodel financeViemodel;
+    private FinanceViewModel financeViewModel;
 
     @Override
     public void onAttach(Context context) {
@@ -50,8 +50,7 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
         iMainActivity.setToolbarTitle(getTag());
 
         // instantiate the viewmodel class here to get the finance record
-        financeViemodel = ViewModelProviders.of(this).get(FinanceViemodel.class);
-        financeViemodel.init();
+        financeViewModel = ViewModelProviders.of(this).get(FinanceViewModel.class);
     }
 
     @Nullable
@@ -75,7 +74,7 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
         finance_management.setOnClickListener(this);
         farm_machinery.setOnClickListener(this);
 
-        financeViemodel.getFinance().observe(this, new Observer<List<Finance>>() {
+        financeViewModel.getAllFinnace().observe(this, new Observer<List<Finance>>() {
             @Override
             public void onChanged(List<Finance> finances) {
                 for (int i = 0; i < finances.size(); i++) {

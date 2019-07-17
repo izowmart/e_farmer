@@ -1,51 +1,86 @@
 package com.example.e_farmer.repositories;
 
-import android.util.Log;
+import android.app.Application;
+import android.os.AsyncTask;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
-import com.example.e_farmer.FarmerApp;
 import com.example.e_farmer.Settings;
+import com.example.e_farmer.database.AppDatabase;
+import com.example.e_farmer.database.MachineDao;
 import com.example.e_farmer.models.Machine;
-import com.example.e_farmer.models.Machine_;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class MachineRepository {
     private static final String TAG = "MachineRepository";
-    private static MachineRepository instance;
-    private List<Machine> machineList;
-    private Box<Machine> machineBox;
-    private BoxStore farmerApp;
+    private MachineDao machineDao;
+    private LiveData<List<Machine>> machineList;
 
-    public static MachineRepository getInstance() {
-        if (instance == null) {
-            instance = new MachineRepository();
+    public MachineRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        machineDao = database.machineDao();
+        machineList = machineDao.getAllMachines(Settings.getUserId());
+    }
+
+    public void insert(Machine machine) {
+        new InsertMachineAsyncTask(machineDao).execute(machine);
+    }
+
+    public void update(Machine machine) {
+        new UpdateMachineAsyncTask(machineDao).execute(machine);
+    }
+
+    public void delete(Machine machine) {
+        new DeleteMachineAsyncTask(machineDao).execute(machine);
+    }
+
+    public LiveData<List<Machine>> getMachine() {
+        return machineList;
+    }
+
+    private static class InsertMachineAsyncTask extends AsyncTask<Machine, Void, Void> {
+
+        private MachineDao machineDao;
+
+        private InsertMachineAsyncTask(MachineDao machineDao) {
+            this.machineDao = machineDao;
         }
-        return instance;
+
+        @Override
+        protected Void doInBackground(Machine... machine) {
+            machineDao.insert(machine[0]);
+            return null;
+        }
     }
 
-    //Through this method we are able to set data to our viewmodel
-    public MutableLiveData<List<Machine>> getMachine() {
-        setMachine();
-        MutableLiveData<List<Machine>> data = new MutableLiveData<>();
-        data.setValue(machineList);
-        return data;
+    private static class UpdateMachineAsyncTask extends AsyncTask<Machine, Void, Void> {
+        private MachineDao machineDao;
+
+        private UpdateMachineAsyncTask(MachineDao machineDao) {
+            this.machineDao = machineDao;
+        }
+
+        @Override
+        protected Void doInBackground(Machine... machine) {
+            machineDao.update(machine[0]);
+            return null;
+        }
     }
 
-    private void setMachine() {
-        long user_id = Settings.getUserId();
-//        here we shall get our list item from the database.objectbox
-//        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        machineBox = farmerApp.boxFor(Machine.class);
-        machineList = machineBox.query().build().find();
+    private static class DeleteMachineAsyncTask extends AsyncTask<Machine, Void, Void> {
+        private MachineDao machineDao;
 
-        Log.d(TAG, "setMachine: " + Machine_.userId);
+        private DeleteMachineAsyncTask(MachineDao machineDao) {
+            this.machineDao = machineDao;
+        }
 
+        @Override
+        protected Void doInBackground(Machine... machine) {
+            machineDao.delete(machine[0]);
+            return null;
+        }
     }
+
 }

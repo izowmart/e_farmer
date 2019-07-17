@@ -1,19 +1,24 @@
 package com.example.e_farmer.models;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
+import static androidx.room.ForeignKey.SET_DEFAULT;
 
-@Entity
+
+@Entity(tableName = "tasks", foreignKeys = @ForeignKey(entity = User.class,
+        parentColumns = "id",
+        childColumns = "userId",
+        onDelete = SET_DEFAULT))
 public class FarmTask extends BaseObservable {
 
-    @Id
+    @PrimaryKey(autoGenerate = true)
     private long id;
-    public ToOne<User> user;
-
+    private String userId;
     private String name;
     private String assignee;
     private String supervisor;
@@ -21,7 +26,14 @@ public class FarmTask extends BaseObservable {
     private String due;
     private String description;
 
-    public FarmTask() {
+    public FarmTask(String userId, String name, String assignee, String supervisor, String start, String due, String description) {
+        this.userId = userId;
+        this.name = name;
+        this.assignee = assignee;
+        this.supervisor = supervisor;
+        this.start = start;
+        this.due = due;
+        this.description = description;
     }
 
     @Bindable
@@ -31,6 +43,15 @@ public class FarmTask extends BaseObservable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Bindable
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Bindable

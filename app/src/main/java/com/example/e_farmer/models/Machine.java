@@ -5,22 +5,26 @@ import android.widget.ImageView;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.e_farmer.R;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
 
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "machines", foreignKeys = @ForeignKey(entity = User.class,
+        parentColumns = "id",
+        childColumns = "userId",
+        onDelete = CASCADE))
 public class Machine extends BaseObservable {
 
-    @Id
+    @PrimaryKey(autoGenerate = true)
     private long id;
-    public ToOne<User> user;
-
+    private String userId;
     private String name;
     private String type;
     private String registration_year;
@@ -31,7 +35,17 @@ public class Machine extends BaseObservable {
     private String notes;
     private String machineImage;
 
-    public Machine() {
+    public Machine(String userId, String name, String type, String registration_year, String purchase_date, String original_price, String current_price, String milage, String notes, String machineImage) {
+        this.userId = userId;
+        this.name = name;
+        this.type = type;
+        this.registration_year = registration_year;
+        this.purchase_date = purchase_date;
+        this.original_price = original_price;
+        this.current_price = current_price;
+        this.milage = milage;
+        this.notes = notes;
+        this.machineImage = machineImage;
     }
 
     @Bindable
@@ -59,6 +73,15 @@ public class Machine extends BaseObservable {
     @Bindable
     public String getMachineImage() {
         return machineImage;
+    }
+
+    @Bindable
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setMachineImage(String machineImage) {

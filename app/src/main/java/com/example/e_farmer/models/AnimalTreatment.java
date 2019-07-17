@@ -3,17 +3,20 @@ package com.example.e_farmer.models;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToOne;
+import static androidx.room.ForeignKey.SET_DEFAULT;
 
-@Entity
+@Entity(tableName = "treatments", foreignKeys = @ForeignKey(entity = User.class,
+        parentColumns = "id",
+        childColumns = "userId",
+        onDelete = SET_DEFAULT))
 public class AnimalTreatment extends BaseObservable {
-    @Id
+    @PrimaryKey(autoGenerate = true)
     private long id;
-    public ToOne<User> user;
-
+    private String userId;
     private String type;
     private String tag;
     private String treatment_reason;
@@ -25,7 +28,18 @@ public class AnimalTreatment extends BaseObservable {
     private String vet_contacts;
     private String description;
 
-    public AnimalTreatment() {
+    public AnimalTreatment(String userId, String type, String tag, String treatment_reason, String medicine_name, String dosage_start, String dosage_end, String dosage_prescription, String vet_name, String vet_contacts, String description) {
+        this.userId = userId;
+        this.type = type;
+        this.tag = tag;
+        this.treatment_reason = treatment_reason;
+        this.medicine_name = medicine_name;
+        this.dosage_start = dosage_start;
+        this.dosage_end = dosage_end;
+        this.dosage_prescription = dosage_prescription;
+        this.vet_name = vet_name;
+        this.vet_contacts = vet_contacts;
+        this.description = description;
     }
 
     @Bindable
@@ -35,6 +49,15 @@ public class AnimalTreatment extends BaseObservable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Bindable
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     @Bindable

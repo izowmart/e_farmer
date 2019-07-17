@@ -1,5 +1,10 @@
 package com.example.e_farmer.viewmodels;
 
+import android.app.Application;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,22 +14,34 @@ import com.example.e_farmer.repositories.MachineRepository;
 
 import java.util.List;
 
-public class MachineViewmodel extends ViewModel {
+public class MachineViewmodel extends AndroidViewModel {
+    private static final String TAG = "MachineViewmodel";
     private MachineRepository machineRepository;
 
-    //    mutableLive data its changeable unlike LiveData which is observable only.mutableLiveData is a subclass of LiveData.
-    private MutableLiveData<List<Machine>> mMachine;
+    private LiveData<List<Machine>> allMachine;
 
-    public void init(){
-        if(mMachine != null){
-    //    here we check if our mAnimals list has anything,if it has we terminate the process here and use what we already have
-            return;
-        }
-        machineRepository = MachineRepository.getInstance();
-        mMachine = machineRepository.getMachine();
+    public MachineViewmodel(@NonNull Application application) {
+        super(application);
+        Log.d(TAG, "MachineViewModel: Retrieving data from the database");
+
+        machineRepository = new MachineRepository(application);
+        allMachine = machineRepository.getMachine();
     }
 
-    public LiveData<List<Machine>> getMachine(){
-        return mMachine;
+    public void insert(Machine machine) {
+        machineRepository.insert(machine);
     }
+
+    public void update(Machine machine) {
+        machineRepository.update(machine);
+    }
+
+    public void delete(Machine machine) {
+        machineRepository.delete(machine);
+    }
+
+    public LiveData<List<Machine>> getAllMachine() {
+        return allMachine;
+    }
+
 }

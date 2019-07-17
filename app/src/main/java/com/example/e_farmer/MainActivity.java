@@ -1,6 +1,7 @@
 package com.example.e_farmer;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.DrawableRes;
@@ -16,7 +17,7 @@ import android.view.MenuItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.e_farmer.models.User;
-import com.example.e_farmer.models.User_;
+import com.example.e_farmer.viewmodels.UserViewModel;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -33,6 +34,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.View;
 import android.widget.TextView;
@@ -46,8 +48,6 @@ import com.example.e_farmer.fragments.MyFarmTasks;
 import com.example.e_farmer.fragments.MyLandAndCropMngt;
 import com.example.e_farmer.fragments.FinanceManagement;
 
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IMainActivity {
@@ -56,36 +56,44 @@ public class MainActivity extends AppCompatActivity
     private Toolbar toolbar;
     private GoogleSignInClient mGoogleSignInClient;
     private long backPressedTime = 0;
-    private Box<User> userBox;
-    private BoxStore farmerApp;
     private User user;
 
-    private TextView mUsername,mEmail;
+    private TextView mUsername, mEmail;
     private de.hdodenhof.circleimageview.CircleImageView navProfile;
     private DrawerLayout drawer;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG, "onCreate: ");
 
-//        user = new User();
-//        objectBox initialization
-        long user_id = Settings.getUserId();
-        farmerApp = FarmerApp.getBoxStore();
-        userBox = farmerApp.boxFor(User.class);
-        user = userBox.query().equal(User_.id,user_id).build().findFirst();
-        Log.d(TAG, "onCreate: " + User_.id);
+        String user_id = Settings.getUserId();
 
         // check for authentication. if not signed in,send to login activity
         if (!Settings.isLoggedIn()) {
+            Toast.makeText(this, "Login required", Toast.LENGTH_SHORT).show();
             goToLoginActivity();
 
-            Toast.makeText(this, "Login required", Toast.LENGTH_SHORT).show();
+
 
         }
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        user = userViewModel.getCurrentUser(user_id);
 
-        Log.d(TAG, "onCreate: "+ mEmail+ mUsername + navProfile);
+//        new AsyncTask<Void,Void,Void>(){
+//
+//            @Override
+//            protected Void doInBackground(Void... voids) {
+//                user = userViewModel.getCurrentUser();
+//                return null;
+//            }
+//        }.execute();
+
+
+
+        Log.d(TAG, "onCreate: " + mEmail + mUsername + navProfile);
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -189,7 +197,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.profile) {
             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(intent);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         } else if (id == R.id.logout) {
             logout();
@@ -210,7 +218,7 @@ public class MainActivity extends AppCompatActivity
 //                    Clear shared pref file
                     Settings.setLoggedInSharedPref(false);
 //                    clear local DB
-                    userBox.removeAll();
+//              todo "     userBox.removeAll();
 //                    Redirect user to login page
                     goToLoginActivity();
 
@@ -224,7 +232,7 @@ public class MainActivity extends AppCompatActivity
                     //Clear Shared Pref File
                     Settings.setLoggedInSharedPref(false);
                     //Clear Local DB
-                    userBox.removeAll();
+//             todo       userBox.removeAll();
                     //Redirect User to Login Page
                     goToLoginActivity();
                 }
@@ -256,7 +264,7 @@ public class MainActivity extends AppCompatActivity
             doFragmentTransaction(new MyLandAndCropMngt(), fragmentTag, false);
         } else if (fragmentTag.equals(getString(R.string.finance_management))) {
             doFragmentTransaction(new FinanceManagement(), fragmentTag, false);
-        }  else if (fragmentTag.equals(getString(R.string.farm_machinery))) {
+        } else if (fragmentTag.equals(getString(R.string.farm_machinery))) {
             doFragmentTransaction(new MyFarmMachinery(), fragmentTag, false);
         }
 

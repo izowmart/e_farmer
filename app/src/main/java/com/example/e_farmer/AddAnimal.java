@@ -46,8 +46,6 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -69,9 +67,9 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
     private String type, tag, colour, breed, sex, horntype, source, weight, age, kids;
 
     private MyAnimalViewModel myAnimalViewModel;
-    private Animals animals;
-    private Box<Animals> animalBox;
-    private BoxStore farmerApp;
+    private Animals animal;
+
+    private String userId;
 
 
     @Override
@@ -79,11 +77,7 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_animal);
 
-
-//        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        animalBox = farmerApp.boxFor(Animals.class);
-
+        userId = Settings.getUserId();
         // This convention should follow to have a successful toolbar set with the correct set title.
         toolbar = findViewById(R.id.toolbar_animal);
         toolbar.setTitle("Add Animal");
@@ -257,25 +251,8 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
                     try {
                         Thread.sleep(1500);
 
-                        // This where everything is collected and stored in our local database
-                        User user = new User();
-
-                        animals = new Animals();
-
-                        animals.setAge(age);
-                        animals.setImage(currentPhotoPath);
-                        animals.setType(type);
-                        animals.setTag(tag);
-                        animals.setColour(colour);
-                        animals.setBreed(breed);
-                        animals.setSex(sex);
-                        animals.setHorn_type(horntype);
-                        animals.setWeight(weight);
-                        animals.setKids(kids);
-                        animals.setSource(source);
-
-                        animals.user.setTarget(user);
-                        animalBox.put(animals);
+                        animal = new Animals(userId, currentPhotoPath, type, tag, colour, breed, sex, horntype, weight, kids, age, source);
+                        myAnimalViewModel.insert(animal);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -303,7 +280,6 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
 
         }
     }
-
 
 
     @Override

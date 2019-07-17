@@ -1,49 +1,86 @@
 package com.example.e_farmer.repositories;
 
-import android.util.Log;
+import android.app.Application;
+import android.os.AsyncTask;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
-import com.example.e_farmer.FarmerApp;
 import com.example.e_farmer.Settings;
+import com.example.e_farmer.database.AppDatabase;
+import com.example.e_farmer.database.FinanceDao;
 import com.example.e_farmer.models.Finance;
-import com.example.e_farmer.models.Finance_;
 
 import java.util.List;
-
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
-import io.objectbox.query.Query;
-import io.objectbox.query.QueryBuilder;
 
 public class FinanceRepository {
     private static final String TAG = "FinanceRepository";
 
-    private static FinanceRepository instance;
-    private List<Finance> financeList;
-    private static Box<Finance> financeBox;
-    private static BoxStore farmerApp;
+    private FinanceDao financeDao;
+    private LiveData<List<Finance>> financeList;
 
+    public FinanceRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        financeDao = database.financeDao();
+        financeList = financeDao.getAllFinance(Settings.getUserId());
+    }
 
-    public static FinanceRepository getInstance() {
-        farmerApp = FarmerApp.getBoxStore();
-        financeBox = farmerApp.boxFor(Finance.class);
-        if (instance == null) {
-            instance = new FinanceRepository();
+    public void insert(Finance finance) {
+        new InsertFinanceAsyncTask(financeDao).execute(finance);
+    }
+
+    public void update(Finance finance) {
+        new UpdateFinanceAsyncTask(financeDao).execute(finance);
+    }
+
+    public void delete(Finance finance) {
+        new DeleteFinanceAsyncTask(financeDao).execute(finance);
+    }
+
+    public LiveData<List<Finance>> getFinance() {
+        return financeList;
+    }
+
+    private static class InsertFinanceAsyncTask extends AsyncTask<Finance, Void, Void> {
+
+        private FinanceDao financeDao;
+
+        private InsertFinanceAsyncTask(FinanceDao financeDao) {
+            this.financeDao = financeDao;
         }
-        return instance;
+
+        @Override
+        protected Void doInBackground(Finance... finances) {
+            financeDao.insert(finances[0]);
+            return null;
+        }
     }
 
-    //Through this method we are able to set data to our viewmodel
-    public MutableLiveData<List<Finance>> getFinance() {
-        financeList = financeBox.query().build().find();
-        MutableLiveData<List<Finance>> data = new MutableLiveData<>();
-        data.setValue(financeList);
-        return data;
+    private static class UpdateFinanceAsyncTask extends AsyncTask<Finance, Void, Void> {
+        private FinanceDao financeDao;
+
+        private UpdateFinanceAsyncTask(FinanceDao financeDao) {
+            this.financeDao = financeDao;
+        }
+
+        @Override
+        protected Void doInBackground(Finance... finances) {
+            financeDao.update(finances[0]);
+            return null;
+        }
     }
 
-    public void delete(Finance finance){
-        Query<Finance> financeQuery = financeBox.query().equal(Finance_.id,finance.getId()).build();
-        financeBox.remove(financeQuery.findFirst());
+    private static class DeleteFinanceAsyncTask extends AsyncTask<Finance, Void, Void> {
+        private FinanceDao financeDao;
+
+        private DeleteFinanceAsyncTask(FinanceDao financeDao) {
+            this.financeDao = financeDao;
+        }
+
+        @Override
+        protected Void doInBackground(Finance... finances) {
+            financeDao.delete(finances[0]);
+            return null;
+        }
     }
+
 }

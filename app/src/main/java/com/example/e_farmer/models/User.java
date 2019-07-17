@@ -1,30 +1,32 @@
 package com.example.e_farmer.models;
 
-import io.objectbox.annotation.Backlink;
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-import io.objectbox.relation.ToMany;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "users")
 public class User {
-    @Id
-    long id;
 
-    @Backlink
-    public ToMany<Animals> animals;
-
+    @PrimaryKey
+    @NonNull
+    private String id;
     private String name;
     private String email;
     private String imageUrl;
 
-    public User() {
+    public User(@NonNull String id, String name, String email, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.imageUrl = imageUrl;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -1,54 +1,87 @@
 package com.example.e_farmer.repositories;
 
-import android.util.Log;
+import android.app.Application;
+import android.os.AsyncTask;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 
-import com.example.e_farmer.FarmerApp;
 import com.example.e_farmer.Settings;
+import com.example.e_farmer.database.AnimalTreatmentDao;
+import com.example.e_farmer.database.AppDatabase;
 import com.example.e_farmer.models.AnimalTreatment;
-import com.example.e_farmer.models.Animals;
-import com.example.e_farmer.models.Animals_;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 
 public class AnimalTreatmentRepository {
 
-    private static final String TAG = "AnimalTreatmentReposito";
+    private static final String TAG = "AnimalTreatmentRepository";
 
-    private static AnimalTreatmentRepository instance;
-    private List<AnimalTreatment> animalTreatmentList;
-    private Box<AnimalTreatment> animalTreatmentBox;
-    private BoxStore farmerApp;
+    private AnimalTreatmentDao animalTreatmentDao;
+    private LiveData<List<AnimalTreatment>> animalTreatmentList;
 
-    public static AnimalTreatmentRepository getInstance(){
-        if(instance == null){
-            instance = new AnimalTreatmentRepository();
+    public AnimalTreatmentRepository(Application application) {
+        AppDatabase database = AppDatabase.getInstance(application);
+        animalTreatmentDao = database.animalTreatmentDao();
+        animalTreatmentList = animalTreatmentDao.getAllTreatment(Settings.getUserId());
+    }
 
+    public void insert(AnimalTreatment treatment) {
+        new InsertAnimalTreatmentAsyncTask(animalTreatmentDao).execute(treatment);
+    }
+
+    public void update(AnimalTreatment treatment) {
+        new UpdateAnimalTreatmentAsyncTask(animalTreatmentDao).execute(treatment);
+    }
+
+    public void delete(AnimalTreatment treatment) {
+        new DeleteAnimalTreatmentAsyncTask(animalTreatmentDao).execute(treatment);
+    }
+
+    public LiveData<List<AnimalTreatment>> getAnimalTreatment() {
+        return animalTreatmentList;
+    }
+
+    private static class InsertAnimalTreatmentAsyncTask extends AsyncTask<AnimalTreatment, Void, Void> {
+
+        private AnimalTreatmentDao animalTreatmentDao;
+
+        private InsertAnimalTreatmentAsyncTask(AnimalTreatmentDao animalTreatmentDao) {
+            this.animalTreatmentDao = animalTreatmentDao;
         }
-        return instance;
-    }
-    //Through this method we are able to set data to our viewmodel
-    public MutableLiveData<List<AnimalTreatment>> getAnimalTreatment() {
-        setAnimalTreatment();
-        MutableLiveData<List<AnimalTreatment>> data = new MutableLiveData<>();
-        data.setValue(animalTreatmentList);
-        return data;
+
+        @Override
+        protected Void doInBackground(AnimalTreatment... treatment) {
+            animalTreatmentDao.insert(treatment[0]);
+            return null;
+        }
     }
 
-    private void setAnimalTreatment() {
-        long user_id = Settings.getUserId();
-//        here we shall get our list item from the database.objectbox
-//        objectBox initialization
-        farmerApp = FarmerApp.getBoxStore();
-        animalTreatmentBox = farmerApp.boxFor(AnimalTreatment.class);
-        animalTreatmentList = animalTreatmentBox.query().build().find();
+    private static class UpdateAnimalTreatmentAsyncTask extends AsyncTask<AnimalTreatment, Void, Void> {
+        private AnimalTreatmentDao animalTreatmentDao;
 
-        Log.d(TAG, "setAnimals: " + Animals_.userId);
+        private UpdateAnimalTreatmentAsyncTask(AnimalTreatmentDao animalTreatmentDao) {
+            this.animalTreatmentDao = animalTreatmentDao;
+        }
 
+        @Override
+        protected Void doInBackground(AnimalTreatment... treatment) {
+            animalTreatmentDao.update(treatment[0]);
+            return null;
+        }
     }
+
+    private static class DeleteAnimalTreatmentAsyncTask extends AsyncTask<AnimalTreatment, Void, Void> {
+        private AnimalTreatmentDao animalTreatmentDao;
+
+        private DeleteAnimalTreatmentAsyncTask(AnimalTreatmentDao animalTreatmentDao) {
+            this.animalTreatmentDao = animalTreatmentDao;
+        }
+
+        @Override
+        protected Void doInBackground(AnimalTreatment... treatment) {
+            animalTreatmentDao.delete(treatment[0]);
+            return null;
+        }
+    }
+
 }
