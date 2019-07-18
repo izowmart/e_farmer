@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.e_farmer.fragments.FinanceManagement;
 import com.example.e_farmer.models.Finance;
 import com.example.e_farmer.viewmodels.FinanceViewModel;
 
@@ -46,24 +47,13 @@ public class FinanceActivity extends AppCompatActivity {
     private FinanceViewModel financeViewModel;
     private Finance finance;
     private String userId;
+    private Intent intent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finance);
-
-        userId = Settings.getUserId();
-        financeViewModel = ViewModelProviders.of(this).get(FinanceViewModel.class);
-
-        // This convention should follow to have a successful toolbar set with the correct set title.
-        toolbar = findViewById(R.id.toolbar_finance);
-        toolbar.setTitle("Add Expense/Revenue");
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         itemName = findViewById(R.id.item_name);
         itemCategory = findViewById(R.id.item_category);
@@ -78,6 +68,30 @@ public class FinanceActivity extends AppCompatActivity {
 
         savingBtn = findViewById(R.id.saving_finance_btn);
         progressBar = findViewById(R.id.finance_progress_bar);
+        userId = Settings.getUserId();
+        financeViewModel = ViewModelProviders.of(this).get(FinanceViewModel.class);
+
+        // This convention should follow to have a successful toolbar set with the correct set title.
+        toolbar = findViewById(R.id.toolbar_finance);
+        intent = getIntent();
+
+        if (intent.hasExtra(FinanceManagement.NAME)) {
+            toolbar.setTitle("Edit Expense/Revenue");
+
+            itemName.setText(intent.getStringExtra(FinanceManagement.NAME));
+            itemCategory.setText(intent.getStringExtra(FinanceManagement.CATEGORY));
+            transactionDate.setText(intent.getStringExtra(FinanceManagement.DATE));
+            itemQuantity.setText(intent.getStringExtra(FinanceManagement.QUANTITY));
+            itemNotes.setText(intent.getStringExtra(FinanceManagement.NAME));
+        } else {
+            toolbar.setTitle("Add Expense/Revenue");
+        }
+
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 //        spinner 1
         // Setting up spinner arrayAdapter
@@ -195,14 +209,20 @@ public class FinanceActivity extends AppCompatActivity {
                         // setup the finance revenue and expenditures.
                         financeSetup();
 
-                        finance = new Finance(userId, name, category, transaction_date, total_amount, quantity, payment_type, notes, finance_type, profit, total_income, total_expenditure);
-                        financeViewModel.insert(finance);
+                        if (intent.hasExtra(FinanceManagement.NAME)) {
+                            Finance eFinance = new Finance(userId, name, category, transaction_date, total_amount, quantity, payment_type, notes, finance_type, profit, total_income, total_expenditure);
+                            eFinance.setId(intent.getIntExtra(FinanceManagement.ID,-1));
+
+                            financeViewModel.update(eFinance);
+                        } else {
+                            finance = new Finance(userId, name, category, transaction_date, total_amount, quantity, payment_type, notes, finance_type, profit, total_income, total_expenditure);
+                            financeViewModel.insert(finance);
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     return null;
                 }
-
 
                 @Override
                 protected void onPostExecute(Void aVoid) {

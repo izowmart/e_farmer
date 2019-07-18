@@ -32,6 +32,16 @@ import com.example.e_farmer.R;
 import java.util.List;
 
 public class MyAnimals extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    private static final String TAG = "MyAnimals";
+    public static final String ANIMAL_TYPE="type";
+    public static final String ANIMAL_TAG="tag";
+    public static final String ANIMAL_COLOUR="colour";
+    public static final String ANIMAL_WEIGHT="weight";
+    public static final String ANIMAL_KIDS="notes";
+    public static final String ANIMAL_AGE="age";
+    public static final String ANIMAL_SOURCE="source";
+    public static final String ANIMAL_ID="animal_id";
+
     private FloatingActionButton fab;
     private MyAnimalViewModel myAnimalViewModel;
     private MyAnimalAdapter myAnimalAdapter;
@@ -84,6 +94,30 @@ public class MyAnimals extends Fragment implements SwipeRefreshLayout.OnRefreshL
                 myAnimalAdapter.setUpdatedData(animals);
                 myAnimalAdapter.notifyDataSetChanged();
 
+            }
+        });
+
+        myAnimalAdapter.setOnItemClickListener(new MyAnimalAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickDelete(Animals animal) {
+                // Here, we can do whatever we want with our card item selected.
+                myAnimalViewModel.delete(animal);
+            }
+
+            @Override
+            public void onItemClickEdit(Animals animal) {
+
+                Intent intent = new Intent(getContext(),AddAnimal.class);
+                intent.putExtra(ANIMAL_ID,animal.getId());
+                intent.putExtra(ANIMAL_AGE,animal.getAge());
+                intent.putExtra(ANIMAL_COLOUR,animal.getColour());
+                intent.putExtra(ANIMAL_KIDS,animal.getKids());
+                intent.putExtra(ANIMAL_SOURCE,animal.getSource());
+                intent.putExtra(ANIMAL_TYPE,animal.getType());
+                intent.putExtra(ANIMAL_WEIGHT,animal.getWeight());
+                intent.putExtra(ANIMAL_TAG,animal.getTag());
+
+                startActivity(intent);
             }
         });
 

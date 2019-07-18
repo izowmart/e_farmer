@@ -30,7 +30,8 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
     private List<Finance> mFinances = new ArrayList<>();
     private ArrayList<Finance> filteredList;
 
-    OnItemClickListener listener;
+    private OnItemClickListener listener;
+
     public FinanceAdapter(Context context) {
         this.context = context;
     }
@@ -58,17 +59,12 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.edit_card:
-                                // The method below checks to avoid clicking on an item that has already been deleted
-//                                if (listener != null && position != RecyclerView.NO_POSITION) {
-//                                    listener.onItemClick(finance);
-//                                }
+                                listener.onItemClickEdit(financeList.get(position));
                                 Toast.makeText(context, "Edit card", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.delete_card:
                                 // The method below checks to avoid clicking on an item that has already been deleted
-                                if (listener != null && position != RecyclerView.NO_POSITION) {
-                                    listener.onItemClickDelete(finance);
-                                }
+                                listener.onItemClickDelete(financeList.get(position));
                                 Toast.makeText(context, "card is being deleting", Toast.LENGTH_SHORT).show();
                                 return true;
                             default:

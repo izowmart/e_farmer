@@ -28,6 +28,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    private static final String TAG = "MyFarmTasks";
+    public static final String NAME="name";
+    public static final String CATEGORY="category";
+    public static final String DATE="date";
+    public static final String QUANTITY="quantity";
+    public static final String NOTES="notes";
+    public static final String ID="myId";
 
     private FloatingActionButton fab;
     private FarmTasksViewmodel farmTasksViewmodel;
@@ -78,6 +85,19 @@ public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefres
             @Override
             public void onChanged(List<FarmTask> farmTasks) {
                 farmTaskAdapter.setUpdatedData(farmTasks);
+            }
+        });
+
+        farmTaskAdapter.setOnItemClickListener(new FarmTaskAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickDelete(FarmTask tasks) {
+                // Here, we can do whatever we want with our card item selected.
+                farmTasksViewmodel.delete(tasks);
+            }
+
+            @Override
+            public void onItemClickEdit(FarmTask tasks) {
+
             }
         });
 

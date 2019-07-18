@@ -2,10 +2,14 @@ package com.example.e_farmer.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -28,6 +32,7 @@ public class FarmTaskAdapter  extends RecyclerView.Adapter<FarmTaskAdapter.FarmT
     private List<FarmTask> farmTaskList =  new ArrayList<>();
     private List<FarmTask> mFarmTaskList = new ArrayList<>();
     private ArrayList<FarmTask> filteredList;
+    private FarmTaskAdapter.OnItemClickListener listener;
 
     private FarmTaskDiffUtil farmTaskDiffUtil;
 
@@ -52,9 +57,37 @@ public class FarmTaskAdapter  extends RecyclerView.Adapter<FarmTaskAdapter.FarmT
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FarmTaskViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FarmTaskViewHolder holder, final int position) {
         farmTask = farmTaskList.get(position);
         holder.binding.setFarmTasks(farmTask);
+        holder.binding.taskVert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //        inflate menu
+                PopupMenu popupMenu = new PopupMenu(context, view);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.card_overvflow, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.edit_card:
+                                listener.onItemClickEdit(farmTaskList.get(position));
+                                Toast.makeText(context, "Edit card", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.delete_card:
+                                // The method below checks to avoid clicking on an item that has already been deleted
+                                listener.onItemClickDelete(farmTaskList.get(position));
+                                Toast.makeText(context, "card is being deleting", Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
 
     @Override
@@ -89,6 +122,14 @@ public class FarmTaskAdapter  extends RecyclerView.Adapter<FarmTaskAdapter.FarmT
                 notifyDataSetChanged();
             }
         };
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+    public interface OnItemClickListener {
+        void onItemClickDelete(FarmTask tasks);
+
+        void onItemClickEdit(FarmTask tasks);
     }
 
     @Override

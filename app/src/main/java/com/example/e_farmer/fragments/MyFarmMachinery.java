@@ -29,6 +29,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MyFarmMachinery extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    private static final String TAG = "MyFarmMachinery";
+    public static final String NAME="name";
+    public static final String CATEGORY="category";
+    public static final String DATE="date";
+    public static final String QUANTITY="quantity";
+    public static final String NOTES="notes";
+    public static final String ID="myId";
+
     private FloatingActionButton fab;
     private MachineViewmodel machineViewmodel;
     private MachineAdapter machineAdapter;
@@ -78,6 +86,19 @@ public class MyFarmMachinery extends Fragment implements SwipeRefreshLayout.OnRe
             public void onChanged(List<Machine> machines) {
                 machineAdapter.setUpdatedData(machines);
                 machineAdapter.notifyDataSetChanged();
+            }
+        });
+
+        machineAdapter.setOnItemClickListener(new MachineAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickDelete(Machine machine) {
+                // Here, we can do whatever we want with our card item selected.
+                machineViewmodel.delete(machine);
+            }
+
+            @Override
+            public void onItemClickEdit(Machine machine) {
+
             }
         });
 

@@ -23,7 +23,7 @@ import static androidx.room.ForeignKey.CASCADE;
 public class Machine extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private String userId;
     private String name;
     private String type;
@@ -49,7 +49,7 @@ public class Machine extends BaseObservable {
     }
 
     @Bindable
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -66,7 +66,7 @@ public class Machine extends BaseObservable {
                 .into(view);
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

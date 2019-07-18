@@ -11,6 +11,8 @@ import com.example.e_farmer.models.Finance;
 
 import java.util.List;
 
+import static androidx.room.OnConflictStrategy.REPLACE;
+
 @Dao
 public interface FinanceDao {
     @Insert

@@ -23,7 +23,7 @@ import static androidx.room.ForeignKey.SET_DEFAULT;
         onDelete = SET_DEFAULT))
 public class LandAndCrop extends BaseObservable {
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private String userId;
     private String name;
     private String square_number;
@@ -45,11 +45,11 @@ public class LandAndCrop extends BaseObservable {
     }
 
     @Bindable
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

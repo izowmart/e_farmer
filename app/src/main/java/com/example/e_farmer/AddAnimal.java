@@ -1,16 +1,25 @@
 package com.example.e_farmer;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -50,6 +59,11 @@ import java.util.Date;
 public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "AddAnimal";
+    private static final int REQUEST_CODE = 455482;
+
+
+    private static final int MY_PERMISSIONS_REQUEST_CODE = 123;
+
     IMainActivity iMainActivity;
     public static final int REQUEST_TAKE_PHOTO = 1;
     private String currentPhotoPath;
@@ -69,6 +83,7 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
     private MyAnimalViewModel myAnimalViewModel;
     private Animals animal;
 
+    private Intent intent;
     private String userId;
 
 
@@ -80,13 +95,6 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
         userId = Settings.getUserId();
         // This convention should follow to have a successful toolbar set with the correct set title.
         toolbar = findViewById(R.id.toolbar_animal);
-        toolbar.setTitle("Add Animal");
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
         animalType = findViewById(R.id.animal_type);
         animalColour = findViewById(R.id.animal_colour);
         animalTag = findViewById(R.id.animal_tag);
@@ -105,6 +113,27 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
         radioDoe = findViewById(R.id.radio_doe);
         radioBuck = findViewById(R.id.radio_buck);
         radioGroup = findViewById(R.id.radio_group);
+
+
+        intent = getIntent();
+        if (intent.hasExtra(MyAnimals.ANIMAL_TYPE)) {
+            toolbar.setTitle("Edit Animal");
+
+            animalAge.setText(intent.getStringExtra(MyAnimals.ANIMAL_AGE));
+            animalColour.setText(intent.getStringExtra(MyAnimals.ANIMAL_COLOUR));
+            animalKids.setText(intent.getStringExtra(MyAnimals.ANIMAL_KIDS));
+            animalSource.setText(intent.getStringExtra(MyAnimals.ANIMAL_SOURCE));
+            animalType.setText(intent.getStringExtra(MyAnimals.ANIMAL_TYPE));
+            animalWeight.setText(intent.getStringExtra(MyAnimals.ANIMAL_WEIGHT));
+            animalTag.setText(intent.getStringExtra(MyAnimals.ANIMAL_TAG));
+        } else {
+            toolbar.setTitle("Add Animal");
+        }
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 //        viewmodel instantiation
         myAnimalViewModel = ViewModelProviders.of(this).get(MyAnimalViewModel.class);
@@ -129,9 +158,14 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkPermission();
+        }
+
         animalImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 dispatchTakePictureIntent();
             }
         });
@@ -144,6 +178,76 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
             }
         });
 
+    }
+
+    protected void checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                + ContextCompat.checkSelfPermission(
+                this, Manifest.permission.READ_CONTACTS)
+                + ContextCompat.checkSelfPermission(
+                this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Do something, when permissions not granted
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // If we should give explanation of requested permissions
+
+                // Show an alert dialog here with request explanation
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Camera, Read Contacts and Write External" +
+                        " Storage permissions are required to do the task.");
+                builder.setTitle("Please grant those permissions");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ActivityCompat.requestPermissions(
+                                AddAnimal.this,
+                                new String[]{
+                                        Manifest.permission.CAMERA,
+                                        Manifest.permission.READ_CONTACTS,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                },
+                                MY_PERMISSIONS_REQUEST_CODE
+                        );
+                    }
+                });
+                builder.setNeutralButton("Cancel", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                // Directly request for required permissions, without explanation
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.READ_CONTACTS,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        },
+                        MY_PERMISSIONS_REQUEST_CODE
+                );
+            }
+        } else {
+            // Do something, when permissions are already granted
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CODE: {
+                // When request is cancelled, the results array are empty
+                if ((grantResults.length > 0) && (grantResults[0] + grantResults[1] + grantResults[2] == PackageManager.PERMISSION_GRANTED)) {
+                    // Permissions are granted
+
+                    Toast.makeText(this, "Permissions granted.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Permissions are denied
+                    Toast.makeText(this, "Permissions denied.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private void dispatchTakePictureIntent() {
@@ -251,8 +355,16 @@ public class AddAnimal extends AppCompatActivity implements AdapterView.OnItemSe
                     try {
                         Thread.sleep(1500);
 
-                        animal = new Animals(userId, currentPhotoPath, type, tag, colour, breed, sex, horntype, weight, kids, age, source);
-                        myAnimalViewModel.insert(animal);
+                        if (intent.hasExtra(MyAnimals.ANIMAL_TYPE)) {
+                            Animals eAnimal = new Animals(userId, currentPhotoPath, type, tag, colour, breed, sex, horntype, weight, kids, age, source);
+                            eAnimal.setId(intent.getIntExtra(MyAnimals.ANIMAL_ID, -1));
+
+                            myAnimalViewModel.update(eAnimal);
+                        } else {
+                            animal = new Animals(userId, currentPhotoPath, type, tag, colour, breed, sex, horntype, weight, kids, age, source);
+                            myAnimalViewModel.insert(animal);
+                        }
+
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();

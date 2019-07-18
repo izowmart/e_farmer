@@ -2,10 +2,14 @@ package com.example.e_farmer.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -26,6 +30,7 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MachineV
     private List<Machine> machineList =  new ArrayList<>();
     private List<Machine> mMachineList = new ArrayList<>();
     private ArrayList<Machine> filteredList;
+    private OnItemClickListener listener;
 
     public MachineAdapter(Context context) {
         this.context = context;
@@ -39,9 +44,37 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MachineV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MachineViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MachineViewHolder holder, final int position) {
         machine = machineList.get(position);
         holder.binding.setMachine(machine);
+        holder.binding.machineVert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //        inflate menu
+                PopupMenu popupMenu = new PopupMenu(context, view);
+                MenuInflater menuInflater = popupMenu.getMenuInflater();
+                menuInflater.inflate(R.menu.card_overvflow, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.edit_card:
+                                listener.onItemClickEdit(machineList.get(position));
+                                Toast.makeText(context, "Edit card", Toast.LENGTH_SHORT).show();
+                                return true;
+                            case R.id.delete_card:
+                                // The method below checks to avoid clicking on an item that has already been deleted
+                                listener.onItemClickDelete(machineList.get(position));
+                                Toast.makeText(context, "card is being deleting", Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
     }
     @Override
     public Filter getFilter() {
@@ -75,6 +108,14 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineAdapter.MachineV
                 notifyDataSetChanged();
             }
         };
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+    public interface OnItemClickListener {
+        void onItemClickDelete(Machine machine);
+
+        void onItemClickEdit(Machine machine);
     }
 
     @Override

@@ -1,15 +1,22 @@
 package com.example.e_farmer;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -38,7 +45,7 @@ import java.util.Date;
 public class LandAndCropMngt extends AppCompatActivity {
 
     private static final String TAG = "LandAndCropMngt";
-
+    private static final int MY_PERMISSIONS_REQUEST_CODE = 154;
     public static final int REQUEST_TAKE_PHOTO = 51;
 
     private String currentPhotoPath;
@@ -86,6 +93,9 @@ public class LandAndCropMngt extends AppCompatActivity {
 
         saveOperations = findViewById(R.id.save_land_crop_btn);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkPermission();
+        }
         landImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,6 +144,75 @@ public class LandAndCropMngt extends AppCompatActivity {
 
         datePickerDialog.show();
 
+    }
+    protected void checkPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                + ContextCompat.checkSelfPermission(
+                this, Manifest.permission.READ_CONTACTS)
+                + ContextCompat.checkSelfPermission(
+                this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Do something, when permissions not granted
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                // If we should give explanation of requested permissions
+
+                // Show an alert dialog here with request explanation
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Camera, Read Contacts and Write External" +
+                        " Storage permissions are required to do the task.");
+                builder.setTitle("Please grant those permissions");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ActivityCompat.requestPermissions(
+                                LandAndCropMngt.this,
+                                new String[]{
+                                        Manifest.permission.CAMERA,
+                                        Manifest.permission.READ_CONTACTS,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                                },
+                                MY_PERMISSIONS_REQUEST_CODE
+                        );
+                    }
+                });
+                builder.setNeutralButton("Cancel", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                // Directly request for required permissions, without explanation
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.READ_CONTACTS,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        },
+                        MY_PERMISSIONS_REQUEST_CODE
+                );
+            }
+        } else {
+            // Do something, when permissions are already granted
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CODE: {
+                // When request is cancelled, the results array are empty
+                if ((grantResults.length > 0) &&(grantResults[0]+ grantResults[1]+ grantResults[2]== PackageManager.PERMISSION_GRANTED)) {
+                    // Permissions are granted
+
+                    Toast.makeText(this, "Permissions granted.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Permissions are denied
+                    Toast.makeText(this, "Permissions denied.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     private void dispatchTakePictureIntent() {

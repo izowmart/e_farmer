@@ -17,7 +17,7 @@ import static androidx.room.ForeignKey.SET_DEFAULT;
 public class Finance extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private int id;
     private String userId;
     private String name;
     private String category;
@@ -46,6 +46,8 @@ public class Finance extends BaseObservable {
         this.total_expenditure = total_expenditure;
     }
 
+
+
     @Bindable
     public String getUserId() {
         return userId;
@@ -56,11 +58,11 @@ public class Finance extends BaseObservable {
     }
 
     @Bindable
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

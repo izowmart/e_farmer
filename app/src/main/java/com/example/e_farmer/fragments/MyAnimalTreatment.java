@@ -29,6 +29,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+    private static final String TAG = "MyAnimalTreatment";
+    public static final String NAME="name";
+    public static final String CATEGORY="category";
+    public static final String DATE="date";
+    public static final String QUANTITY="quantity";
+    public static final String NOTES="notes";
+    public static final String ID="myId";
 
     private FloatingActionButton fabTreatment;
     private AnimalTreatmentViewModel animalTreatmentViewModel;
@@ -60,11 +67,6 @@ public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.On
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.my_animal_treatment,container,false);
 
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mRecyclerView = view.findViewById(R.id.animal_treatment_recyclerview);
         fabTreatment = view.findViewById(R.id.fab_treatment);
         fabTreatment.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +91,21 @@ public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.On
                 animalTreatmentAdapter.notifyDataSetChanged();
             }
         });
+
+        animalTreatmentAdapter.setOnItemClickListener(new AnimalTreatmentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickDelete(AnimalTreatment treatment) {
+
+                // Here, we can do whatever we want with our card item selected.
+                animalTreatmentViewModel.delete(treatment);
+            }
+
+            @Override
+            public void onItemClickEdit(AnimalTreatment treatment) {
+
+            }
+        });
+        return view;
     }
 
     private void initSearchView() {

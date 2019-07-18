@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Fram Tasks"
+                        android:text="Farm Tasks"
                         android:textColor="@android:color/black"
                         android:textSize="18dp" />
 
@@ -332,7 +332,6 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:layout_margin="6dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp">
 
@@ -358,23 +357,22 @@
 
                 <TextView
                     android:id="@+id/revenue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_width="64dp"
+                    android:layout_height="37dp"
                     android:layout_marginTop="8dp"
+                    android:text="1000"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="@+id/textview_revenue"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textview_revenue"
-                    app:layout_constraintTop_toBottomOf="@+id/textview_revenue"
-                    android:text="1000" />
+                    app:layout_constraintTop_toBottomOf="@+id/textview_revenue" />
 
                 <View
                     android:id="@+id/revenue_view"
                     android:layout_width="1dp"
                     android:layout_height="70dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="32dp"
                     android:layout_marginTop="4dp"
                     android:background="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -386,7 +384,7 @@
                     android:id="@+id/textview_expenditure"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="Expenditure"
                     android:textColor="@android:color/black"
@@ -396,16 +394,16 @@
 
                 <TextView
                     android:id="@+id/expenditure"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:text="600"
                     android:textColor="@android:color/holo_red_dark"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="@+id/textview_expenditure"
                     app:layout_constraintHorizontal_bias="0.566"
                     app:layout_constraintStart_toStartOf="@+id/textview_expenditure"
-                    app:layout_constraintTop_toBottomOf="@+id/textview_expenditure"
-                    android:text="600" />
+                    app:layout_constraintTop_toBottomOf="@+id/textview_expenditure" />
 
                 <View
                     android:id="@+id/expenditure_view"
@@ -423,27 +421,29 @@
                     android:id="@+id/textview_profit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:text="Profit"
                     android:textColor="@android:color/black"
                     android:textSize="18dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/expenditure_view"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/profit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="118dp"
+                    android:layout_height="41dp"
                     android:layout_marginTop="8dp"
+                    android:text="400"
                     android:textColor="@color/com_facebook_blue"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     app:layout_constraintEnd_toEndOf="@+id/textview_profit"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textview_profit"
-                    app:layout_constraintTop_toBottomOf="@+id/textview_profit"
-                    android:text="400" />
+                    app:layout_constraintTop_toBottomOf="@+id/textview_profit" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

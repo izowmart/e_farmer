@@ -30,6 +30,12 @@ import java.util.List;
 
 public class MyLandAndCropMngt extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final String TAG = "MyLandAndCropMngt";
+    public static final String NAME="name";
+    public static final String CATEGORY="category";
+    public static final String DATE="date";
+    public static final String QUANTITY="quantity";
+    public static final String NOTES="notes";
+    public static final String ID="myId";
 
     private FloatingActionButton landCropFab;
     private LandAndCropViewmodel landAndCropViewmodel;
@@ -83,6 +89,18 @@ public class MyLandAndCropMngt extends Fragment implements SwipeRefreshLayout.On
             }
         });
 
+        landAndCropAdapter.setOnItemClickListener(new LandAndCropAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickDelete(LandAndCrop landAndCrop) {
+                // Here, we can do whatever we want with our card item selected.
+                landAndCropViewmodel.delete(landAndCrop);
+            }
+
+            @Override
+            public void onItemClickEdit(LandAndCrop landAndCrop) {
+
+            }
+        });
         return view;
     }
     private void initSearchView() {

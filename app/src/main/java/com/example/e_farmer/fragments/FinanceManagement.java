@@ -32,6 +32,12 @@ import java.util.List;
 
 public class FinanceManagement extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "FinanceManagement";
+    public static final String NAME="name";
+    public static final String CATEGORY="category";
+    public static final String DATE="date";
+    public static final String QUANTITY="quantity";
+    public static final String NOTES="notes";
+    public static final String ID="myId";
 
     private FloatingActionButton fab;
     private FinanceViewModel financeViewModel;
@@ -93,7 +99,15 @@ public class FinanceManagement extends Fragment implements SwipeRefreshLayout.On
 
             @Override
             public void onItemClickEdit(Finance finance) {
+                Intent intent = new Intent(getContext(),FinanceActivity.class);
+                intent.putExtra(ID,finance.getId());
+                intent.putExtra(NAME,finance.getName());
+                intent.putExtra(CATEGORY,finance.getCategory());
+                intent.putExtra(DATE,finance.getTransaction_date());
+                intent.putExtra(QUANTITY,finance.getQuantity());
+                intent.putExtra(NOTES,finance.getNotes());
 
+                startActivity(intent);
             }
         });
 

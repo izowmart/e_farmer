@@ -52,7 +52,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/more_vert"
+                android:id="@+id/treatment_vert"
                 android:layout_width="35dp"
                 android:layout_height="41dp"
                 android:backgroundTint="#fff"
