@@ -60,12 +60,11 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
                         switch (item.getItemId()) {
                             case R.id.edit_card:
                                 listener.onItemClickEdit(financeList.get(position));
-                                Toast.makeText(context, "Edit card", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.delete_card:
                                 // The method below checks to avoid clicking on an item that has already been deleted
                                 listener.onItemClickDelete(financeList.get(position));
-                                Toast.makeText(context, "card is being deleting", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Card Deleted", Toast.LENGTH_SHORT).show();
                                 return true;
                             default:
                         }

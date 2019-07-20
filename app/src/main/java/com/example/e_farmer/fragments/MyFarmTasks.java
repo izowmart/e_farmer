@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.e_farmer.IMainActivity;
+import com.example.e_farmer.MyFarmTasksActivity;
 import com.example.e_farmer.R;
 import com.example.e_farmer.adapters.FarmTaskAdapter;
 import com.example.e_farmer.models.FarmTask;
@@ -28,7 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
-    private static final String TAG = "MyFarmTasks";
+    private static final String TAG = "MyFarmTasksActivity";
     public static final String TASK="task";
     public static final String ASSIGNEE="assignee";
     public static final String SUPERVISOR="supervisor";
@@ -68,7 +69,7 @@ public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefres
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), com.example.e_farmer.MyFarmTasks.class);
+                Intent intent = new Intent(getContext(), MyFarmTasksActivity.class);
                 startActivity(intent);
             }
         });
@@ -98,7 +99,7 @@ public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefres
 
             @Override
             public void onItemClickEdit(FarmTask tasks) {
-                Intent intent = new Intent(getContext(), MyFarmTasks.class);
+                Intent intent = new Intent(getContext(), MyFarmTasksActivity.class);
                 intent.putExtra(TASK_ID,tasks.getId());
                 intent.putExtra(DESCRIPTION,tasks.getDescription());
                 intent.putExtra(DUE_DATE,tasks.getDue());

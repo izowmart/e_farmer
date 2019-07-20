@@ -61,12 +61,11 @@ public class AnimalTreatmentAdapter extends RecyclerView.Adapter<AnimalTreatment
                         switch (item.getItemId()) {
                             case R.id.edit_card:
                                 listener.onItemClickEdit(animalTreatmentList.get(position));
-                                Toast.makeText(context, "Edit card", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.delete_card:
                                 // The method below checks to avoid clicking on an item that has already been deleted
                                 listener.onItemClickDelete(animalTreatmentList.get(position));
-                                Toast.makeText(context, "card is being deleting", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Card Deleted", Toast.LENGTH_SHORT).show();
                                 return true;
                             default:
                         }
@@ -128,6 +127,7 @@ public class AnimalTreatmentAdapter extends RecyclerView.Adapter<AnimalTreatment
     public void setUpdatedData(List<AnimalTreatment> animalTreatments) {
         this.animalTreatmentList = animalTreatments;
         this.mAnimalTreatmentList = animalTreatments;
+        notifyDataSetChanged();
     }
 
     public class TreatmentViewHolder extends RecyclerView.ViewHolder{

@@ -23,9 +23,9 @@ import com.example.e_farmer.viewmodels.FarmTasksViewmodel;
 import java.util.Calendar;
 
 
-public class MyFarmTasks extends AppCompatActivity {
+public class MyFarmTasksActivity extends AppCompatActivity {
 
-    private static final String TAG = "MyFarmTasks";
+    private static final String TAG = "MyFarmTasksActivity";
     private Toolbar toolbar;
     private EditText taskName, taskAssignee, taskSupervisor, taskStart, taskDue, taskDescription;
     private Button saveTask, savingBtn;
@@ -95,7 +95,7 @@ public class MyFarmTasks extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        datePickerDialog = new DatePickerDialog(MyFarmTasks.this, new DatePickerDialog.OnDateSetListener() {
+        datePickerDialog = new DatePickerDialog(MyFarmTasksActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 editText.setText(day + "-" + (month + 1) + "-" + year);
@@ -160,10 +160,10 @@ public class MyFarmTasks extends AppCompatActivity {
                     saveTask.setVisibility(View.VISIBLE);
                     savingBtn.setVisibility(View.GONE);
 
-                    Intent toDashboardActivity = new Intent(MyFarmTasks.this, MainActivity.class);
+                    Intent toDashboardActivity = new Intent(MyFarmTasksActivity.this, MainActivity.class);
                     startActivity(toDashboardActivity);
                     finish();
-                    Toast.makeText(MyFarmTasks.this, "Task added successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyFarmTasksActivity.this, "Task added successfully", Toast.LENGTH_SHORT).show();
 
                 }
             };

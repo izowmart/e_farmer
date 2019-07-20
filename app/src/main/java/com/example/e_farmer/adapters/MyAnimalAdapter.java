@@ -61,12 +61,11 @@ public class MyAnimalAdapter extends RecyclerView.Adapter<MyAnimalAdapter.MyAnim
                         switch (item.getItemId()) {
                             case R.id.edit_card:
                                 listener.onItemClickEdit(animalList.get(position));
-                                Toast.makeText(context, "Edit card", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.delete_card:
                                 // The method below checks to avoid clicking on an item that has already been deleted
                                 listener.onItemClickDelete(animalList.get(position));
-                                Toast.makeText(context, "card is being deleting", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Card Deleted", Toast.LENGTH_SHORT).show();
                                 return true;
                             default:
                         }
@@ -127,6 +126,7 @@ public class MyAnimalAdapter extends RecyclerView.Adapter<MyAnimalAdapter.MyAnim
     public void setUpdatedData(List<Animals> animals) {
         this.animalList = animals;
         this.mAnimalList = animals;
+        notifyDataSetChanged();
     }
 
 

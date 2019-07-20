@@ -60,12 +60,11 @@ public class LandAndCropAdapter extends RecyclerView.Adapter<LandAndCropAdapter.
                         switch (item.getItemId()) {
                             case R.id.edit_card:
                                 listener.onItemClickEdit(landAndCrops.get(position));
-                                Toast.makeText(context, "Edit card", Toast.LENGTH_SHORT).show();
                                 return true;
                             case R.id.delete_card:
                                 // The method below checks to avoid clicking on an item that has already been deleted
                                 listener.onItemClickDelete(landAndCrops.get(position));
-                                Toast.makeText(context, "card is being deleting", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Card Deleted", Toast.LENGTH_SHORT).show();
                                 return true;
                             default:
                         }
@@ -127,6 +126,7 @@ public class LandAndCropAdapter extends RecyclerView.Adapter<LandAndCropAdapter.
     public void setUpdatedData(List<LandAndCrop> landAndCrops) {
         this.landAndCrops = landAndCrops;
         this.mLandAndCrop = landAndCrops;
+        notifyDataSetChanged();
     }
 
     public class LandAndCropViewHolder extends RecyclerView.ViewHolder{

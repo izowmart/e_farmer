@@ -26,30 +26,32 @@
 
     <TextView
         android:id="@+id/nav_bar_username"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_bar_profile"
+        android:layout_marginStart="40dp"
         android:paddingTop="4dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nav_bar_profile"
         tools:text="John Doe" />
 
     <TextView
         android:id="@+id/nav_bar_email"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_bar_username"
         android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        tools:text="me@gmailcom"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/nav_bar_username"
         app:layout_constraintTop_toBottomOf="@+id/nav_bar_username"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="me@gmailcom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
