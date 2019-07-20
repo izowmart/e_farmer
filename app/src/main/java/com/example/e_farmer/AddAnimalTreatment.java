@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_farmer.fragments.MyAnimalTreatment;
 import com.example.e_farmer.models.AnimalTreatment;
 import com.example.e_farmer.viewmodels.AnimalTreatmentViewModel;
 
@@ -37,6 +38,7 @@ public class AddAnimalTreatment extends AppCompatActivity {
     private AnimalTreatment animalTreatment;
     private AnimalTreatmentViewModel animalTreatmentViewModel;
     private String userId;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +47,6 @@ public class AddAnimalTreatment extends AppCompatActivity {
 
         userId = Settings.getUserId();
         animalTreatmentViewModel = ViewModelProviders.of(this).get(AnimalTreatmentViewModel.class);
-
-        // This convention should follow to have a successful toolbar set with the correct set title.
-        toolbar = findViewById(R.id.toolbar_animal_treatment);
-        toolbar.setTitle("Add Animal Treatment");
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         animalType = findViewById(R.id.animal_treatment_type);
         animalTreatmentReason = findViewById(R.id.animal_treatment_reason);
@@ -66,6 +59,37 @@ public class AddAnimalTreatment extends AppCompatActivity {
         animalVetContacts = findViewById(R.id.animal_vet_contacts);
         animalDescription = findViewById(R.id.animal_descr);
         saveMedication = findViewById(R.id.save_medication_btn);
+
+        // This convention should follow to have a successful toolbar set with the correct set title.
+        toolbar = findViewById(R.id.toolbar_animal_treatment);
+        toolbar.setTitle("");
+        intent = getIntent();
+
+        if (intent.hasExtra(MyAnimalTreatment.TREATMENT_NAME)) {
+            toolbar.setTitle("Edit Animal Treatment");
+
+            animalType.setText(intent.getStringExtra(MyAnimalTreatment.TREATMENT_NAME));
+            animalTreatmentReason.setText(intent.getStringExtra(MyAnimalTreatment.TREATMENT_REASON));
+            animalTag.setText(intent.getStringExtra(MyAnimalTreatment.TREATMENT_TAG));
+            animalMedicineName.setText(intent.getStringExtra(MyAnimalTreatment.MEDICINE));
+            animalDosageStart.setText(intent.getStringExtra(MyAnimalTreatment.DOSAGE_START));
+            animalDosageEnd.setText(intent.getStringExtra(MyAnimalTreatment.DOSAGE_END));
+            animalDosagePrescription.setText(intent.getStringExtra(MyAnimalTreatment.PRESCRIPTION));
+            animalVetName.setText(intent.getStringExtra(MyAnimalTreatment.VETINERY));
+            animalVetContacts.setText(intent.getStringExtra(MyAnimalTreatment.VET_CONTACTS));
+            animalDescription.setText(intent.getStringExtra(MyAnimalTreatment.TREATMENT_DESCRIPRION));
+
+        }else {
+            toolbar.setTitle("Add Animal Treatment");
+        }
+
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+
 
         savingBtn = findViewById(R.id.saving_medication_btn);
         progressBar = findViewById(R.id.treatment_progress_bar);
@@ -164,8 +188,16 @@ public class AddAnimalTreatment extends AppCompatActivity {
                     try {
                         Thread.sleep(1500);
 
-                        animalTreatment = new AnimalTreatment(userId, type, tag, treatment_reason, medicine_name, dosage_start, dosage_end, dosage_prescription, vet_name, vet_contacts, description);
-                        animalTreatmentViewModel.insert(animalTreatment);
+                        if (intent.hasExtra(MyAnimalTreatment.TREATMENT_NAME)) {
+                            AnimalTreatment eAnimalTreatment = new AnimalTreatment(userId, type, tag, treatment_reason, medicine_name, dosage_start, dosage_end, dosage_prescription, vet_name, vet_contacts, description);
+                            eAnimalTreatment.setId(intent.getIntExtra(MyAnimalTreatment.TREATMENT_ID,-1));
+
+                            animalTreatmentViewModel.update(eAnimalTreatment);
+                        } else {
+                            animalTreatment = new AnimalTreatment(userId, type, tag, treatment_reason, medicine_name, dosage_start, dosage_end, dosage_prescription, vet_name, vet_contacts, description);
+                            animalTreatmentViewModel.insert(animalTreatment);
+                        }
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

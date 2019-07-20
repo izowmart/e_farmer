@@ -30,12 +30,13 @@ import java.util.List;
 
 public class MyLandAndCropMngt extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final String TAG = "MyLandAndCropMngt";
-    public static final String NAME="name";
-    public static final String CATEGORY="category";
-    public static final String DATE="date";
-    public static final String QUANTITY="quantity";
-    public static final String NOTES="notes";
-    public static final String ID="myId";
+    public static final String LAND_NAME="land_name";
+    public static final String SQUARE_NUMBER="square_number";
+    public static final String TASK_NAME="task_name";
+    public static final String TASK_START="task_start";
+    public static final String TASK_END="task_end";
+    public static final String LAND_DESCRIPTION="land_description";
+    public static final String LAND_ID="land_id";
 
     private FloatingActionButton landCropFab;
     private LandAndCropViewmodel landAndCropViewmodel;
@@ -99,6 +100,16 @@ public class MyLandAndCropMngt extends Fragment implements SwipeRefreshLayout.On
             @Override
             public void onItemClickEdit(LandAndCrop landAndCrop) {
 
+                Intent intent = new Intent(getContext(), LandAndCropMngt.class);
+                intent.putExtra(LAND_ID,landAndCrop.getId());
+                intent.putExtra(LAND_DESCRIPTION,landAndCrop.getDescription());
+                intent.putExtra(TASK_END,landAndCrop.getCompletion_date());
+                intent.putExtra(TASK_START,landAndCrop.getStart_date());
+                intent.putExtra(TASK_NAME,landAndCrop.getTask());
+                intent.putExtra(SQUARE_NUMBER,landAndCrop.getSquare_number());
+                intent.putExtra(LAND_NAME,landAndCrop.getName());
+
+                startActivity(intent);
             }
         });
         return view;

@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/farm_task_cardview"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="160dp"
         app:cardCornerRadius="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,19 +35,21 @@
                     android:layout_marginStart="8dp"
                     android:text="@{farmTasks.name}"
                     android:textColor="#ffffff"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     tools:text="Bush clearing" />
 
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/task_vert"
-                android:layout_width="35dp"
-                android:layout_height="41dp"
+                android:layout_width="33dp"
+                android:layout_height="32dp"
                 android:backgroundTint="#fff"
+                android:src="@drawable/dots_vertical"
+                app:layout_constraintBottom_toTopOf="@+id/treatment_card_srt_dose"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linear"
-                tools:src="@drawable/dots_vertical" />
+                app:layout_constraintTop_toTopOf="@+id/card_task_assignee"
+                app:layout_constraintVertical_bias="0.36" />
 
             <TextView
                 android:id="@+id/textview_task_assignee"
@@ -57,7 +59,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Assigned To      :"
                 android:textColor="@android:color/black"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linear" />
 
@@ -68,7 +70,7 @@
                 android:layout_marginStart="16dp"
                 android:text="@{farmTasks.assignee}"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textview_task_assignee"
                 app:layout_constraintStart_toEndOf="@+id/textview_task_assignee"
                 app:layout_constraintTop_toTopOf="@+id/textview_task_assignee"
@@ -82,7 +84,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Supervisor         :"
                 android:textColor="@android:color/black"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@+id/textview_task_assignee"
                 app:layout_constraintTop_toBottomOf="@+id/textview_task_assignee" />
 
@@ -93,7 +95,7 @@
                 android:layout_marginStart="16dp"
                 android:text="@{farmTasks.supervisor}"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textview_task_supervisor"
                 app:layout_constraintStart_toEndOf="@+id/textview_task_supervisor"
                 app:layout_constraintTop_toTopOf="@+id/textview_task_supervisor"
@@ -106,7 +108,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Start Date          :"
                 android:textColor="@android:color/black"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@+id/textview_task_supervisor"
                 app:layout_constraintTop_toBottomOf="@+id/textview_task_supervisor" />
 
@@ -117,7 +119,7 @@
                 android:layout_marginStart="16dp"
                 android:text="@{farmTasks.start}"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textview_start_date"
                 app:layout_constraintStart_toEndOf="@+id/textview_start_date"
                 app:layout_constraintTop_toTopOf="@+id/textview_start_date"
@@ -129,7 +131,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Due Date            :"
                 android:textColor="@android:color/black"
-                android:textSize="19sp"
+                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="@+id/textview_start_date"
                 app:layout_constraintTop_toBottomOf="@+id/textview_start_date" />
 
@@ -140,7 +142,7 @@
                 android:layout_marginStart="16dp"
                 android:text="@{farmTasks.due}"
                 android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="@+id/task_card_due_date"
                 app:layout_constraintStart_toEndOf="@+id/task_card_due_date"
                 app:layout_constraintTop_toTopOf="@+id/task_card_due_date"

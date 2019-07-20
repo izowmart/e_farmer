@@ -14,7 +14,7 @@
         android:id="@+id/land_crop_cardview"
         android:layout_width="match_parent"
         android:layout_marginTop="7dp"
-        android:layout_height="170dp"
+        android:layout_height="155dp"
         app:cardCornerRadius="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,18 +23,20 @@
 
             <ImageView
                 android:id="@+id/land_crop_image"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="145dp"
+                android:layout_marginStart="4dp"
+                app:landImage="@{landCrop.landImage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/sungura"
-                app:landImage="@{landCrop.landImage}"/>
+                tools:src="@drawable/placeholder" />
 
             <TextView
                 android:id="@+id/textview_land_crop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:text="Name         :"
                 android:textColor="@android:color/black"
                 android:textSize="17sp"
@@ -45,9 +47,12 @@
                 android:id="@+id/land_vert"
                 android:layout_width="35dp"
                 android:layout_height="41dp"
+                android:layout_marginStart="8dp"
                 android:backgroundTint="#fff"
                 android:src="@drawable/dots_vertical"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/land_crop_land_name"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -55,8 +60,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:text="@{landCrop.name}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="17sp"
@@ -69,8 +72,9 @@
                 android:id="@+id/textview_land_crop_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Square No :"
+                android:text="Square N   :"
                 android:textColor="@android:color/black"
                 android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/land_crop_image"
@@ -93,6 +97,7 @@
                 android:id="@+id/textview_crop_land_task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Task           :"
                 android:textColor="@android:color/black"
@@ -117,6 +122,7 @@
                 android:id="@+id/textview_land_crop_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Start date  :"
                 android:textColor="@android:color/black"
@@ -141,6 +147,7 @@
                 android:id="@+id/textview_land_crop_end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="End date    :"
                 android:textColor="@android:color/black"
@@ -153,7 +160,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:text="@{landCrop.completion_date}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="17sp"

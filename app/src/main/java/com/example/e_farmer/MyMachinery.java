@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_farmer.fragments.MyFarmMachinery;
 import com.example.e_farmer.models.Machine;
 import com.example.e_farmer.viewmodels.MachineViewmodel;
 
@@ -56,6 +57,7 @@ public class MyMachinery extends AppCompatActivity {
     private Machine machine;
     private String userId;
     private MachineViewmodel machineViewmodel;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +66,6 @@ public class MyMachinery extends AppCompatActivity {
 
         userId = Settings.getUserId();
         machineViewmodel = ViewModelProviders.of(this).get(MachineViewmodel.class);
-
-        // This convention should follow to have a successful toolbar set with the correct set title.
-        toolbar = findViewById(R.id.toolbar_machinery);
-        toolbar.setTitle("Add Machine");
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         machineName = findViewById(R.id.machinery_name);
         machineType = findViewById(R.id.machinery_type);
@@ -88,6 +81,33 @@ public class MyMachinery extends AppCompatActivity {
 
         saveMachine = findViewById(R.id.save_machinery_btn);
         machineImage = findViewById(R.id.machine_image);
+
+        // This convention should follow to have a successful toolbar set with the correct set title.
+        toolbar = findViewById(R.id.toolbar_machinery);
+        intent = getIntent();
+        if (intent.hasExtra(MyFarmMachinery.MACHINERY_NAME)) {
+            toolbar.setTitle("Edit Machine");
+
+            machineName.setText(intent.getStringExtra(MyFarmMachinery.MACHINERY_NAME));
+            machineType.setText(intent.getStringExtra(MyFarmMachinery.MACHINE_TYPE));
+            machineRegYear.setText(intent.getStringExtra(MyFarmMachinery.YOR));
+            machinePurchaceDate.setText(intent.getStringExtra(MyFarmMachinery.DATE_OF_PURCHASE));
+            machineOriginalPrice.setText(intent.getStringExtra(MyFarmMachinery.ORIGINAL_PRICE));
+            machineCurrentPrice.setText(intent.getStringExtra(MyFarmMachinery.CURRENT_PRICE));
+            machinemilage.setText(intent.getStringExtra(MyFarmMachinery.MILEAGE));
+            machineNotes.setText(intent.getStringExtra(MyFarmMachinery.MACHINE_DESCRIPTION));
+
+        }else {
+            toolbar.setTitle("Add Machine");
+        }
+
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkPermission();
@@ -302,8 +322,16 @@ public class MyMachinery extends AppCompatActivity {
                     try {
                         Thread.sleep(1500);
 
-                        machine = new Machine(userId, name, type, registration_year, purchase_date, original_price, current_price, milage, notes, currentPhotoPath);
-                        machineViewmodel.insert(machine);
+                        if (intent.hasExtra(MyFarmMachinery.MACHINERY_NAME)) {
+                            Machine eMachine = new Machine(userId, name, type, registration_year, purchase_date, original_price, current_price, milage, notes, currentPhotoPath);
+                            eMachine.setId(intent.getIntExtra(MyFarmMachinery.MACHINE_ID,-1));
+
+                            machineViewmodel.update(eMachine);
+                        } else {
+                            machine = new Machine(userId, name, type, registration_year, purchase_date, original_price, current_price, milage, notes, currentPhotoPath);
+                            machineViewmodel.insert(machine);
+                        }
+
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();

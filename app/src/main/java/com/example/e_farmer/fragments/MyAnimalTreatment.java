@@ -30,12 +30,17 @@ import java.util.List;
 
 public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final String TAG = "MyAnimalTreatment";
-    public static final String NAME="name";
-    public static final String CATEGORY="category";
-    public static final String DATE="date";
-    public static final String QUANTITY="quantity";
-    public static final String NOTES="notes";
-    public static final String ID="myId";
+    public static final String TREATMENT_NAME="treatment_name";
+    public static final String TREATMENT_TAG="treatment_tag";
+    public static final String TREATMENT_REASON="treatment_reason";
+    public static final String MEDICINE="medicine";
+    public static final String DOSAGE_START="dosage_start";
+    public static final String DOSAGE_END="dosage_end";
+    public static final String PRESCRIPTION="prescription";
+    public static final String VETINERY="vet_name";
+    public static final String VET_CONTACTS="vet_contacts";
+    public static final String TREATMENT_DESCRIPRION="description";
+    public static final String TREATMENT_ID="id";
 
     private FloatingActionButton fabTreatment;
     private AnimalTreatmentViewModel animalTreatmentViewModel;
@@ -103,6 +108,20 @@ public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.On
             @Override
             public void onItemClickEdit(AnimalTreatment treatment) {
 
+                Intent intent = new Intent(getContext(), AddAnimalTreatment.class);
+                intent.putExtra(TREATMENT_ID,treatment.getId());
+                intent.putExtra(TREATMENT_DESCRIPRION,treatment.getDescription());
+                intent.putExtra(VET_CONTACTS,treatment.getVet_contacts());
+                intent.putExtra(VETINERY,treatment.getVet_name());
+                intent.putExtra(PRESCRIPTION,treatment.getDosage_prescription());
+                intent.putExtra(DOSAGE_END,treatment.getDosage_end());
+                intent.putExtra(DOSAGE_START,treatment.getDosage_start());
+                intent.putExtra(MEDICINE,treatment.getMedicine_name());
+                intent.putExtra(TREATMENT_REASON,treatment.getTreatment_reason());
+                intent.putExtra(TREATMENT_TAG,treatment.getTag());
+                intent.putExtra(TREATMENT_NAME,treatment.getType());
+
+                startActivity(intent);
             }
         });
         return view;

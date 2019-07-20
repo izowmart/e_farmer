@@ -13,14 +13,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_farmer.R;
 import com.example.e_farmer.databinding.SingleFarmTaskItemBinding;
 import com.example.e_farmer.models.FarmTask;
-import com.example.e_farmer.models.FarmTask;
-import com.example.e_farmer.utils.FarmTaskDiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,19 +31,9 @@ public class FarmTaskAdapter  extends RecyclerView.Adapter<FarmTaskAdapter.FarmT
     private ArrayList<FarmTask> filteredList;
     private FarmTaskAdapter.OnItemClickListener listener;
 
-    private FarmTaskDiffUtil farmTaskDiffUtil;
 
     public FarmTaskAdapter(Context context) {
         this.context = context;
-    }
-
-    public void setUpdatedData(List<FarmTask> farmTasks) {
-        this.mFarmTaskList = farmTasks;
-        farmTaskDiffUtil = new FarmTaskDiffUtil(farmTaskList, farmTasks);
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(farmTaskDiffUtil);
-
-        farmTaskList.addAll(farmTasks);
-        diffResult.dispatchUpdatesTo(this);
     }
 
     @NonNull
@@ -130,6 +117,10 @@ public class FarmTaskAdapter  extends RecyclerView.Adapter<FarmTaskAdapter.FarmT
         void onItemClickDelete(FarmTask tasks);
 
         void onItemClickEdit(FarmTask tasks);
+    }
+    public void setUpdatedData(List<FarmTask> farmTasks) {
+        this.farmTaskList = farmTasks;
+        this.mFarmTaskList = farmTasks;
     }
 
     @Override

@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.e_farmer.fragments.MyLandAndCropMngt;
 import com.example.e_farmer.models.LandAndCrop;
 import com.example.e_farmer.viewmodels.LandAndCropViewmodel;
 
@@ -62,6 +63,7 @@ public class LandAndCropMngt extends AppCompatActivity {
     private LandAndCrop landAndCrop;
     private String userId;
     private LandAndCropViewmodel landAndCropViewmodel;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +73,6 @@ public class LandAndCropMngt extends AppCompatActivity {
         userId = Settings.getUserId();
         landAndCropViewmodel = ViewModelProviders.of(this).get(LandAndCropViewmodel.class);
 
-        // This convention should follow to have a successful toolbar set with the correct set title.
-        toolbar = findViewById(R.id.toolbar_land_crop_mngt);
-        toolbar.setTitle("Add Land & Crop Activity");
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
         landName = findViewById(R.id.land_crop_name);
         squareNumber = findViewById(R.id.land_crop_square);
         landTask = findViewById(R.id.land_crop_task);
@@ -87,6 +80,30 @@ public class LandAndCropMngt extends AppCompatActivity {
         taskEndDate = findViewById(R.id.land_crop_end);
         landDescription = findViewById(R.id.land_crop_descr);
         landImage = findViewById(R.id.land_crop_image);
+
+
+        // This convention should follow to have a successful toolbar set with the correct set title.
+        toolbar = findViewById(R.id.toolbar_land_crop_mngt);
+        intent = getIntent();
+
+        if (intent.hasExtra(MyLandAndCropMngt.LAND_NAME)) {
+            toolbar.setTitle("Edit Land & Crop Activity");
+
+            landName.setText(intent.getStringExtra(MyLandAndCropMngt.LAND_NAME));
+            squareNumber.setText(intent.getStringExtra(MyLandAndCropMngt.SQUARE_NUMBER));
+            landTask.setText(intent.getStringExtra(MyLandAndCropMngt.TASK_NAME));
+            taskStartDate.setText(intent.getStringExtra(MyLandAndCropMngt.TASK_START));
+            taskEndDate.setText(intent.getStringExtra(MyLandAndCropMngt.TASK_END));
+            landDescription.setText(intent.getStringExtra(MyLandAndCropMngt.LAND_DESCRIPTION));
+        } else {
+            toolbar.setTitle("Add Land & Crop Activity");
+        }
+
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         savingBtn = findViewById(R.id.saving_land_btn);
         progressBar = findViewById(R.id.land_progress_bar);
@@ -311,8 +328,15 @@ public class LandAndCropMngt extends AppCompatActivity {
                     try {
                         Thread.sleep(1500);
 
-                        landAndCrop = new LandAndCrop(userId, name, square_number, task, start_date, completion_date, description, currentPhotoPath);
-                        landAndCropViewmodel.insert(landAndCrop);
+                        if (intent.hasExtra(MyLandAndCropMngt.LAND_NAME)) {
+                            LandAndCrop eLandAndCrop = new LandAndCrop(userId, name, square_number, task, start_date, completion_date, description, currentPhotoPath);
+                            eLandAndCrop.setId(intent.getIntExtra(MyLandAndCropMngt.LAND_ID,-1));
+
+                            landAndCropViewmodel.update(eLandAndCrop);
+                        } else {
+                            landAndCrop = new LandAndCrop(userId, name, square_number, task, start_date, completion_date, description, currentPhotoPath);
+                            landAndCropViewmodel.insert(landAndCrop);
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

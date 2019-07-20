@@ -29,12 +29,13 @@ import java.util.List;
 
 public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final String TAG = "MyFarmTasks";
-    public static final String NAME="name";
-    public static final String CATEGORY="category";
-    public static final String DATE="date";
-    public static final String QUANTITY="quantity";
-    public static final String NOTES="notes";
-    public static final String ID="myId";
+    public static final String TASK="task";
+    public static final String ASSIGNEE="assignee";
+    public static final String SUPERVISOR="supervisor";
+    public static final String START_DATE="start";
+    public static final String DUE_DATE="due";
+    public static final String DESCRIPTION="description";
+    public static final String TASK_ID="task_id";
 
     private FloatingActionButton fab;
     private FarmTasksViewmodel farmTasksViewmodel;
@@ -97,7 +98,16 @@ public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefres
 
             @Override
             public void onItemClickEdit(FarmTask tasks) {
+                Intent intent = new Intent(getContext(), MyFarmTasks.class);
+                intent.putExtra(TASK_ID,tasks.getId());
+                intent.putExtra(DESCRIPTION,tasks.getDescription());
+                intent.putExtra(DUE_DATE,tasks.getDue());
+                intent.putExtra(START_DATE,tasks.getStart());
+                intent.putExtra(SUPERVISOR,tasks.getSupervisor());
+                intent.putExtra(ASSIGNEE,tasks.getAssignee());
+                intent.putExtra(TASK,tasks.getName());
 
+                startActivity(intent);
             }
         });
 

@@ -30,12 +30,15 @@ import java.util.List;
 
 public class MyFarmMachinery extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
     private static final String TAG = "MyFarmMachinery";
-    public static final String NAME="name";
-    public static final String CATEGORY="category";
-    public static final String DATE="date";
-    public static final String QUANTITY="quantity";
-    public static final String NOTES="notes";
-    public static final String ID="myId";
+    public static final String MACHINERY_NAME="machine_name";
+    public static final String MACHINE_TYPE="machine_type";
+    public static final String YOR="yor";
+    public static final String DATE_OF_PURCHASE="date_of_purchase";
+    public static final String ORIGINAL_PRICE="original_rpice";
+    public static final String CURRENT_PRICE="current_price";
+    public static final String MILEAGE="mileage";
+    public static final String MACHINE_DESCRIPTION="description";
+    public static final String MACHINE_ID="id";
 
     private FloatingActionButton fab;
     private MachineViewmodel machineViewmodel;
@@ -99,6 +102,18 @@ public class MyFarmMachinery extends Fragment implements SwipeRefreshLayout.OnRe
             @Override
             public void onItemClickEdit(Machine machine) {
 
+                Intent intent = new Intent(getContext(), MyMachinery.class);
+                intent.putExtra(MACHINE_ID,machine.getId());
+                intent.putExtra(MACHINE_DESCRIPTION,machine.getNotes());
+                intent.putExtra(MILEAGE,machine.getMilage());
+                intent.putExtra(CURRENT_PRICE,machine.getCurrent_price());
+                intent.putExtra(ORIGINAL_PRICE,machine.getOriginal_price());
+                intent.putExtra(DATE_OF_PURCHASE,machine.getPurchase_date());
+                intent.putExtra(YOR,machine.getRegistration_year());
+                intent.putExtra(MACHINE_TYPE,machine.getType());
+                intent.putExtra(MACHINERY_NAME,machine.getName());
+
+                startActivity(intent);
             }
         });
 
