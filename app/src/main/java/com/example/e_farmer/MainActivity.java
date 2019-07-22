@@ -82,17 +82,6 @@ public class MainActivity extends AppCompatActivity
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         user = userViewModel.getCurrentUser(user_id);
 
-//        new AsyncTask<Void,Void,Void>(){
-//
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                user = userViewModel.getCurrentUser();
-//                return null;
-//            }
-//        }.execute();
-
-
-
         Log.d(TAG, "onCreate: " + mEmail + mUsername + navProfile);
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -129,7 +118,6 @@ public class MainActivity extends AppCompatActivity
                 .applyDefaultRequestOptions(options)
                 .load(user.getImageUrl())
                 .into(navProfile);
-
 
         init();
 
@@ -217,9 +205,6 @@ public class MainActivity extends AppCompatActivity
                     LoginManager.getInstance().logOut();
 //                    Clear shared pref file
                     Settings.setLoggedInSharedPref(false);
-//                    clear local DB
-//              todo "     userBox.removeAll();
-//                    Redirect user to login page
                     goToLoginActivity();
 
                 }
@@ -231,9 +216,6 @@ public class MainActivity extends AppCompatActivity
                     Toast.makeText(MainActivity.this, "Logging out", Toast.LENGTH_LONG).show();
                     //Clear Shared Pref File
                     Settings.setLoggedInSharedPref(false);
-                    //Clear Local DB
-//             todo       userBox.removeAll();
-                    //Redirect User to Login Page
                     goToLoginActivity();
                 }
             });

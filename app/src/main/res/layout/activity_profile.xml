@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="25dp">
+        android:padding="15dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_photo"
@@ -44,8 +44,7 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="2.9dp"
             app:contentPaddingBottom="15dp"
-            app:contentPaddingLeft="15dp"
-            app:contentPaddingRight="15dp"
+            app:contentPaddingLeft="8dp"
             app:contentPaddingTop="15dp"
             tools:layout_editor_absoluteY="25dp">
 

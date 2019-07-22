@@ -15,7 +15,7 @@
             android:id="@+id/machine_searchview"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:queryHint="Search an Animal Type" />
+            app:queryHint="Search Machinery Name" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/machine_swipe_refresh"

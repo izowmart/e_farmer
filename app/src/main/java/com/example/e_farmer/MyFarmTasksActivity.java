@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.e_farmer.fragments.MyFarmTasks;
 import com.example.e_farmer.models.FarmTask;
 import com.example.e_farmer.viewmodels.FarmTasksViewmodel;
 
@@ -35,6 +36,7 @@ public class MyFarmTasksActivity extends AppCompatActivity {
     private FarmTask farmTask;
     private String userId;
     private FarmTasksViewmodel farmTasksViewmodel;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +46,6 @@ public class MyFarmTasksActivity extends AppCompatActivity {
         userId = Settings.getUserId();
         farmTasksViewmodel = ViewModelProviders.of(this).get(FarmTasksViewmodel.class);
 
-        // This convention should follow to have a successful toolbar set with the correct set title.
-        toolbar = findViewById(R.id.toolbar_farm_tasks);
-        toolbar.setTitle("Add Farm Task");
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         taskName = findViewById(R.id.task_name);
         taskAssignee = findViewById(R.id.task_assignee);
         taskSupervisor = findViewById(R.id.task_supervisor);
@@ -62,6 +56,28 @@ public class MyFarmTasksActivity extends AppCompatActivity {
         savingBtn = findViewById(R.id.saving_tasks_btn);
         progressBar = findViewById(R.id.tasks_progress_bar);
         saveTask = findViewById(R.id.save_task_btn);
+
+        // This convention should follow to have a successful toolbar set with the correct set title.
+        toolbar = findViewById(R.id.toolbar_farm_tasks);
+        intent = getIntent();
+        if (intent.hasExtra(MyFarmTasks.TASK)) {
+            toolbar.setTitle("Edit Farm Task");
+
+            taskName.setText(intent.getStringExtra(MyFarmTasks.TASK));
+            taskAssignee.setText(intent.getStringExtra(MyFarmTasks.ASSIGNEE));
+            taskSupervisor.setText(intent.getStringExtra(MyFarmTasks.SUPERVISOR));
+            taskStart.setText(intent.getStringExtra(MyFarmTasks.START_DATE));
+            taskDue.setText(intent.getStringExtra(MyFarmTasks.DUE_DATE));
+            taskDescription.setText(intent.getStringExtra(MyFarmTasks.DESCRIPTION));
+        } else {
+            toolbar.setTitle("Add Farm Task");
+        }
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
 
         saveTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,8 +159,16 @@ public class MyFarmTasksActivity extends AppCompatActivity {
                     try {
                         Thread.sleep(1500);
 
-                        farmTask = new FarmTask(userId, name, assignee, supervisor, start, due, description);
-                        farmTasksViewmodel.insert(farmTask);
+                        if (intent.hasExtra(MyFarmTasks.TASK)) {
+                            FarmTask eFarmTask = new FarmTask(userId, name, assignee, supervisor, start, due, description);
+                            eFarmTask.setId(intent.getIntExtra(MyFarmTasks.TASK_ID, -1));
+
+                            farmTasksViewmodel.update(eFarmTask);
+                        } else {
+                            farmTask = new FarmTask(userId, name, assignee, supervisor, start, due, description);
+                            farmTasksViewmodel.insert(farmTask);
+                        }
+
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();

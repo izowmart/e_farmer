@@ -16,7 +16,7 @@
             android:id="@+id/finance_searchview"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:queryHint="Search an Animal Type" />
+            app:queryHint="Search an Item Name" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/finance_swipe_refresh"

@@ -15,7 +15,7 @@
             android:id="@+id/land_crop_search"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:queryHint="Search an Animal Type" />
+            app:queryHint="Search a Land Name" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/land_swipe_refresh"

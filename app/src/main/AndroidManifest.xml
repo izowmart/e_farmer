@@ -18,8 +18,7 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
-
+        android:required="false" />
 
     <application
         android:name=".FarmerApp"
@@ -30,6 +29,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -39,9 +47,6 @@
             android:name=".ProfileActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_profile" />
-        <!-- <activity -->
-        <!-- android:name=".utils.ProfileActivity" -->
-        <!-- android:label="@string/title_activity_profile"></activity> -->
         <activity
             android:name=".FinanceActivity"
             android:parentActivityName=".MainActivity" />
@@ -57,8 +62,10 @@
         <activity
             android:name=".AddAnimalTreatment"
             android:parentActivityName=".MainActivity" />
+
         <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -35,7 +35,7 @@
                     android:layout_marginStart="8dp"
                     android:text="@{treatment.type}"
                     android:textColor="#ffffff"
-                    android:textSize="20sp"
+                    android:textSize="19sp"
                     tools:text="Rabbit :" />
 
                 <TextView
@@ -45,7 +45,7 @@
                     android:layout_marginStart="8dp"
                     android:text="@{treatment.tag}"
                     android:textColor="#ffffff"
-                    android:textSize="20sp"
+                    android:textSize="19sp"
                     tools:text="0051" />
 
 
