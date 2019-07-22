@@ -17,6 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.e_farmer.IMainActivity;
 import com.example.e_farmer.MyFarmTasksActivity;
@@ -44,6 +46,8 @@ public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefres
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView searchView;
+    private FrameLayout tasksEmpty;
+    private RelativeLayout tasksRel;
 
     IMainActivity iMainActivity;
     @Override
@@ -65,6 +69,9 @@ public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefres
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.my_farm_tasks,container,false);
         mRecyclerView = view.findViewById(R.id.farm_task_recyclerview);
+        tasksEmpty = view.findViewById(R.id.tasks_layout_empty);
+        tasksRel = view.findViewById(R.id.task_rel);
+
         fab = view.findViewById(R.id.fab_farm_task);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +93,15 @@ public class MyFarmTasks extends Fragment implements SwipeRefreshLayout.OnRefres
         farmTasksViewmodel.getAllFarmTask().observe(this, new Observer<List<FarmTask>>() {
             @Override
             public void onChanged(List<FarmTask> farmTasks) {
+                if (farmTasks.isEmpty()) {
+                    tasksRel.setVisibility(View.GONE);
+                    tasksEmpty.setVisibility(View.VISIBLE);
+                }else{
+                    tasksRel.setVisibility(View.VISIBLE);
+                    tasksEmpty.setVisibility(View.GONE);
+                }
                 farmTaskAdapter.setUpdatedData(farmTasks);
+                farmTaskAdapter.notifyDataSetChanged();
             }
         });
 

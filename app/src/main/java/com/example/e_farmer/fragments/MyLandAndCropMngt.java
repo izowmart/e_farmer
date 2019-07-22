@@ -17,6 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.e_farmer.IMainActivity;
 import com.example.e_farmer.LandAndCropMngt;
@@ -44,6 +46,8 @@ public class MyLandAndCropMngt extends Fragment implements SwipeRefreshLayout.On
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView searchView;
+    private FrameLayout landEmpty;
+    private RelativeLayout landREl;
 
     IMainActivity iMainActivity;
     @Override
@@ -65,8 +69,10 @@ public class MyLandAndCropMngt extends Fragment implements SwipeRefreshLayout.On
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.my_land_crop_mngt,container,false);
-
         mRecyclerView = view.findViewById(R.id.land_crop_recyclerview);
+        landEmpty = view.findViewById(R.id.land_layout_empty);
+        landREl = view.findViewById(R.id.land_rel);
+
         landCropFab = view.findViewById(R.id.fab_land_crop);
         landCropFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +91,13 @@ public class MyLandAndCropMngt extends Fragment implements SwipeRefreshLayout.On
         landAndCropViewmodel.getAllLandAndCrop().observe(this, new Observer<List<LandAndCrop>>() {
             @Override
             public void onChanged(List<LandAndCrop> landAndCrops) {
+                if (landAndCrops.isEmpty()) {
+                    landREl.setVisibility(View.GONE);
+                    landEmpty.setVisibility(View.VISIBLE);
+                }else{
+                    landREl.setVisibility(View.VISIBLE);
+                    landEmpty.setVisibility(View.GONE);
+                }
                 landAndCropAdapter.setUpdatedData(landAndCrops);
                 landAndCropAdapter.notifyDataSetChanged();
             }

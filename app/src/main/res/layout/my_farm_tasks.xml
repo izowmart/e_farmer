@@ -7,10 +7,45 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:padding="6dp">
+    <FrameLayout
+        android:id="@+id/tasks_layout_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:backgroundTint="#fff"
+        android:padding="8dp"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/image_empty"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/nothing2" />
+
+        <TextView
+            android:id="@+id/text_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="70dp"
+            android:gravity="center_horizontal"
+            android:padding="15dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@string/add_card" />
+    </FrameLayout>
+
 
     <RelativeLayout
+        android:id="@+id/task_rel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        tools:visibility="gone">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/farm_task_searchview"
@@ -38,11 +73,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_add_black_24dp"
-        app:backgroundTint="@color/colorPrimary"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:pressedTranslationZ="12dp" />
+        app:backgroundTint="@color/colorPrimary"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

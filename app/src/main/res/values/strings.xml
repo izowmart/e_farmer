@@ -24,5 +24,6 @@
     <string name="facebook_app_id">457352881491681</string>
     <string name="fb_login_protocol_scheme">fb457352881491681</string>
     <string name="title_activity_profile">Map</string>
+    <string name="add_card">Oops! Seems like you haven\'t added an item yet.Tap on the plus button to add one now</string>
 
 </resources>

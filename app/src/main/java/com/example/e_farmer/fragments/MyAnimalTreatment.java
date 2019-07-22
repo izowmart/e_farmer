@@ -17,6 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.e_farmer.AddAnimalTreatment;
 import com.example.e_farmer.IMainActivity;
@@ -48,6 +50,8 @@ public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.On
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView searchView;
+    private FrameLayout treatmentEmpty;
+    private RelativeLayout treatmentRel;
 
     IMainActivity iMainActivity;
     @Override
@@ -71,8 +75,9 @@ public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.my_animal_treatment,container,false);
-
         mRecyclerView = view.findViewById(R.id.animal_treatment_recyclerview);
+        treatmentEmpty = view.findViewById(R.id.treatment_layout_empty);
+        treatmentRel = view.findViewById(R.id.treatment_rel);
         fabTreatment = view.findViewById(R.id.fab_treatment);
         fabTreatment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +97,13 @@ public class MyAnimalTreatment extends Fragment implements SwipeRefreshLayout.On
         animalTreatmentViewModel.getAllAnimalTreatment().observe(this, new Observer<List<AnimalTreatment>>() {
             @Override
             public void onChanged(List<AnimalTreatment> animalTreatments) {
+                if (animalTreatments.isEmpty()) {
+                    treatmentRel.setVisibility(View.GONE);
+                    treatmentEmpty.setVisibility(View.VISIBLE);
+                }else{
+                    treatmentRel.setVisibility(View.VISIBLE);
+                    treatmentEmpty.setVisibility(View.GONE);
+                }
                 animalTreatmentAdapter.setUpdatedData(animalTreatments);
                 animalTreatmentAdapter.notifyDataSetChanged();
             }

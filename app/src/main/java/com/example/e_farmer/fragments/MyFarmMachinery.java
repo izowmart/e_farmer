@@ -17,6 +17,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.e_farmer.IMainActivity;
 import com.example.e_farmer.MyMachinery;
@@ -46,6 +48,8 @@ public class MyFarmMachinery extends Fragment implements SwipeRefreshLayout.OnRe
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView searchView;
+    private FrameLayout machineryEmpty;
+    private RelativeLayout machineRel;
 
     IMainActivity iMainActivity;
 
@@ -66,6 +70,8 @@ public class MyFarmMachinery extends Fragment implements SwipeRefreshLayout.OnRe
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_farm_machinery, container, false);
         mRecyclerView = view.findViewById(R.id.machine_recyclerview);
+        machineryEmpty = view.findViewById(R.id.machine_layout_empty);
+        machineRel = view.findViewById(R.id.machine_rel);
         fab = view.findViewById(R.id.fab_machine);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +93,13 @@ public class MyFarmMachinery extends Fragment implements SwipeRefreshLayout.OnRe
         machineViewmodel.getAllMachine().observe(this, new Observer<List<Machine>>() {
             @Override
             public void onChanged(List<Machine> machines) {
+                if (machines.isEmpty()) {
+                    machineRel.setVisibility(View.GONE);
+                    machineryEmpty.setVisibility(View.VISIBLE);
+                }else{
+                    machineRel.setVisibility(View.VISIBLE);
+                    machineryEmpty.setVisibility(View.GONE);
+                }
                 machineAdapter.setUpdatedData(machines);
                 machineAdapter.notifyDataSetChanged();
             }

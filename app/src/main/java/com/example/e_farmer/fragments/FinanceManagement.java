@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.e_farmer.FinanceActivity;
 import com.example.e_farmer.IMainActivity;
@@ -45,6 +47,8 @@ public class FinanceManagement extends Fragment implements SwipeRefreshLayout.On
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView searchView;
+    private FrameLayout financeEmpty;
+    private RelativeLayout financeRel;
 
     IMainActivity iMainActivity;
 
@@ -68,6 +72,8 @@ public class FinanceManagement extends Fragment implements SwipeRefreshLayout.On
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_finance_mngt, container, false);
         mRecyclerView = view.findViewById(R.id.finance_recyclerview);
+        financeEmpty = view.findViewById(R.id.finance_layout_empty);
+        financeRel = view.findViewById(R.id.finance_rel);
         fab = view.findViewById(R.id.fab_finance);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +91,13 @@ public class FinanceManagement extends Fragment implements SwipeRefreshLayout.On
         financeViewModel.getAllFinnace().observe(this, new Observer<List<Finance>>() {
             @Override
             public void onChanged(List<Finance> finances) {
+                if (finances.isEmpty()) {
+                    financeRel.setVisibility(View.GONE);
+                    financeEmpty.setVisibility(View.VISIBLE);
+                }else{
+                    financeRel.setVisibility(View.VISIBLE);
+                    financeEmpty.setVisibility(View.GONE);
+                }
                 financeAdapter.setUpdatedData(finances);
                 financeAdapter.notifyDataSetChanged();
             }

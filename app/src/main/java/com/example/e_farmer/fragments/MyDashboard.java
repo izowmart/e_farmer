@@ -31,9 +31,9 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
     private CardView animals, farm_task, animal_treatment, land_crop_mngt, finance_management, farm_machinery;
     private TextView income, expenditure, profit;
 
-    private int current_expenditure = 0;
-    private int current_income = 0;
-    private int current_profit = 0;
+    private Double current_expenditure = 0.0;
+    private Double current_income = 0.0;
+    private Double current_profit = 0.0;
 
     private FinanceViewModel financeViewModel;
 

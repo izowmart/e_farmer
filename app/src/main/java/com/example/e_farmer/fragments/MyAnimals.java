@@ -24,6 +24,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.example.e_farmer.AddAnimal;
 import com.example.e_farmer.IMainActivity;
@@ -48,6 +50,8 @@ public class MyAnimals extends Fragment implements SwipeRefreshLayout.OnRefreshL
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView searchView;
+    private FrameLayout animalEmpty;
+    private RelativeLayout animalRel;
 
     IMainActivity iMainActivity;
 
@@ -65,15 +69,16 @@ public class MyAnimals extends Fragment implements SwipeRefreshLayout.OnRefreshL
         //        instantiate the viewmodel class here
         myAnimalViewModel = ViewModelProviders.of(this).get(MyAnimalViewModel.class);
 
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_animals, container, false);
-
         mRecyclerView = view.findViewById(R.id.animal_recyclerview);
+        animalEmpty = view.findViewById(R.id.animals_layout_empty);
+        animalRel = view.findViewById(R.id.animal_rel);
+
         fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +96,13 @@ public class MyAnimals extends Fragment implements SwipeRefreshLayout.OnRefreshL
         myAnimalViewModel.getAllAnimals().observe(this, new Observer<List<Animals>>() {
             @Override
             public void onChanged(List<Animals> animals) {
+                if (animals.isEmpty()) {
+                    animalRel.setVisibility(View.GONE);
+                    animalEmpty.setVisibility(View.VISIBLE);
+                }else{
+                    animalRel.setVisibility(View.VISIBLE);
+                    animalEmpty.setVisibility(View.GONE);
+                }
                 myAnimalAdapter.setUpdatedData(animals);
                 myAnimalAdapter.notifyDataSetChanged();
 
