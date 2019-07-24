@@ -91,6 +91,7 @@ public class FinanceManagement extends Fragment implements SwipeRefreshLayout.On
         financeViewModel.getAllFinnace().observe(this, new Observer<List<Finance>>() {
             @Override
             public void onChanged(List<Finance> finances) {
+
                 if (finances.isEmpty()) {
                     financeRel.setVisibility(View.GONE);
                     financeEmpty.setVisibility(View.VISIBLE);

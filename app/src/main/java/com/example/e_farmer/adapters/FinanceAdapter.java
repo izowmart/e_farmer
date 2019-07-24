@@ -74,6 +74,11 @@ public class FinanceAdapter extends RecyclerView.Adapter<FinanceAdapter.FinanceV
                 popupMenu.show();
             }
         });
+        if (finance.getFinance_type().equals("Income")) {
+            holder.binding.linearX.setVisibility(View.GONE);
+        }else{
+            holder.binding.linear.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
