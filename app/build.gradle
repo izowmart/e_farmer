@@ -56,8 +56,6 @@ dependencies {
     //circle imageview
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
-//    facebookAuth
-    implementation 'com.facebook.android:facebook-login:4.27.0'
 
     //    google signup
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
