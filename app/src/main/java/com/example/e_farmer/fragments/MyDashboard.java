@@ -2,20 +2,19 @@ package com.example.e_farmer.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.cardview.widget.CardView;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.example.e_farmer.IMainActivity;
 import com.example.e_farmer.R;
@@ -79,9 +78,9 @@ public class MyDashboard extends Fragment implements View.OnClickListener {
             public void onChanged(List<Finance> finances) {
                 for (int i = 0; i < finances.size(); i++) {
                     Finance finance = finances.get(i);
-                     current_expenditure += finance.getTotal_expenditure();
-                     current_income += finance.getTotal_income();
-                     current_profit += finance.getProfit();
+                    current_expenditure += finance.getTotal_expenditure();
+                    current_income += finance.getTotal_income();
+                    current_profit += finance.getProfit();
                 }
                 profit.setText(String.valueOf(current_profit));
                 income.setText(String.valueOf(current_income));
