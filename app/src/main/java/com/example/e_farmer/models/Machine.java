@@ -15,11 +15,12 @@ import com.example.e_farmer.R;
 
 
 import static androidx.room.ForeignKey.CASCADE;
+import static androidx.room.ForeignKey.SET_DEFAULT;
 
 @Entity(tableName = "machines", foreignKeys = @ForeignKey(entity = User.class,
         parentColumns = "id",
         childColumns = "userId",
-        onDelete = CASCADE))
+        onDelete = SET_DEFAULT))
 public class Machine extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
