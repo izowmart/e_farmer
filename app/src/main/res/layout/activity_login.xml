@@ -1,45 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/animal"
+    android:background="@drawable/background"
     android:fitsSystemWindows="true"
     android:padding="16dp"
     tools:context=".LoginActivity">
 
-    <LinearLayout
-        android:id="@+id/layout_image"
-        android:layout_width="354dp"
-        android:layout_height="268dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="70dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200sp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="@null"
-            android:src="@null" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/layout_image"
-            android:layout_marginTop="1dp"
-            android:fontFamily="@font/fontdiner_swanky"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:textColor="#FFF"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="601dp"
+        android:fontFamily="@font/fontdiner_swanky"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="#FFF"
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,16 +46,16 @@
             android:paddingTop="15dp" />
 
         <!--<com.google.android.gms.common.SignInButton-->
-            <!--android:id="@+id/mGoogleLogin"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_weight="0.5"/>-->
-            <!--app:buttonSize="standard" />-->
+        <!--android:id="@+id/mGoogleLogin"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_weight="0.5"/>-->
+        <!--app:buttonSize="standard" />-->
         <com.google.android.gms.common.SignInButton
             android:id="@+id/mGoogleLogin"
             android:layout_width="0dp"
             android:layout_height="54dp"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5" />
 
     </LinearLayout>
 
