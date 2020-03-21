@@ -45,7 +45,7 @@
 
         <activity
             android:name=".ProfileActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:label="@string/title_activity_profile" />
         <activity
             android:name=".FinanceActivity"
@@ -64,7 +64,7 @@
             android:parentActivityName=".MainActivity" />
 
         <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
